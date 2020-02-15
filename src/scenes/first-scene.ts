@@ -1,5 +1,4 @@
 import { GameController } from './../controllers/game-controller';
-import Visitor from "../rendering/visitor-interface";
 import * as PIXI from 'pixi.js';
 import { MapParser } from "../parsers/map-parser";
 import * as helpers from '../utils/helpers';
@@ -11,10 +10,6 @@ class FirstScene extends BaseScene {
 
     gameModel: GameModel;
     gameController: GameController;
-
-    accept = function (visitor: Visitor) {
-        visitor.visit(this);
-    }
 
     constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
         super(app, afterTransitionCallback);

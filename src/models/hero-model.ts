@@ -55,7 +55,7 @@ export class HeroModel extends GameObjectModel {
   }
 
   walk(targetPos: Vec): boolean {
-    if(this.state === HeroState.STANDING && this.gameModel.gameMap.getTile(targetPos).isWalkable) {
+    if (this.state === HeroState.STANDING && this.gameModel.gameMap.getTile(targetPos).isWalkable) {
       this.targetPos = targetPos;
       this.state = HeroState.WALKING;
 
