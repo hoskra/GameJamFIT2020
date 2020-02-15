@@ -13,9 +13,9 @@ class CardScene extends BaseGameObject {
     constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
         super();
         this.sceneObjects = [];
-        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, 150, app.view.height / 2 - 150, "left", () => afterTransitionCallback("prvni")));
-        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 - 150, app.view.height / 2 - 150, "middle", () => afterTransitionCallback("druhy")));
-        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 + 300, app.view.height / 2 - 150, "right", () => afterTransitionCallback("treti")));
+        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, 150, app.view.height / 2 - 150, "left", () => afterTransitionCallback("firstScene")));
+        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 - 150, app.view.height / 2 - 150, "middle", () => afterTransitionCallback("firstScene")));
+        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 + 300, app.view.height / 2 - 150, "right", () => afterTransitionCallback("firstScene")));
     }
 
     private buttonCreate(path: string, position_x: number, position_y: number, text: string, callback: () => void) {

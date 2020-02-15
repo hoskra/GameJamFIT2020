@@ -3,6 +3,7 @@ import { MapParser } from './parsers/map-parser';
 import * as helpers from './utils/helpers';
 import CardScene from './scenes/card-scene';
 import PATHS from './configs/paths';
+import FirstScene from './scenes/first-scene';
 
 const BLOCK_SIZE = 64;
 const TEXTURE_COLUMNS = 16;
@@ -25,6 +26,9 @@ class Game extends PIXI.Application {
       let path = PATHS[key];
       idk.add(path);
     }
+    idk
+      .add('TEXTURES', './assets/textures.png')
+      .add('MAP', './assets/maptest.txt');
     idk.load(() => this.startGame());
   }
 
@@ -34,29 +38,10 @@ class Game extends PIXI.Application {
     this.obj.interactive = true;
 
     this.obj.endFill();
-    let startScene = new CardScene(this, this.clear);
+    let startScene = new CardScene(this, (nextStageName) => this.clear(nextStageName));
     startScene.sceneObjects.forEach(x => this.stage.addChild(x));
     // initialize game loop
     this.ticker.add(deltaTime => this.update(deltaTime));
-  }
-
-  onAssetsLoaded() {
-    let resources = PIXI.Loader.shared.resources;
-    let mapParser = new MapParser();
-    let map = mapParser.loadMap(resources['MAP'].data);
-
-    for(let i = 0; i< map.blocks; i++) {
-      let pos = helpers.mapCellToVector(i, map.columns);
-      let cell = map.cells.get(i);
-
-      let texture = PIXI.Texture.from('TEXTURES');
-      texture = texture.clone();
-      let sprite = new PIXI.Sprite(texture);
-      let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
-      sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-      sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
-      this.stage.addChild(sprite);
-    }
   }
 
   // game loop
@@ -67,6 +52,15 @@ class Game extends PIXI.Application {
   private clear(nextStageName: string) {
     this.stage.removeChildren();
     this.stage.removeAllListeners();
+    this.MapSwap(nextStageName);
+  }
+
+  private MapSwap(sceneName: string) {
+    switch (sceneName) {
+      case "firstScene":
+        let scene = new FirstScene(this, this.clear);
+        scene.sceneObjects.forEach(x => this.stage.addChild(x));
+    }
   }
 }
 
