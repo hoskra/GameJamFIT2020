@@ -55,7 +55,7 @@ export class KeyController {
   }
 
   get pressedKeys() {
-    return this.pressedKeys;
+    return this._pressedKeys;
   }
 
   private onKeyDown = (evt: KeyboardEvent) => {

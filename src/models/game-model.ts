@@ -49,8 +49,6 @@ export default class GameModel {
   }
 
   update(delta: number, absolute: number) {
-
+    this.hero.update(delta, absolute);
   }
-
-
 }

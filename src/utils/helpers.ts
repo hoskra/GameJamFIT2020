@@ -1,5 +1,7 @@
 import Vec from './vec';
 import { BLOCK_SIZE } from '../models/game-model';
+import { Direction } from '../constants';
+import { GameObjectModel } from '../models/game-object-model';
 
 export const mapCellToVector = (cell: number, columns: number) => {
   return new Vec(cell % columns, Math.floor(cell / columns));
@@ -11,16 +13,6 @@ export const vectorToMapCell = (vec: Vec, columns: number) => {
 
 export const posToMapCell = (x: number, y: number, columns: number) => {
   return columns * y + x;
-};
-
-export const distanceToCell = (obj: PIXI.Container, cell: Vec) => {
-
-}
-
-export const alignObjectToCell = (obj: PIXI.Container, cell: Vec) => {
-  let currentPos = new Vec(obj.position.x, obj.position.y);
-  let blockSize = BLOCK_SIZE;
-
 };
 
 export const horizontalIntersection = (obj1: PIXI.Container, obj2: PIXI.Container) => {
@@ -53,4 +45,21 @@ export const verticalIntersectionRect = (boundsA: PIXI.Rectangle, boundsB: PIXI.
 
 export const intersectionRect = (obj1: PIXI.Rectangle, obj2: PIXI.Rectangle, tolerance: number = 0) => {
   return horizontalIntersectionRect(obj1, obj2) * this.verticalIntersectionRect(obj1, obj2);
+};
+
+export const getDirection = (pos1: Vec, pos2: Vec) => {
+  if(pos1.x < pos2.x) return Direction.RIGHT;
+  if(pos1.x > pos2.x) return Direction.LEFT;
+  if(pos1.y < pos2.y) return Direction.DOWN;
+  return Direction.UP;
+};
+
+export const isAlmostAtCell = (realPos: Vec, cellPos: Vec) => {
+  let realCellPos = cellPos.multiply(BLOCK_SIZE);
+  return realCellPos.squareDistance(realPos) <= 5; // 5 is threshold
+};
+
+export const alignToCell = (obj: GameObjectModel, cellPos: Vec) => {
+  let realCellPos = cellPos.multiply(BLOCK_SIZE);
+  obj.pixiObj.position.set(realCellPos.x, realCellPos.y);
 };

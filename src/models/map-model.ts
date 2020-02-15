@@ -11,4 +11,20 @@ export class MapModel {
   getTile(pos: Vec): RawMapTile {
     return this.rawMap.getCell(pos);
   }
+
+  canGoLeft(pos: Vec) {
+    return this.rawMap.getCell(new Vec(pos.x - 1, pos.y)).isWalkable;
+  }
+
+  canGoRight(pos: Vec) {
+    return this.rawMap.getCell(new Vec(pos.x + 1, pos.y)).isWalkable;
+  }
+
+  canGoUp(pos: Vec) {
+    return this.rawMap.getCell(new Vec(pos.x, pos.y - 1)).isWalkable;
+  }
+
+  canGoDown(pos: Vec) {
+    return this.rawMap.getCell(new Vec(pos.x, pos.y + 1)).isWalkable;
+  }
 }

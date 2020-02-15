@@ -5,5 +5,12 @@ export enum Assets {
   HERO = 'HERO',
 }
 
+export enum Direction {
+  LEFT,
+  RIGHT,
+  UP,
+  DOWN
+}
+
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
