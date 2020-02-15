@@ -1,16 +1,19 @@
 import { HeroController } from './hero-controller';
 import { KeyController } from './key-controller';
 import GameModel from '../models/game-model';
+import { CameraController } from './camera-controller';
 
 export class GameController {
   private keyController: KeyController;
   private heroController: HeroController;
+  private cameraController: CameraController;
   private _gameModel: GameModel;
 
   constructor(gameModel: GameModel) {
     this._gameModel = gameModel;
     this.heroController = new HeroController(this);
     this.keyController = new KeyController();
+    this.cameraController = new CameraController(this);
   }
 
   init() {
@@ -34,6 +37,7 @@ export class GameController {
   }
 
   update(delta: number, absolute: number) {
+    this.cameraController.update(delta, absolute);
     this.heroController.update(delta, absolute);
   }
 }
