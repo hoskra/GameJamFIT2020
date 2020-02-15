@@ -21,7 +21,6 @@ class Game extends PIXI.Application {
       width: 1600,
       height: 900
     });
-
     PIXI.Loader.shared.reset()    // necessary for hot reload
     .add(Assets.TEXTURES, './assets/textures.png')
     .add(Assets.MAP, './assets/maptest.txt')
@@ -47,6 +46,7 @@ class Game extends PIXI.Application {
   clear(nextStageName: string) {
     this.stage.removeChildren();
     this.stage.removeAllListeners();
+    this.stage.scale.set(2,2);
     this.switchScene(nextStageName);
   }
 
