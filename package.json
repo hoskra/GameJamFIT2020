@@ -12,6 +12,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "@pixi/filter-glitch": "^3.0.3",
     "pixi-sound": "^3.0.3",
     "pixi.js": "^5.1.3"
   }

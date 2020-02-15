@@ -28,6 +28,10 @@ export class HeroController {
       if(this.gameController.isKeyPressed(Keys.KEY_DOWN) && this.mapModel.canGoDown(this.heroModel.mapPos)) {
         this.heroModel.walkDown();
       }
+      // testing purpose
+      if(this.gameController.isKeyPressed(Keys.KEY_Q)) {
+        this.gameController.gameModel.switchGlitchFilter();
+      }
     }
   }
 }

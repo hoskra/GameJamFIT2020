@@ -6,6 +6,8 @@ import { MapParser, RawMap } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import SceneManager from '../scenes/scenestates/scene-manager';
 import { DialogModel } from './dialog-model';
+import { GlitchFilter } from '@pixi/filter-glitch';
+import GlitchState from '../animators/glitch-state';
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
@@ -16,6 +18,9 @@ export default class GameModel {
   stage: PIXI.Container;
   hero: HeroModel;
   dialog: DialogModel;
+
+  glitchState: GlitchState = new GlitchState();
+
   screenWidth: number;
   screenHeight: number;
 
@@ -53,5 +58,9 @@ export default class GameModel {
   update(delta: number, absolute: number) {
     this.hero.update(delta, absolute);
     this.dialog.update(delta, absolute);
+  }
+
+  switchGlitchFilter() {
+    this.stage.filters = this.glitchState.switch();
   }
 }
