@@ -1,12 +1,10 @@
 import * as PIXI from 'pixi.js';
 import SceneManager from './scenes/scenestates/scene-manager';
-<<<<<<< HEAD
-import { Assets } from './constants';
 import GameModel from './models/game-model';
 import { resizeCanvas } from './utils/canvas-resizer';
-=======
+
 import { Assets, SCALE_Y, SCALE_X } from './constants';
->>>>>>> Scale to configs
+
 
 class Game extends PIXI.Application {
   lastTime = 0;
