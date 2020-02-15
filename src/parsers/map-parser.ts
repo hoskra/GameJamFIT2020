@@ -10,7 +10,7 @@ enum ParserMode {
 
 export class RawMapTile {
   pos: Vec;
-  walkableCode: number; // path index (0 for walkable, everything else is non-walkable)
+  walkableCode: number; // walkable index (0 = walkable, 1 = non-walkable)
   defaultTexture: number; // default texture index
   specialFunction: number;
 }
@@ -88,8 +88,8 @@ abstract class Parser {
 class PathParser extends Parser {
 
   public parseWord(letter: string): boolean {
-    if (/^[0-9a-fA-F]+$/.test(letter)) {
-      this.tokens.push(parseInt(`0x${letter}`));
+    if (/^[0-9a-zA-Z]+$/.test(letter)) {
+      this.tokens.push(letter.toLowerCase());
       return true;
     }
     return false;
@@ -101,7 +101,16 @@ class PathParser extends Parser {
     let mapBlocks = this.columns * this.rows;
 
     for(let i =0; i < mapBlocks; i++) {
-      output.cells.get(i).walkableCode = this.tokens[i];
+      switch(this.tokens[i]) {
+        case '00':
+            output.cells.get(i).walkableCode = 0;
+            break;
+        case 'xx':
+            output.cells.get(i).walkableCode = 1;
+            break;
+          default:
+            throw new Error('Unknown token: ' + this.tokens[i]);
+      }
     }
   }
 }

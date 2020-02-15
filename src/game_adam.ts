@@ -1,11 +1,14 @@
 import * as PIXI from 'pixi.js';
-import { MapParser } from './parsers/map-parser';
-import * as helpers from './utils/helpers';
+import GameModel from './models/game-model';
+import { GameController } from './controllers/game-controller';
 
-const BLOCK_SIZE = 64;
-const TEXTURE_COLUMNS = 16;
 
 class Game extends PIXI.Application {
+  lastTime = 0;
+  gameTime = 0;
+
+  gameModel: GameModel;
+  gameController: GameController;
 
   constructor() {
     super({
@@ -18,33 +21,36 @@ class Game extends PIXI.Application {
     PIXI.Loader.shared.reset()    // necessary for hot reload
     .add('TEXTURES', './assets/textures.png')
     .add('MAP', './assets/maptest.txt')
+    .add('HERO', './assets/hero.png')
     .load(() => this.onAssetsLoaded());
 
-    // initialize game loop
-    this.ticker.add(deltaTime => this.update(deltaTime));
+    this.ticker = this.ticker;
+    // stop the shared ticket and update it manually
+    this.ticker.autoStart = false;
+    this.ticker.stop();
   }
 
   onAssetsLoaded() {
-    let resources = PIXI.Loader.shared.resources;
-    let mapParser = new MapParser();
-    let map = mapParser.loadMap(resources['MAP'].data);
-
-    for(let i = 0; i< map.blocks; i++) {
-      let pos = helpers.mapCellToVector(i, map.columns);
-      let cell = map.cells.get(i);
-
-      let texture = PIXI.Texture.from('TEXTURES');
-      texture = texture.clone();
-      let sprite = new PIXI.Sprite(texture);
-      let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
-      sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-      sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
-      this.stage.addChild(sprite);
-    }
+    this.gameModel = new GameModel();
+    this.gameModel.init(this.stage);
+    this.gameController = new GameController(this.gameModel);
+    this.gameController.init();
+    this.loop(performance.now());
   }
 
   // game loop
-  update(deltaTime: number) {
+  private loop(time: number) {
+    // update our component library
+    let dt = Math.min(time - this.lastTime, 200); // 300ms threshold
+    this.lastTime = time;
+    this.gameTime += dt;
+
+    this.gameModel.update(dt, this.gameTime);
+    this.gameController.update(dt, this.gameTime);
+
+    // update PIXI
+    this.ticker.update(this.gameTime);
+    requestAnimationFrame((time) => this.loop(time));
   }
 }
 
