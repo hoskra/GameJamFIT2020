@@ -5,9 +5,9 @@ import Vec from '../utils/vec';
 import { MapParser } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 
-const BLOCK_SIZE = 64;
-const TEXTURE_COLUMNS = 16;
-const HERO_POS = new Vec(1, 5);
+export const BLOCK_SIZE = 64;
+export const TEXTURE_COLUMNS = 16;
+export const HERO_POS = new Vec(1, 5);
 
 export default class GameModel {
   gameMap: MapModel;
@@ -22,16 +22,8 @@ export default class GameModel {
     this.gameMap = new MapModel(map);
 
     this.initScene();
-    this.initHero();
-  }
-
-  initHero() {
-    let texture = PIXI.Texture.from('HERO');
-    texture = texture.clone();
-    let sprite = new PIXI.Sprite(texture);
-    sprite.texture.frame = new PIXI.Rectangle(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-    sprite.position.set(HERO_POS.x * BLOCK_SIZE, HERO_POS.y * BLOCK_SIZE);
-    this.stage.addChild(sprite);
+    this.hero = new HeroModel(this);
+    this.hero.init();
   }
 
   initScene() {

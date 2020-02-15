@@ -9,6 +9,7 @@ export class GameController {
 
   constructor(gameModel: GameModel) {
     this._gameModel = gameModel;
+    this.heroController = new HeroController(this);
     this.keyController = new KeyController();
   }
 

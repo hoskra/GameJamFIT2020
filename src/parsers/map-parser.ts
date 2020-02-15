@@ -13,6 +13,10 @@ export class RawMapTile {
   walkableCode: number; // walkable index (0 = walkable, 1 = non-walkable)
   defaultTexture: number; // default texture index
   specialFunction: number;
+
+  get isWalkable() {
+    return this.walkableCode === 0;
+  }
 }
 
 export class RawMap {
