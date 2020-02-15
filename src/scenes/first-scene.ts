@@ -1,11 +1,11 @@
-import BaseGameObject from "../models/objects/base-game-object";
 import Visitor from "../rendering/visitor-interface";
 import * as PIXI from 'pixi.js';
 import { MapParser } from "../parsers/map-parser";
 import * as helpers from '../utils/helpers';
 import * as GameSettings from "../configs/game-setting";
+import BaseScene from "./scene-base";
 
-class FirstScene extends BaseGameObject {
+class FirstScene extends BaseScene {
     public sceneObjects: PIXI.DisplayObject[];
 
     accept = function (visitor: Visitor) {
@@ -13,7 +13,7 @@ class FirstScene extends BaseGameObject {
     }
 
     constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
-        super();
+        super(app, afterTransitionCallback);
         this.sceneObjects = [];
         let resources = PIXI.Loader.shared.resources;
         let mapParser = new MapParser();

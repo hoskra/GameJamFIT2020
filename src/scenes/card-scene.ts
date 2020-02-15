@@ -1,9 +1,10 @@
-import BaseGameObject from "../models/objects/base-game-object";
 import Visitor from "../rendering/visitor-interface";
 import PathConfiguration from "../configs/paths";
 import * as PIXI from 'pixi.js';
+import BaseScene from "./scene-base";
+import { FirstSceneName } from "./scenestates/scene-names";
 
-class CardScene extends BaseGameObject {
+class CardScene extends BaseScene {
     public sceneObjects: PIXI.DisplayObject[];
 
     accept = function (visitor: Visitor) {
@@ -11,11 +12,11 @@ class CardScene extends BaseGameObject {
     }
 
     constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
-        super();
+        super(app, afterTransitionCallback);
         this.sceneObjects = [];
-        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, 150, app.view.height / 2 - 150, "left", () => afterTransitionCallback("firstScene")));
-        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 - 150, app.view.height / 2 - 150, "middle", () => afterTransitionCallback("firstScene")));
-        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 + 300, app.view.height / 2 - 150, "right", () => afterTransitionCallback("firstScene")));
+        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, 150, app.view.height / 2 - 150, "left", () => afterTransitionCallback(FirstSceneName)));
+        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 - 150, app.view.height / 2 - 150, "middle", () => afterTransitionCallback(FirstSceneName)));
+        this.sceneObjects.push(this.buttonCreate(PathConfiguration.CardPath, app.view.width / 2 + 300, app.view.height / 2 - 150, "right", () => afterTransitionCallback(FirstSceneName)));
     }
 
     private buttonCreate(path: string, position_x: number, position_y: number, text: string, callback: () => void) {
