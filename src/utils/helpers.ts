@@ -13,7 +13,7 @@ export const posToMapCell = (x: number, y: number, columns: number) => {
   return columns * y + x;
 };
 
-export const distanceToCell(obj: PIXI.Container, cell: Vec) {
+export const distanceToCell = (obj: PIXI.Container, cell: Vec) => {
 
 }
 

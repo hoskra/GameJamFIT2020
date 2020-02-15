@@ -4,6 +4,7 @@ import * as helpers from '../utils/helpers';
 import Vec from '../utils/vec';
 import { MapParser } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
+import SceneManager from '../scenes/scenestates/scene-manager';
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
@@ -13,9 +14,13 @@ export default class GameModel {
   gameMap: MapModel;
   stage: PIXI.Container;
   hero: HeroModel;
+  screenWidth: number;
+  screenHeight: number;
 
-  init(stage: PIXI.Container) {
-    this.stage = stage;
+  init(app: PIXI.Application) {
+    this.screenWidth = app.view.width;
+    this.screenHeight = app.view.height;
+    this.stage = app.stage;
     let resources = PIXI.Loader.shared.resources;
     let mapParser = new MapParser();
     let map = mapParser.loadMap(resources['MAP'].data);
@@ -46,4 +51,6 @@ export default class GameModel {
   update(delta: number, absolute: number) {
 
   }
+
+
 }

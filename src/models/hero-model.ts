@@ -1,4 +1,4 @@
-import { GameObjectModel } from './game-object';
+import { GameObjectModel } from './game-object-model';
 import { BLOCK_SIZE, HERO_POS } from './game-model';
 import GameModel from './game-model';
 import * as PIXI from 'pixi.js';

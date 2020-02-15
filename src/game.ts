@@ -1,14 +1,18 @@
-import * as PIXI from 'pixi.js';
-import GameModel from './models/game-model';
 import { GameController } from './controllers/game-controller';
-
+import * as PIXI from 'pixi.js';
+import { MapParser } from './parsers/map-parser';
+import * as helpers from './utils/helpers';
+import FirstScene from './scenes/first-scene';
+import SceneManager from './scenes/scenestates/scene-manager';
+import { Assets } from './constants';
+import GameModel from './models/game-model';
 
 class Game extends PIXI.Application {
   lastTime = 0;
   gameTime = 0;
 
-  gameModel: GameModel;
-  gameController: GameController;
+  public loader = new PIXI.Loader();
+  public sceneManager = new SceneManager();
 
   constructor() {
     super({
@@ -19,10 +23,11 @@ class Game extends PIXI.Application {
     });
 
     PIXI.Loader.shared.reset()    // necessary for hot reload
-    .add('TEXTURES', './assets/textures.png')
-    .add('MAP', './assets/maptest.txt')
-    .add('HERO', './assets/hero.png')
-    .load(() => this.onAssetsLoaded());
+    .add(Assets.TEXTURES, './assets/textures.png')
+    .add(Assets.MAP, './assets/maptest.txt')
+    .add(Assets.HERO, './assets/hero.png')
+    .add(Assets.CARDS, './assets/testKarta.png')
+    .load(() => this.startGame());
 
     this.ticker = this.ticker;
     // stop the shared ticket and update it manually
@@ -30,12 +35,24 @@ class Game extends PIXI.Application {
     this.ticker.stop();
   }
 
-  onAssetsLoaded() {
-    this.gameModel = new GameModel();
-    this.gameModel.init(this.stage);
-    this.gameController = new GameController(this.gameModel);
-    this.gameController.init();
+  startGame() {
+    this.sceneManager = new SceneManager();
+    this.sceneManager.initFirst(this, (nextStageName) => this.clear(nextStageName));
+
+    let startScene = this.sceneManager.state.scene;
+    startScene.sceneObjects.forEach(x => this.stage.addChild(x));
     this.loop(performance.now());
+  }
+
+  clear(nextStageName: string) {
+    this.stage.removeChildren();
+    this.stage.removeAllListeners();
+    this.switchScene(nextStageName);
+  }
+
+  switchScene(sceneName: string) {
+    let scene = this.sceneManager.nextScene(sceneName, this, (nextStageName) => this.clear(nextStageName));
+    scene.sceneObjects.forEach(x => this.stage.addChild(x));
   }
 
   // game loop
@@ -45,8 +62,7 @@ class Game extends PIXI.Application {
     this.lastTime = time;
     this.gameTime += dt;
 
-    this.gameModel.update(dt, this.gameTime);
-    this.gameController.update(dt, this.gameTime);
+    this.sceneManager.update(dt, this.gameTime);
 
     // update PIXI
     this.ticker.update(this.gameTime);

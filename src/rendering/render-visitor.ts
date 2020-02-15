@@ -7,7 +7,7 @@ class RenderVisitor implements Visitor {
     this.graphics = obj;
   }
   visit(scene: Scene) {
-    scene.sceneObjects.forEach(obj => obj.accept(this));
+    //scene.sceneObjects.forEach(obj => obj.accept(this));
   }
 }
 
