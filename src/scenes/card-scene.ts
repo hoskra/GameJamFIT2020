@@ -1,15 +1,9 @@
-import Visitor from "../rendering/visitor-interface";
 import * as PIXI from 'pixi.js';
 import BaseScene from "./scene-base";
 import { FirstSceneName } from "./scenestates/scene-names";
 import { Assets } from '../constants';
 
 class CardScene extends BaseScene {
-
-    accept = function (visitor: Visitor) {
-        visitor.visit(this);
-    }
-
     constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
         super(app, afterTransitionCallback);
     }
