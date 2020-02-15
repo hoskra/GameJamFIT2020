@@ -24,7 +24,7 @@ export class DialogModel extends GameObjectModel {
       sprite.width = 500;
       sprite.height = 200;
   
-      let text = new PIXI.Text('Tak zkus něco udělat. Třeba\n na něco přijdeš.', { font: { size: 32 }, align: 'left' });
+      let text = new PIXI.Text('Tak zkus něco udělat. Třeba\n na něco přijdeš.', new PIXI.TextStyle({ fontFamily: 'monospace', fontSize: 12 , align: 'left' }));
       text.position.set(50, 50);
       sprite.addChild(text);
     }, 2000);
