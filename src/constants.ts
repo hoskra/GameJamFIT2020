@@ -16,3 +16,5 @@ export enum Direction {
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
+export const SCALE_X = 2;
+export const SCALE_Y = 2;
