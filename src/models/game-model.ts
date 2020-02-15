@@ -29,9 +29,10 @@ export default class GameModel {
   glitchState: GlitchState;
 
 
-    constructor() {
-      this.itemManager = new ItemManager();
-    }
+  constructor() {
+    this.glitchState = new GlitchState();
+    this.itemManager = new ItemManager();
+  }
 
   init(app: PIXI.Application, rawMap: RawMap, gameController: GameController) {
     this.screenWidth = app.view.width;
