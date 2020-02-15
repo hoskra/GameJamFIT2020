@@ -1,3 +1,4 @@
+import { FONT_DIALOG_OFFSET_X } from './../constants';
 import Vec from './vec';
 import { BLOCK_SIZE } from '../models/game-model';
 import { Direction } from '../constants';
@@ -62,4 +63,33 @@ export const isAlmostAtCell = (realPos: Vec, cellPos: Vec) => {
 export const alignToCell = (obj: GameObjectModel, cellPos: Vec) => {
   let realCellPos = cellPos.multiply(BLOCK_SIZE);
   obj.pixiObj.position.set(realCellPos.x, realCellPos.y);
+};
+
+export const wrapDialogText = (text: string, fontSize: number, dialogWidth: number) => {
+  let width = dialogWidth;
+  let offset = FONT_DIALOG_OFFSET_X * 2;
+  let lettersPerRow = Math.ceil((width - offset) / fontSize * 1.8);
+  let output = '';
+
+  let words = text.split(' ');
+  let currentLine = '';
+  
+  for(let word of words) {
+    if((currentLine.length + word.length) > lettersPerRow) {
+      if(output.length === 0) {
+        output += currentLine;
+      } else {
+        output += '\n'+currentLine;
+      }
+      currentLine = '';
+    }
+
+    if(currentLine.length === 0) {
+      currentLine += word;
+    } else {
+      currentLine += ' ' + word;
+    }
+  }
+
+  return output;
 };

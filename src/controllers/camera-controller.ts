@@ -13,7 +13,7 @@ export class CameraController {
   }
 
   update(delta: number, absolute: number) {
-    let stage = this.gameController.gameModel.stage;
+    let root = this.gameController.gameModel.root;
     let hero = this.gameController.gameModel.hero;
     let heroWidth = hero.pixiObj.width;
     let heroHeight = hero.pixiObj.height;
@@ -21,21 +21,8 @@ export class CameraController {
     let widthOfFrame = this.gameController.gameModel.screenWidth / 2;
     let heightofFrame = this.gameController.gameModel.screenHeight / 2;
 
-
-    let newX = ((-1)*(heroPos.x + heroWidth / 2) * stage.scale.x) + widthOfFrame;
-    let newY = ((-1)*(heroPos.y + heroHeight / 2) * stage.scale.y) + heightofFrame;
-
-    //  let newX = this.gameController.gameModel.hero.pixiObj.position.x;
-    //  let newY = this.gameController.gameModel.hero.pixiObj.position.y - heightofFrame;
-
-
-    let bounds = hero.pixiObj.getLocalBounds();
-    stage.position.set(newX, newY);
-    // console.log(widthOfFrame);
-    // console.log(heightofFrame);
-    console.log(this.gameController.gameModel.hero.pixiObj.position.x);
-    console.log(this.gameController.gameModel.hero.pixiObj.position.y);
-    // console.log(stage.position.x);
-    // console.log(stage.position.y);
+    let newX = ((-1)*(heroPos.x + heroWidth / 2) * root.scale.x) + widthOfFrame;
+    let newY = ((-1)*(heroPos.y + heroHeight / 2) * root.scale.y) + heightofFrame;
+    root.position.set(newX, newY);
   }
 }

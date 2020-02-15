@@ -18,7 +18,8 @@ class Game extends PIXI.Application {
       view: <HTMLCanvasElement>document.getElementById('gameCanvas'),
       backgroundColor: 0x000000,
       width: 1600,
-      height: 900
+      height: 900,
+     // resolution: SCALE_X TODO
     });
     PIXI.Loader.shared.reset()    // necessary for hot reload
     .add(Assets.TEXTURES, './assets/textures.png')
@@ -47,7 +48,6 @@ class Game extends PIXI.Application {
   clear(nextStageName: string) {
     this.stage.removeChildren();
     this.stage.removeAllListeners();
-    this.stage.scale.set(SCALE_X, SCALE_Y);
     this.switchScene(nextStageName);
   }
 

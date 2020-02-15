@@ -17,9 +17,9 @@ class FirstScene extends BaseScene {
 
     init() {
         this.gameModel = new GameModel();
-        this.gameModel.init(this.app, this.mapParser.loadMap(this.resources['MAP'].data));
-        this.gameController = new GameController(this.gameModel);
-        this.gameController.init();
+        this.gameController = new GameController();
+        this.gameModel.init(this.app, this.mapParser.loadMap(this.resources['MAP'].data), this.gameController);
+        this.gameController.init(this.gameModel);
     }
 
     update(delta: number, absolute: number) {

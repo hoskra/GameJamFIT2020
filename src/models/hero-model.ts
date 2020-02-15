@@ -29,7 +29,7 @@ export class HeroModel extends GameObjectModel {
     let sprite = new PIXI.Sprite(texture);
     sprite.texture.frame = new PIXI.Rectangle(0, 0, BLOCK_SIZE, BLOCK_SIZE);
     sprite.position.set(HERO_POS.x * BLOCK_SIZE, HERO_POS.y * BLOCK_SIZE);
-    this.gameModel.stage.addChild(sprite);
+    this.gameModel.root.addChild(sprite);
     this.pixiObj = sprite;
     this.mapPos = HERO_POS.clone();
   }
