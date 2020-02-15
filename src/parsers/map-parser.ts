@@ -1,5 +1,5 @@
 import Vec from '../utils/vec';
-
+import * as helpers from '../utils/helpers';
 
 enum ParserMode {
   UNDEFINED = '', // not yet defined parser node (usually before it gets the very first token)
@@ -8,17 +8,26 @@ enum ParserMode {
   SPECIAL_FUNCTIONS = ':special_functions'
 }
 
-class RawMapTile {
+export class RawMapTile {
   pos: Vec;
   walkableCode: number; // path index (0 for walkable, everything else is non-walkable)
   defaultTexture: number; // default texture index
   specialFunction: number;
 }
 
-class RawMap {
+export class RawMap {
+  get blocks() {
+    return this.rows * this.columns;
+  }
+
   rows: number;
   columns: number;
   cells: Map<number, RawMapTile> = new Map();
+
+  getCell(pos: Vec) {
+    return this.cells.get(helpers.vectorToMapCell(pos, this.columns));
+  }
+
 }
 
 abstract class Parser {
@@ -27,22 +36,23 @@ abstract class Parser {
   protected tokens = [];
 
   public parseLine(line: string, linenum: number) {
-    let parsedLetters = 0;
+    let parsedWords = 0;
+    let words = line.split(' ');
 
     // parse each letter of each line
-    for (let letter of line) {
-      if(this.parseLetter(letter)) {
-        parsedLetters++;
-      } else if (letter !== ' ') { // ignore whitespaces
-        throw new Error(`Unexpected token ${letter} on line ${linenum}:${parsedLetters+1}`);
+    for (let word of words) {
+      if(this.parseWord(word)) {
+        parsedWords++;
+      } else if (word !== ' ' && word !== '') { // ignore whitespaces
+        throw new Error(`Unexpected token ${word} on line ${linenum}:${parsedWords+1}`);
       }
     }
 
-    if (parsedLetters !== 0) {
+    if (parsedWords !== 0) {
       if (this.columns === 0) {
-        this.columns = parsedLetters; // get number of columns
-      } else if (this.columns !== parsedLetters) {
-        throw new Error(`Wrong number of tokens on line ${linenum}; expected ${this.columns} columns, found ${parsedLetters}`);
+        this.columns = parsedWords; // get number of columns
+      } else if (this.columns !== parsedWords) {
+        throw new Error(`Wrong number of tokens on line ${linenum}; expected ${this.columns} columns, found ${parsedWords}`);
       }
 
       this.rows++;
@@ -69,7 +79,7 @@ abstract class Parser {
     }
   }
 
-  protected abstract parseLetter(letter: string): boolean;
+  protected abstract parseWord(letter: string): boolean;
 }
 
 /**
@@ -77,7 +87,7 @@ abstract class Parser {
  */
 class PathParser extends Parser {
 
-  public parseLetter(letter: string): boolean {
+  public parseWord(letter: string): boolean {
     if (/^[0-9a-fA-F]+$/.test(letter)) {
       this.tokens.push(parseInt(`0x${letter}`));
       return true;
@@ -101,9 +111,9 @@ class PathParser extends Parser {
  */
 class TexturesParser extends Parser {
 
-  public parseLetter(letter: string): boolean {
+  public parseWord(letter: string): boolean {
     if (/^[0-9]+$/.test(letter)) {
-      this.tokens.push(parseInt(`0x${letter}`));
+      this.tokens.push(parseInt(letter));
       return true;
     }
     return false;
@@ -125,7 +135,7 @@ class TexturesParser extends Parser {
  */
 class FunctionsParser extends Parser {
 
-  public parseLetter(letter: string): boolean {
+  public parseWord(letter: string): boolean {
     if (/^[0-9]+$/.test(letter)) {
       this.tokens.push(parseInt(letter));
       return true;
@@ -147,7 +157,7 @@ class FunctionsParser extends Parser {
 /**
  * TXT Map file loader
  */
-export class MapLoader {
+export class MapParser {
 
   private parsers = {};
   private currentParser: Parser;
