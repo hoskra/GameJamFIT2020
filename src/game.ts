@@ -9,8 +9,8 @@ class Game extends PIXI.Application {
     super({
       view: <HTMLCanvasElement>document.getElementById('gameCanvas'),
       backgroundColor: 0x000000,
-      width: 800,
-      height: 450
+      width: 1600,
+      height: 900
     });
 
     this.obj = new PIXI.Graphics();

@@ -1,7 +1,7 @@
 {
   "name": "fit-game",
   "scripts": {
-    "start": "tsc --noEmit && parcel view/index.html --out-dir build",
+    "start": "node ./deploy.js && tsc --noEmit && parcel view/index.html --out-dir build",
     "deploy": "tsc --noEmit && parcel build view/index.html --out-dir build --no-cache --no-source-maps",
     "lint": "tslint --project tslint.json"
   },
