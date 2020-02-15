@@ -6,6 +6,7 @@ import FirstScene from './scenes/first-scene';
 import SceneManager from './scenes/scenestates/scene-manager';
 import { Assets } from './constants';
 import GameModel from './models/game-model';
+import { resizeCanvas } from './utils/canvas-resizer';
 
 class Game extends PIXI.Application {
   lastTime = 0;
@@ -34,6 +35,7 @@ class Game extends PIXI.Application {
     // stop the shared ticket and update it manually
     this.ticker.autoStart = false;
     this.ticker.stop();
+    this.initResizeHandler();
   }
 
   startGame() {
@@ -70,6 +72,15 @@ class Game extends PIXI.Application {
     this.ticker.update(this.gameTime);
     requestAnimationFrame((time) => this.loop(time));
   }
+
+  private initResizeHandler() {
+    let virtualWidth = this.screen.width;
+    let virtualHeight = this.screen.height;
+    resizeCanvas(this.view, virtualWidth, virtualHeight);
+    window.addEventListener('resize',this.resizeHandler);
+  }
+
+  private resizeHandler = (evt) => resizeCanvas(this.view, this.screen.width, this.screen.height);
 }
 
 new Game();

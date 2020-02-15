@@ -15,12 +15,15 @@ export class CameraController {
   update(delta: number, absolute: number) {
     let stage = this.gameController.gameModel.stage;
     let hero = this.gameController.gameModel.hero;
-
-    let widthOfFrame = this.gameController.gameModel.screenWidth ;
+    let heroWidth = hero.pixiObj.width;
+    let heroHeight = hero.pixiObj.height;
+    let heroPos = this.gameController.gameModel.hero.pixiObj.position;
+    let widthOfFrame = this.gameController.gameModel.screenWidth / 2;
     let heightofFrame = this.gameController.gameModel.screenHeight / 2;
 
-    let newX = (-1)*this.gameController.gameModel.hero.pixiObj.position.x + widthOfFrame/2;
-    let newY = (-1)*this.gameController.gameModel.hero.pixiObj.position.y + heightofFrame/2;
+
+    let newX = ((-1)*(heroPos.x + heroWidth / 2) * stage.scale.x) + widthOfFrame;
+    let newY = ((-1)*(heroPos.y + heroHeight / 2) * stage.scale.y) + heightofFrame;
 
     //  let newX = this.gameController.gameModel.hero.pixiObj.position.x;
     //  let newY = this.gameController.gameModel.hero.pixiObj.position.y - heightofFrame;
