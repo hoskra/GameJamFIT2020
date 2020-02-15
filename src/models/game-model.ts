@@ -30,6 +30,7 @@ export default class GameModel {
 
 
   constructor() {
+    this.glitchState = new GlitchState();
     this.itemManager = new ItemManager();
   }
 
