@@ -1,5 +1,5 @@
 import { GameObjectModel } from './game-object-model';
-import { BLOCK_SIZE, HERO_POS } from './game-model';
+import { BLOCK_SIZE, HERO_POS } from '../constants';
 import GameModel from './game-model';
 import * as PIXI from 'pixi.js';
 import Vec from '../utils/vec';

@@ -21,8 +21,8 @@ class Game extends PIXI.Application {
      // resolution: SCALE_X TODO
     });
     PIXI.Loader.shared.reset()    // necessary for hot reload
-    .add(Assets.TEXTURES, './assets/textures.png')
-    .add(Assets.MAP, './assets/maptest.txt')
+    .add(Assets.TEXTURES, './assets/map2.png')
+    .add(Assets.MAP, './assets/maptest2.txt')
     .add(Assets.HERO, './assets/hero.png')
     .add(Assets.BEER, './assets/pivo/beer.png')
     .add(Assets.CARDS, './assets/testKarta.png')

@@ -31,6 +31,9 @@ export class HeroController {
       }
       if(this.gameController.isKeyPressed(Keys.KEY_DOWN) && this.mapModel.canGoDown(this.heroModel.mapPos)) {
         this.heroModel.walkDown();
+      }
+
+      if(this.gameController.isKeyPressed(Keys.KEY_S)) {
         this.gameController.gameModel.dialogManager.displayText('Tož to nestíháš. Mám pravdu?', () => {
           this.gameController.gameModel.dialogManager.displayChoice((yes) => {
 

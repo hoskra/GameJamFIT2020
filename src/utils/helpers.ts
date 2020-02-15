@@ -1,7 +1,6 @@
 import { FONT_DIALOG_OFFSET_X } from './../constants';
 import Vec from './vec';
-import { BLOCK_SIZE } from '../models/game-model';
-import { Direction } from '../constants';
+import { Direction, BLOCK_SIZE } from '../constants';
 import { GameObjectModel } from '../models/game-object-model';
 
 export const mapCellToVector = (cell: number, columns: number) => {
