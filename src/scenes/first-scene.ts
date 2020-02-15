@@ -17,7 +17,7 @@ class FirstScene extends BaseScene {
 
     init() {
         this.gameModel = new GameModel();
-        this.gameModel.init(this.app);
+        this.gameModel.init(this.app, this.mapParser.loadMap(this.resources['MAP'].data));
         this.gameController = new GameController(this.gameModel);
         this.gameController.init();
     }
@@ -25,7 +25,6 @@ class FirstScene extends BaseScene {
     update(delta: number, absolute: number) {
         this.gameModel.update(delta, absolute);
         this.gameController.update(delta, absolute);
-
     }
 }
 

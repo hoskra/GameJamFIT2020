@@ -2,7 +2,7 @@ import { MapModel } from './map-model';
 import { HeroModel } from './hero-model';
 import * as helpers from '../utils/helpers';
 import Vec from '../utils/vec';
-import { MapParser } from '../parsers/map-parser';
+import { MapParser, RawMap } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import SceneManager from '../scenes/scenestates/scene-manager';
 import { DialogModel } from './dialog-model';
@@ -19,14 +19,11 @@ export default class GameModel {
   screenWidth: number;
   screenHeight: number;
 
-  init(app: PIXI.Application) {
+  init(app: PIXI.Application, rawMap: RawMap) {
     this.screenWidth = app.view.width;
     this.screenHeight = app.view.height;
     this.stage = app.stage;
-    let resources = PIXI.Loader.shared.resources;
-    let mapParser = new MapParser();
-    let map = mapParser.loadMap(resources['MAP'].data);
-    this.gameMap = new MapModel(map);
+    this.gameMap = new MapModel(rawMap);
 
     this.initScene();
     this.hero = new HeroModel(this);
