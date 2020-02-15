@@ -24,7 +24,6 @@ export class CameraController {
     let newX = ((-1)*(heroPos.x + heroWidth / 2) * stage.scale.x) + widthOfFrame;
     let newY = ((-1)*(heroPos.y + heroHeight / 2) * stage.scale.y) + heightofFrame;
 
-    console.log(newX, newY);
     stage.position.set(newX, newY);
   }
 }

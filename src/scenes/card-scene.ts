@@ -16,8 +16,8 @@ class CardScene extends BaseScene {
     }
 
     private buttonCreate(path: string, position_x: number, position_y: number, text: string, callback: () => void) {
-        var buttonEndTurn = new PIXI.Container();
-        var button1 = new PIXI.Sprite(PIXI.Loader.shared.resources[path].texture);
+        let buttonEndTurn = new PIXI.Container();
+        let button1 = new PIXI.Sprite(PIXI.Loader.shared.resources[path].texture);
         button1.scale.x = 0.5;
         button1.scale.y = 0.5;
         button1.interactive = true;

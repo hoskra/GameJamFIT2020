@@ -2,12 +2,11 @@ import { MapModel } from './map-model';
 import { HeroModel } from './hero-model';
 import * as helpers from '../utils/helpers';
 import Vec from '../utils/vec';
-import { MapParser, RawMap } from '../parsers/map-parser';
+import { RawMap } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
-import SceneManager from '../scenes/scenestates/scene-manager';
 import { DialogModel } from './dialog-model';
-import { GlitchFilter } from '@pixi/filter-glitch';
 import GlitchState from '../animators/glitch-state';
+import ItemManager from './items/item-manager';
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
@@ -18,11 +17,16 @@ export default class GameModel {
   stage: PIXI.Container;
   hero: HeroModel;
   dialog: DialogModel;
+  itemManager: ItemManager;
 
   glitchState: GlitchState = new GlitchState();
 
   screenWidth: number;
   screenHeight: number;
+
+  constructor() {
+    this.itemManager = new ItemManager();
+  }
 
   init(app: PIXI.Application, rawMap: RawMap) {
     this.screenWidth = app.view.width;
