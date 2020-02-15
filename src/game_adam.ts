@@ -2,8 +2,8 @@ import * as PIXI from 'pixi.js';
 import { MapParser } from './parsers/map-parser';
 import * as helpers from './utils/helpers';
 
-const BLOCK_SIZE = 32;
-const TEXTURE_COLUMNS = 32;
+const BLOCK_SIZE = 64;
+const TEXTURE_COLUMNS = 16;
 
 class Game extends PIXI.Application {
 
