@@ -42,6 +42,7 @@ export class DialogModel extends GameObjectModel {
   }
 
   showText(text: string) {
+    this.pixiObj.visible = true;
     this.state = DialogState.ANIMATING;
     this.fullText = helpers.wrapDialogText(text, FONT_SIZE, this.pixiObj.width);
     this.rowsNum = this.fullText.split('\n').length;
@@ -58,20 +59,26 @@ export class DialogModel extends GameObjectModel {
   }
 
   destroy() {
-    this.pixiObj.removeChild(this.pixiObj);
+
+  }
+
+  hide() {
+    this.pixiObj.visible = false;
+  }
+
+  get isHidden() {
+    return !this.pixiObj.visible;
   }
 
   update(delta: number, absolute: number) {
-    if(this.state === DialogState.ANIMATING) {
+    if(!this.isHidden && this.state === DialogState.ANIMATING) {
       this.displayedText = this.framedText.substr(0, this.displayedText.length + 1);
       this.textObj.text = this.displayedText;
       if(this.displayedText.length === this.framedText.length) {
         this.currentRow += 2;
         if(this.currentRow < this.rowsNum) {
           this.state = DialogState.WAITING_FOR_INPUT;
-          console.log('DIALOG WAITING');
         } else {
-          console.log('FINISHED');
           this.state = DialogState.FINISHED;
         }
       }

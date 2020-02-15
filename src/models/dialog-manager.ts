@@ -12,21 +12,22 @@ export class DialogManager {
   constructor(model: GameModel, gameController: GameController) {
     this.gameModel = model;
     this.dialogController = new DialogController(gameController);
+    this.dialogModel = new DialogModel(this.gameModel);
+    this.dialogController.dialogModel = this.dialogModel;
+    this.dialogModel.init();
+    this.dialogModel.hide();
+  }
+
+  get isDialogRunning() {
+    return !this.dialogModel.isHidden;
   }
 
   displayText(text: string) {
-    if(this.dialogModel) {
-      this.dialogModel.destroy();
-    }
-
-    this.dialogModel = new DialogModel(this.gameModel);
-    this.dialogModel.init();
-    this.dialogController.dialogModel = this.dialogModel;
     this.dialogModel.showText(text);
   }
 
   update(delta: number, absolute: number) {
-    if(this.dialogModel) {
+    if(!this.dialogModel.isHidden) {
       this.dialogModel.update(delta, absolute);
       this.dialogController.update(delta, absolute);
     }

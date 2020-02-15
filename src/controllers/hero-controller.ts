@@ -15,6 +15,10 @@ export class HeroController {
   }
 
   update(delta: number, absolute: number) {
+    if(this.gameController.gameModel.isDialogRunning) {
+      return;
+    }
+
     if(this.heroModel.state === HeroState.STANDING) {
       if(this.gameController.isKeyPressed(Keys.KEY_LEFT) && this.mapModel.canGoLeft(this.heroModel.mapPos)) {
         this.heroModel.walkLeft();

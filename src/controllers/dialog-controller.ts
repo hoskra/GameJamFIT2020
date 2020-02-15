@@ -11,8 +11,15 @@ export class DialogController {
   }
 
   update(delta: number, absolute: number) {
+    if(this.dialogModel.isHidden) {
+      return;
+    }
+
     if(this.dialogModel.state === DialogState.WAITING_FOR_INPUT && this.gameController.isKeyPressed(Keys.KEY_SPACE)) {
       this.dialogModel.showMore();
+    }
+    if(this.dialogModel.state === DialogState.FINISHED && this.gameController.isKeyPressed(Keys.KEY_SPACE)) {
+      this.dialogModel.hide();
     }
   }
 }

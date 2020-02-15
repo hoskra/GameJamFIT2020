@@ -29,9 +29,9 @@ export default class GameModel {
   glitchState: GlitchState;
 
 
-    constructor() {
-      this.itemManager = new ItemManager();
-    }
+  constructor() {
+    this.itemManager = new ItemManager();
+  }
 
   init(app: PIXI.Application, rawMap: RawMap, gameController: GameController) {
     this.screenWidth = app.view.width;
@@ -48,6 +48,10 @@ export default class GameModel {
     this.hero = new HeroModel(this);
     this.hero.init();
     this.dialogManager = new DialogManager(this, this.gameController);
+  }
+
+  get isDialogRunning() {
+    return this.dialogManager.isDialogRunning;
   }
 
   initScene() {
