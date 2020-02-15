@@ -4,7 +4,8 @@ export enum Assets {
   MAP = 'MAP',
   HERO = 'HERO',
   DIALOG = 'DIALOG',
-  FONT = 'FONT'
+  FONT = 'FONT',
+  BEER = 'BEER'
 }
 
 export enum Direction {

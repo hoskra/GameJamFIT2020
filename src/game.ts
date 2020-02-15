@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js';
 import SceneManager from './scenes/scenestates/scene-manager';
-import GameModel from './models/game-model';
 import { resizeCanvas } from './utils/canvas-resizer';
 
 import { Assets, SCALE_Y, SCALE_X } from './constants';
@@ -25,6 +24,7 @@ class Game extends PIXI.Application {
     .add(Assets.TEXTURES, './assets/textures.png')
     .add(Assets.MAP, './assets/maptest.txt')
     .add(Assets.HERO, './assets/hero.png')
+    .add(Assets.BEER, './assets/pivo/beer.png')
     .add(Assets.CARDS, './assets/testKarta.png')
     .add(Assets.DIALOG, './assets/dialog_bubble.png')
     .load(() => this.startGame());

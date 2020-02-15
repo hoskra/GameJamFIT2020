@@ -3,12 +3,14 @@ import { MapModel } from './map-model';
 import { HeroModel } from './hero-model';
 import * as helpers from '../utils/helpers';
 import Vec from '../utils/vec';
-import { MapParser, RawMap } from '../parsers/map-parser';
+import { RawMap } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
-import SceneManager from '../scenes/scenestates/scene-manager';
 import { DialogModel } from './dialog-model';
 import { SCALE_Y, SCALE_X } from '../constants';
 import { DialogManager } from './dialog-manager';
+import GlitchState from '../animators/glitch-state';
+import ItemManager from './items/item-manager';
+import { Assets } from '../constants';
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
@@ -23,6 +25,13 @@ export default class GameModel {
   screenWidth: number;
   screenHeight: number;
   dialogManager: DialogManager;
+  itemManager: ItemManager;
+  glitchState: GlitchState;
+
+
+    constructor() {
+      this.itemManager = new ItemManager();
+    }
 
   init(app: PIXI.Application, rawMap: RawMap, gameController: GameController) {
     this.screenWidth = app.view.width;
@@ -48,7 +57,7 @@ export default class GameModel {
       let pos = helpers.mapCellToVector(i, map.columns);
       let cell = map.cells.get(i);
 
-      let texture = PIXI.Texture.from('TEXTURES');
+      let texture = PIXI.Texture.from(Assets.TEXTURES);
       texture = texture.clone();
       let sprite = new PIXI.Sprite(texture);
       let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
@@ -61,5 +70,9 @@ export default class GameModel {
   update(delta: number, absolute: number) {
     this.hero.update(delta, absolute);
     this.dialogManager.update(delta, absolute);
+  }
+
+  switchGlitchFilter() {
+    this.stage.filters = this.glitchState.switch();
   }
 }

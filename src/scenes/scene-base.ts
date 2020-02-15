@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { MapParser } from '../parsers/map-parser';
+import GameModel from '../models/game-model';
 
 abstract class BaseScene {
     public sceneObjects: PIXI.DisplayObject[] = [];
@@ -13,7 +14,7 @@ abstract class BaseScene {
         this.afterTransitionCallback = afterTransitionCallback;
     }
 
-    abstract init();
+    abstract init(gameModel: GameModel);
 
     abstract update(delta: number, absolute: number);
 }
