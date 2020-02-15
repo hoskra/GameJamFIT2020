@@ -7,6 +7,7 @@ import * as PIXI from 'pixi.js';
 import { DialogModel } from './dialog-model';
 import GlitchState from '../animators/glitch-state';
 import ItemManager from './items/item-manager';
+import { Assets } from '../constants';
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
@@ -49,7 +50,7 @@ export default class GameModel {
       let pos = helpers.mapCellToVector(i, map.columns);
       let cell = map.cells.get(i);
 
-      let texture = PIXI.Texture.from('TEXTURES');
+      let texture = PIXI.Texture.from(Assets.TEXTURES);
       texture = texture.clone();
       let sprite = new PIXI.Sprite(texture);
       let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);

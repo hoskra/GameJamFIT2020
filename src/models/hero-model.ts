@@ -4,6 +4,7 @@ import GameModel from './game-model';
 import * as PIXI from 'pixi.js';
 import Vec from '../utils/vec';
 import { MoveAnim } from '../animators/move-anim';
+import { Assets } from '../constants';
 
 
 export enum HeroState {
@@ -24,7 +25,7 @@ export class HeroModel extends GameObjectModel {
 
   init() {
     this.state = HeroState.STANDING;
-    let texture = PIXI.Texture.from('HERO');
+    let texture = PIXI.Texture.from(Assets.HERO);
     texture = texture.clone();
     let sprite = new PIXI.Sprite(texture);
     sprite.texture.frame = new PIXI.Rectangle(0, 0, BLOCK_SIZE, BLOCK_SIZE);

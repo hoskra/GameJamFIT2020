@@ -23,6 +23,7 @@ class Game extends PIXI.Application {
     .add(Assets.TEXTURES, './assets/textures.png')
     .add(Assets.MAP, './assets/maptest.txt')
     .add(Assets.HERO, './assets/hero.png')
+    .add(Assets.BEER, './assets/pivo/beer.png')
     .add(Assets.CARDS, './assets/testKarta.png')
     .add(Assets.DIALOG, './assets/dialog_bubble.png')
     .load(() => this.startGame());
