@@ -73,7 +73,8 @@ export const wrapDialogText = (text: string, fontSize: number, dialogWidth: numb
 
   let words = text.split(' ');
   let currentLine = '';
-  
+  let index = 0;
+
   for(let word of words) {
     if((currentLine.length + word.length) > lettersPerRow) {
       if(output.length === 0) {
@@ -89,6 +90,13 @@ export const wrapDialogText = (text: string, fontSize: number, dialogWidth: numb
     } else {
       currentLine += ' ' + word;
     }
+  }
+
+  
+  if(output.length === 0) {
+    output += currentLine;
+  } else {
+    output += '\n'+currentLine;
   }
 
   return output;

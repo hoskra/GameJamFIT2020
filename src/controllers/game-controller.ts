@@ -4,11 +4,11 @@ import GameModel from '../models/game-model';
 import { CameraController } from './camera-controller';
 
 export class GameController {
-  private keyController: KeyController;
   private heroController: HeroController;
   private cameraController: CameraController;
   private _gameModel: GameModel;
-
+  keyController: KeyController;
+  
   constructor() {
 
   }

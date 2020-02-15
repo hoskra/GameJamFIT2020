@@ -51,8 +51,8 @@ export default class GameModel {
     this.dialogManager = new DialogManager(this, this.gameController);
   }
 
-  get isDialogRunning() {
-    return this.dialogManager.isDialogRunning;
+  get isPaused() {
+    return this.dialogManager.isDialogRunning || this.dialogManager.isChoiceRunning;
   }
 
   initScene() {

@@ -58,6 +58,10 @@ export class KeyController {
     return this._pressedKeys;
   }
 
+  setKeyHandled(code: number) {
+    this._pressedKeys.delete(code);
+  }
+
   private onKeyDown = (evt: KeyboardEvent) => {
     this._pressedKeys.add(evt.keyCode);
   }
