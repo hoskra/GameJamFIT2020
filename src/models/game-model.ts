@@ -5,6 +5,7 @@ import Vec from '../utils/vec';
 import { MapParser } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import SceneManager from '../scenes/scenestates/scene-manager';
+import { DialogModel } from './dialog-model';
 
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 16;
@@ -14,6 +15,7 @@ export default class GameModel {
   gameMap: MapModel;
   stage: PIXI.Container;
   hero: HeroModel;
+  dialog: DialogModel;
   screenWidth: number;
   screenHeight: number;
 
@@ -29,6 +31,9 @@ export default class GameModel {
     this.initScene();
     this.hero = new HeroModel(this);
     this.hero.init();
+
+    this.dialog = new DialogModel(this);
+    this.dialog.init();
   }
 
   initScene() {
@@ -50,5 +55,6 @@ export default class GameModel {
 
   update(delta: number, absolute: number) {
     this.hero.update(delta, absolute);
+    this.dialog.update(delta, absolute);
   }
 }

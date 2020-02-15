@@ -3,6 +3,8 @@ export enum Assets {
   TEXTURES = 'TEXTURES',
   MAP = 'MAP',
   HERO = 'HERO',
+  DIALOG = 'DIALOG',
+  FONT = 'FONT'
 }
 
 export enum Direction {
