@@ -37,7 +37,7 @@ export const itemEnumConv = (item: number) => {
   console.log(item);
   console.log(Items[item]);
   return Items[item];
-}
+};
 
 export enum Direction {
   LEFT,
