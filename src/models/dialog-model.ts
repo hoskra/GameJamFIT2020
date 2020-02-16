@@ -110,7 +110,7 @@ export class DialogModel extends GameObjectModel {
     }
 
     if(this.state === DialogState.WAITING_FOR_INPUT || this.state == DialogState.FINISHED) {
-      if(this.flickerCounter++ % 4 === 0) {
+      if(this.flickerCounter++ % 6 === 0) {
         this.nextIcon.visible = !this.nextIcon.visible;
       }
     } else {

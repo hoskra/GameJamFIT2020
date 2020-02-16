@@ -131,8 +131,10 @@ export default class GameModel {
 
       switch(npc.type) {
         case NPC_CARDMASTER:
-          this.oracleSatisfied = true;
-          this.afterTransitionCallback(FirstSceneName);
+          if(!this.oracleSatisfied) {
+            this.oracleSatisfied = true;
+            this.afterTransitionCallback(FirstSceneName);  
+          }
           break;
         case NPC_HOMELESS:
           break;
@@ -161,7 +163,7 @@ export default class GameModel {
   }
 
   initVictory() {
-    this.dialogManager.displayText('Tak jo, tady je ten Tvůj poklad, Tvá postava žije šťastně. Pro tebe to nekončí, můžeš prožít tento svět znovu za jinou postavu a vidět vše z jiného úhlu. Až odejdeš od počítače, budeš pokračovat za sebe ve svém životě, který ale funguje jinak. V reálném světě není magický poklad, konstantní stav blaženosti. Jsi odsouzen k nepřetřžitému opakovanému hledání štěstí a další životy nemáš. Carpe diem', () => {
+    this.dialogManager.displayText('Tak jo, tady je ten Tvůj poklad, Tvá postava žije šťastně. Pro tebe to však nekončí - až odejdeš od počítače, budeš pokračovat za sebe ve svém životě, který ale funguje jinak. V reálném světě není magický poklad, konstantní stav blaženosti. Jsi odsouzen k nepřetržité opakovanému hledání štěstí a další životy nemáš. Carpe diem', () => {
       this.afterTransitionCallback(IntroSceneName);
     }, false);
   }
@@ -235,10 +237,10 @@ export default class GameModel {
       if(this.isDay === null) {
         this.isDay = true;
         this.itemManager.modifyWeed(false);
-        this.dayTime = absolute + 10 * 1000;
+        this.dayTime = absolute + 30 * 1000;
       } else {
         if(this.dayTime <= absolute) {
-          this.dayTime = absolute + 10 * 1000;
+          this.dayTime = absolute + 30 * 1000;
           this.isDay = !this.isDay;
 
           if(this.isDay) {

@@ -52,7 +52,7 @@ export class SidebarModel extends GameObjectModel {
     let coins = this.gameModel.itemManager.ownedItems.has(Items.COINS) ? this.gameModel.itemManager.ownedItems.get(Items.COINS) : 0;
     let floppy = this.gameModel.itemManager.ownedItems.has(Items.FLOPPY_DISK) ? this.gameModel.itemManager.ownedItems.get(Items.FLOPPY_DISK) : 0;
     let material = this.gameModel.itemManager.ownedItems.has(Items.WEED) ? this.gameModel.itemManager.ownedItems.get(Items.WEED) : 0;
-    this.valueText.text = coins + '\n' + floppy + '\n' +  material + '\n' + this.gameModel.keys + '/2';
+    this.valueText.text = coins + '/5\n' + floppy + '/5\n' +  material + '/5\n' + this.gameModel.keys + '/2';
 
     if(this.gameModel.isDay) {
       this.icon.texture = (PIXI.Texture.from(Assets.ICON_DAY));
