@@ -1,6 +1,17 @@
 import Vec from './utils/vec';
 export enum Assets {
-  CARDS = 'CARDS',
+  EGO_MEC = 'EGO_MEC',
+  EGO_MOC = 'EGO_MOC',
+  EGO_SVET = 'EGO_SVET',
+  EGO = 'EGO',
+  MAG_CARY = 'MAG_CARY',
+  MAG_OHEN = 'MAG_OHEN',
+  MAG_SIKANA = 'MAG_SIKANA',
+  MAG = 'MAG',
+  NINJA_LUK = 'NINJA_LUK',
+  NINJA_MOZEK = 'NINJA_MOZEK',
+  NINJA_SVOBODA = 'NINJA_SVOBODA',
+  NINJA = 'NINJA',
   TEXTURES = 'TEXTURES',
   MAP = 'MAP',
   HERO = 'HERO',
