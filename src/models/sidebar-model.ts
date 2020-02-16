@@ -31,7 +31,6 @@ export class SidebarModel extends GameObjectModel {
     this.timeout.position.set(20, 100);
     layout.addChild(this.timeout);
 
-
     this.gameModel.stage.addChild(layout);
   }
 

@@ -27,6 +27,7 @@ export class HeroModel extends GameObjectModel {
     this.state = HeroState.STANDING;
     let texture = PIXI.Texture.from(Assets.HERO);
     texture = texture.clone();
+    texture.frame = new PIXI.Rectangle(0, 11 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     let sprite = new PIXI.Sprite(texture);
     sprite.texture.frame = new PIXI.Rectangle(0, 0, BLOCK_SIZE, BLOCK_SIZE);
     sprite.position.set(HERO_POS.x * BLOCK_SIZE, HERO_POS.y * BLOCK_SIZE);
