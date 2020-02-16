@@ -13,6 +13,7 @@ import ItemManager from './items/item-manager';
 import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
 import { SidebarModel } from './sidebar-model';
 import NightState from '../animators/night-state';
+import { NPCManager } from './npc/npc-manager';
 
 export default class GameModel {
   gameMap: MapModel;
@@ -27,6 +28,7 @@ export default class GameModel {
   glitchState: GlitchState;
   nightFilter: NightState;
   sideBarModel: SidebarModel;
+  NPCManager: NPCManager;
 
   isDay: boolean = null;
   dayTime: number = 0;
@@ -38,6 +40,7 @@ export default class GameModel {
     this.glitchState = new GlitchState();
     this.nightFilter = new NightState();
     this.itemManager = new ItemManager();
+    this.NPCManager = new NPCManager(this);
   }
 
   init(app: PIXI.Application, rawMap: RawMap, gameController: GameController) {
@@ -70,14 +73,13 @@ export default class GameModel {
     for(let i = 0; i< map.blocks; i++) {
       let pos = helpers.mapCellToVector(i, map.columns);
       let cell = map.cells.get(i);
-      if (cell.specialFunction >= 80)
-      {
-        let cellFake = cell.copy();
-        cellFake.defaultTexture = 0;
-        cellFake.specialFunction = 0;
-        this.drawTile(cellFake, pos);
-      }
+
       let sprite = this.drawTile(cell, pos);
+
+      if (cell.specialFunction >= 50 && cell.specialFunction < 80) {
+        // NPC
+        this.NPCManager.addNPC(pos, cell.specialFunction);
+      }
 
       if (cell.specialFunction >= 80) {
         this.items.set(pos, sprite);

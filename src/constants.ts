@@ -22,6 +22,13 @@ export enum Assets {
   BEER = 'BEER',
   DIALOG_NEXT = 'DIALOG_NEXT',
   DIALOGS = 'DIALOGS',
+  NPC_CARDMASTER = 'NPC_CARDMASTER',
+  NPC_THIEF= 'NPC_THIEF',
+  NPC_SYSADMIN = 'NPC_SYSADMIN',
+  NPC_HOMELESS = 'NPC_HOMELESS',
+  NPC_TERREX = 'NPC_TERREX',
+  NPC_JUNKIE = 'NPC_JUNKIE',
+  NPC_ECOLOGIST = 'NPC_ECOLOGIST'
 }
 
 export enum Items {
@@ -35,9 +42,43 @@ export enum Items {
   PIZZA = 87,
   WEED = 88
 }
+
+export const NPC_CARDMASTER = 50;
+export const NPC_THIEF= 51;
+export const NPC_SYSADMIN = 52;
+export const NPC_HOMELESS = 53;
+export const NPC_TERREX = 54;
+export const NPC_JUNKIE = 55;
+export const NPC_ECOLOGIST = 56;
+
+export const getNPCAsset = (index: number) => {
+  switch(index) {
+    case NPC_CARDMASTER:
+      return Assets.NPC_CARDMASTER;
+      break;
+    case NPC_THIEF:
+      return Assets.NPC_THIEF;
+      break;
+    case NPC_SYSADMIN:
+      return Assets.NPC_SYSADMIN;
+      break;
+    case NPC_HOMELESS:
+      return Assets.NPC_HOMELESS;
+      break;
+    case NPC_TERREX:
+      return Assets.NPC_TERREX;
+      break;
+    case NPC_JUNKIE:
+      return Assets.NPC_JUNKIE;
+      break;
+    case NPC_ECOLOGIST:
+      return Assets.NPC_ECOLOGIST;
+      break;
+  }
+  throw new Error('Unknown NPC!');
+}
+
 export const itemEnumConv = (item: number) => {
-  console.log(item);
-  console.log(Items[item]);
   return Items[item];
 };
 

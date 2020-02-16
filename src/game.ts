@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import SceneManager from './scenes/scenestates/scene-manager';
 import { resizeCanvas } from './utils/canvas-resizer';
 
-import { Assets, SCALE_Y, SCALE_X } from './constants';
+import { Assets, SCALE_Y, SCALE_X, NPC_SYSADMIN, NPC_TERREX, NPC_THIEF, NPC_HOMELESS } from './constants';
 
 
 class Game extends PIXI.Application {
@@ -22,7 +22,7 @@ class Game extends PIXI.Application {
     });
     PIXI.Loader.shared.reset()    // necessary for hot reload
     .add(Assets.TEXTURES, './assets/map2.png')
-    .add(Assets.MAP, './assets/maptest2.txt')
+    .add(Assets.MAP, './assets/maptest3.txt')
     .add(Assets.HERO, './assets/hero/rogue.png')
     .add(Assets.BEER, './assets/pivo/beer.png')
     .add(Assets.EGO_MEC,'./assets/cards/ego-mec.png')
@@ -42,6 +42,14 @@ class Game extends PIXI.Application {
     .add(Assets.INTRO, './assets/intro.jpg')
     .add(Assets.DIALOG_NEXT, './assets/dialog_next.png')
     .add(Assets.DIALOGS, './assets/dialog_sample.json')
+    .add(Assets.NPC_CARDMASTER, './assets/characters/kartarka.png')
+    .add(Assets.NPC_ECOLOGIST, './assets/characters/ekolog.png')
+    .add(Assets.NPC_JUNKIE, './assets/characters/fetak.png')
+    .add(Assets.NPC_SYSADMIN, './assets/characters/sysadmin.png')
+    .add(Assets.NPC_TERREX, './assets/characters/terrex.png')
+    .add(Assets.NPC_THIEF, './assets/characters/zlodej.png')
+    .add(Assets.NPC_HOMELESS, './assets/characters/bezdomovec.png')
+
 
     .load(() => this.startGame());
 
