@@ -67,7 +67,7 @@ export const alignToCell = (obj: GameObjectModel, cellPos: Vec) => {
 export const wrapDialogText = (text: string, fontSize: number, dialogWidth: number) => {
   let width = dialogWidth;
   let offset = FONT_DIALOG_OFFSET_X * 2;
-  let lettersPerRow = Math.ceil((width - offset) / fontSize * 1.8);
+  let lettersPerRow = Math.ceil((width - offset) / fontSize * 1.7);
   let output = '';
 
   let words = text.split(' ');

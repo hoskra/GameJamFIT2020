@@ -2,7 +2,7 @@ import { GameController } from './game-controller';
 import { HeroModel, HeroState } from '../models/hero-model';
 import { MapModel } from '../models/map-model';
 import { Keys } from './key-controller';
-import { Assets } from '../constants';
+import { Assets, BLOCK_SIZE } from '../constants';
 import { ComplexDialog } from '../models/complex-dialog';
 import * as PIXI from 'pixi.js';
 
@@ -23,32 +23,36 @@ export class HeroController {
     }
 
     if (this.heroModel.state === HeroState.STANDING) {
-      if (this.gameController.isKeyPressed(Keys.KEY_LEFT) && this.mapModel.canGoLeft(this.heroModel.mapPos)) {
-        this.heroModel.walkLeft();
+      if (this.gameController.isKeyPressed(Keys.KEY_LEFT)) {
+        if(this.mapModel.canGoLeft(this.heroModel.mapPos)) {
+          this.heroModel.walkLeft();
+        } else {
+          (this.heroModel.pixiObj as PIXI.Sprite).texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 9, BLOCK_SIZE, BLOCK_SIZE);
+        }
       }
-      if (this.gameController.isKeyPressed(Keys.KEY_RIGHT) && this.mapModel.canGoRight(this.heroModel.mapPos)) {
-        this.heroModel.walkRight();
+      if (this.gameController.isKeyPressed(Keys.KEY_RIGHT)) {
+        if(this.mapModel.canGoRight(this.heroModel.mapPos)) {
+          this.heroModel.walkRight();
+        } else {
+          (this.heroModel.pixiObj as PIXI.Sprite).texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 11, BLOCK_SIZE, BLOCK_SIZE);
+        }
       }
-      if (this.gameController.isKeyPressed(Keys.KEY_UP) && this.mapModel.canGoUp(this.heroModel.mapPos)) {
-        this.heroModel.walkUp();
+      if (this.gameController.isKeyPressed(Keys.KEY_UP)) {
+        if(this.mapModel.canGoUp(this.heroModel.mapPos)) {
+          this.heroModel.walkUp();
+        } else {
+          (this.heroModel.pixiObj as PIXI.Sprite).texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 8, BLOCK_SIZE, BLOCK_SIZE);
+        }
       }
-      if (this.gameController.isKeyPressed(Keys.KEY_DOWN) && this.mapModel.canGoDown(this.heroModel.mapPos)) {
-        this.heroModel.walkDown();
+      if (this.gameController.isKeyPressed(Keys.KEY_DOWN)) {
+        if(this.mapModel.canGoDown(this.heroModel.mapPos)) {
+          this.heroModel.walkDown();
+        } else {
+          (this.heroModel.pixiObj as PIXI.Sprite).texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 10, BLOCK_SIZE, BLOCK_SIZE);
+        }
       }
       if (this.mapModel.isItemTile(this.heroModel.mapPos)) {
         this.gameController.gameModel.itemManager.collectItem(this.heroModel.mapPos);
-      }
-
-      if(this.gameController.isKeyPressed(Keys.KEY_S)) {
-        let dialogJSON = PIXI.Loader.shared.resources[Assets.DIALOGS].data;
-        let complexDialog = new ComplexDialog(dialogJSON.dialog_example);
-        this.gameController.gameModel.dialogManager.displayComplexDialog(complexDialog, () => {
-
-        });
-      }
-      // testing purpose
-      if (this.gameController.isKeyPressed(Keys.KEY_Q)) {
-        this.gameController.gameModel.switchGlitchFilter();
       }
     }
   }

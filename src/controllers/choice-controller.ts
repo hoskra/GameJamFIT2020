@@ -16,6 +16,7 @@ export class ChoiceController {
       return;
     }
 
+  
     if(this.keyController.isKeyPressed(Keys.KEY_LEFT)) {
       this.choiceModel.selectChoice(true);
     }

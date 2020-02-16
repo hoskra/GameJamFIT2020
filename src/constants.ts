@@ -1,4 +1,5 @@
 import Vec from './utils/vec';
+
 export enum Assets {
   EGO_MEC = 'EGO_MEC',
   EGO_MOC = 'EGO_MOC',
