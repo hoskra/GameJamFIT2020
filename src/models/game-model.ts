@@ -6,7 +6,7 @@ import Vec from '../utils/vec';
 import { RawMap, RawMapTile } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import { DialogModel } from './dialog-model';
-import { SCALE_Y, SCALE_X, getItemAsset, Items } from '../constants';
+import { SCALE_Y, SCALE_X, getItemAsset, Items, getNPCAsset } from '../constants';
 import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
 import { ItemManager } from './items/item-manager';
@@ -15,6 +15,7 @@ import { SidebarModel } from './sidebar-model';
 import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
 import { vectorToMapCell } from '../utils/helpers';
+import DialogueHelper from '../dialogue-helper';
 
 export enum MapType {
   CARDMASTER,
@@ -27,6 +28,7 @@ export default class GameModel {
   stage: PIXI.Container;
   root: PIXI.Container;
   hero: HeroModel;
+  heroType: number;
   screenWidth: number;
   screenHeight: number;
   dialogManager: DialogManager;
@@ -35,6 +37,7 @@ export default class GameModel {
   nightFilter: NightState;
   sideBarModel: SidebarModel;
   NPCManager: NPCManager;
+  dialogueHelper: DialogueHelper;
   mapType: MapType;
   heroPos: Vec;
 
@@ -47,6 +50,7 @@ export default class GameModel {
     this.nightFilter = new NightState();
     this.itemManager = new ItemManager(this);
     this.NPCManager = new NPCManager(this);
+    this.dialogueHelper = new DialogueHelper();
   }
 
   init(mapType: MapType, heroPos: Vec, app: PIXI.Application, rawMap: RawMap, gameController: GameController, initScene: boolean = true) {
@@ -96,9 +100,10 @@ export default class GameModel {
       npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 11, BLOCK_SIZE, BLOCK_SIZE);
     }
 
-    // todo display load complex text
+    let text = this.dialogueHelper.getDialogueSequence(npc.type, this.gameController.gameModel);
+    console.log(text);
     this.dialogManager.displayText('jsem NPC', () => {
-
+      console.log(getNPCAsset(npc.type));
     }, true);
   }
 
