@@ -6,6 +6,7 @@ export enum Assets {
   HERO = 'HERO',
   DIALOG = 'DIALOG',
   FONT = 'FONT',
+  INTRO = 'INTRO',
   BEER = 'BEER'
 }
 

@@ -73,7 +73,7 @@ export class HeroModel extends GameObjectModel {
   }
 
   update(delta: number, absolute: number) {
-    if(this.state === HeroState.WALKING) { 
+    if(this.state === HeroState.WALKING) {
       this.walkingAnim.update(delta, absolute);
     }
   }

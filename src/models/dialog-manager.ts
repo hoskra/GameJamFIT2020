@@ -16,8 +16,8 @@ export class DialogManager {
 
   constructor(model: GameModel, gameController: GameController) {
     this.gameModel = model;
-    this.dialogController = new DialogController(gameController);
-    this.dialogModel = new DialogModel(this.gameModel);
+    this.dialogController = new DialogController(gameController.keyController);
+    this.dialogModel = new DialogModel(this.gameModel.screenWidth, this.gameModel.screenHeight, this.gameModel.stage);
     this.dialogController.dialogModel = this.dialogModel;
     this.dialogModel.init();
     this.dialogModel.hide();

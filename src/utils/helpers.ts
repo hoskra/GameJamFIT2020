@@ -91,7 +91,7 @@ export const wrapDialogText = (text: string, fontSize: number, dialogWidth: numb
     }
   }
 
-  
+
   if(output.length === 0) {
     output += currentLine;
   } else {

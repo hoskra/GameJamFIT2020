@@ -19,8 +19,15 @@ export class DialogModel extends GameObjectModel {
   framedText: string;
   textObj: PIXI.Text;
 
-  constructor(gameModel: GameModel) {
-    super(gameModel);
+  screenWidth: number;
+  screenHeight: number;
+  stage: PIXI.Container;
+
+  constructor(screenWidth: number, screenHeight: number, stage: PIXI.Container) {
+    super(null);
+    this.screenWidth = screenWidth;
+    this.screenHeight = screenHeight;
+    this.stage = stage;
   }
 
   init() {
@@ -28,11 +35,11 @@ export class DialogModel extends GameObjectModel {
     let texture = PIXI.Texture.from(Assets.DIALOG);
     texture = texture.clone();
     let sprite = new PIXI.NineSlicePlane(texture, 60, 60, 60, 60);
-    sprite.position.set(0, this.gameModel.screenHeight);
+    sprite.position.set(0, this.screenHeight);
     sprite.pivot.y = DIALOG_SIZE;
-    this.gameModel.stage.addChild(sprite);
+    this.stage.addChild(sprite);
     this.pixiObj = sprite;
-    sprite.width = this.gameModel.screenWidth;
+    sprite.width = this.screenWidth;
     sprite.height = DIALOG_SIZE;
 
     this.textObj = new PIXI.Text('', new PIXI.TextStyle({ fontFamily: 'monospace', fontSize: FONT_SIZE , align: 'left' }));

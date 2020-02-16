@@ -2,6 +2,7 @@ import BaseSceneState from "./scenes/scene-state-base";
 import BaseScene from "../scene-base";
 import CardSceneState from "./scenes/card-scene-state";
 import GameModel from "../../models/game-model";
+import IntroSceneState from './scenes/intro-scene-state';
 
 class SceneManager {
     state: BaseSceneState;
@@ -12,7 +13,7 @@ class SceneManager {
     }
 
     initFirst(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
-        this.state = new CardSceneState();
+        this.state = new IntroSceneState();
         //this.state = new FirstSceneState();
         this.state.init(app, afterTransitionCallback);
         this.state.scene.init(this.gameModel);

@@ -27,6 +27,7 @@ class Game extends PIXI.Application {
     .add(Assets.BEER, './assets/pivo/beer.png')
     .add(Assets.CARDS, './assets/testKarta.png')
     .add(Assets.DIALOG, './assets/dialog_bubble.png')
+    .add(Assets.INTRO, './assets/intro.jpg')
     .load(() => this.startGame());
 
     this.ticker = this.ticker;
