@@ -5,6 +5,12 @@
             "hero": "Tak dobrá."
         }
     ],
+    "oracle_refused": [
+        {
+          "NPC": "Poslyš, chlapečku... klíče už jsi získal! Jestli si myslíš, že se můžeš vrátit zpět na začátek a získat další poklad, tak se pleteš! Bež pryč!",
+          "hero": "OK, škoda"
+        }
+      ],
     "oracle": [
       {
         "NPC": "Almužničku potřebné osobě... nech si vyložit svůj život...",

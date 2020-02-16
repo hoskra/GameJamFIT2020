@@ -20,7 +20,19 @@ npm start
 
 Hra bude dostupná v prohlížeči na adrese localhost:1234
 
+## Použité technologie
+
+- pouze grafická knihovna PixiJS a bundlovací nástroj ParcelBundler, bez použití dalších technologií
+- architektura aplikace vzdáleně připomíná MVC, nicméně z důvodu časové tísně vzniklo cosi jako spaghetti-viewmodel s lasagne-controllerem
+- časová náročnost: všichni zůstali vzhůru, tedy 24*5 hodin, z toho 2*5 hodin na brainstormingy
+
 ## Příběh hry
+
+## Ovládání
+
+- stačí použít šipky a mezerník
+- k dokončení hry je potřeba získat 2 klíče, které hráč může dostat od dvou ze tří NPCček, výměnou za sesbírané předměty
+- hráč si může vybrat 3 herní módy, z nichž každý se mírně liší vedením dialogů a také výběrem NPCček, které hráči nakonec klíč skutečně předají
 
 ## Použité ingredience
 - **Sen** - Ve hře existují dva módy - denní a noční, kde denní svět

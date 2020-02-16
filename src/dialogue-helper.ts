@@ -5,7 +5,6 @@ import * as PIXI from 'pixi.js';
 
 class DialogueHelper {
     getDialogueSequence(npcType: number, gameModel: GameModel) {
-        console.log('get dial seq', npcType);
         switch (npcType) {
             case NPC_CARDMASTER:
                 return this.getDialogueForOracle(gameModel);
@@ -24,7 +23,7 @@ class DialogueHelper {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES];
         // zatim se nenastavuje
         if (gameModel.oracleSatisfied) {
-            return new ComplexDialog(dialogMage.data.general);
+            return new ComplexDialog(dialogMage.data.oracle_refused);
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
