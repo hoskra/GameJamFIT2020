@@ -50,7 +50,7 @@ class CardScene extends BaseScene {
     flickerIndex = 0;
     update(delta: number, absolute: number) {
 
-        if(this.flickerIndex++ %4 === 0) {
+        if(this.flickerIndex++ %6 === 0) {
             this.rectangles[this.currentCardIndex].visible = !this.rectangles[this.currentCardIndex].visible;
         }
 

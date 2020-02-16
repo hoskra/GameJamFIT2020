@@ -20,11 +20,9 @@ export class MapModel {
   }
 
   canGoLeft(pos: Vec) {
-    console.log(pos);
     let cell = this.rawMap.getCell(new Vec(pos.x - 1, pos.y));
-    console.log(cell);
     if (this.controlMapBound(new Vec(pos.x - 1, pos.y)) && cell) {
-      return cell.isWalkable;
+      return cell.isWalkable && !this.isNPCTile(pos);
     }
     return false;
   }
@@ -32,7 +30,7 @@ export class MapModel {
   canGoRight(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x + 1, pos.y));
     if (this.controlMapBound(new Vec(pos.x + 1, pos.y)) && cell) {
-      return cell.isWalkable;
+      return cell.isWalkable && !this.isNPCTile(pos);
     }
     return false;
   }
@@ -40,7 +38,7 @@ export class MapModel {
   canGoUp(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x, pos.y - 1));
     if (this.controlMapBound(new Vec(pos.x, pos.y - 1)) && cell) {
-      return cell.isWalkable;
+      return cell.isWalkable && !this.isNPCTile(pos);
     }
     return false;
   }
@@ -48,7 +46,7 @@ export class MapModel {
   canGoDown(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x, pos.y + 1));
     if (this.controlMapBound(new Vec(pos.x, pos.y + 1)) && cell) {
-      return cell.isWalkable;
+      return cell.isWalkable && !this.isNPCTile(pos);
     }
     return false;
   }
@@ -56,6 +54,12 @@ export class MapModel {
   isItemTile(pos: Vec) {
     return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction >= 80;
   }
+
+  isNPCTile(pos: Vec) {
+    let specFunc = this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction;
+    return specFunc >= 50 && specFunc <= 80;
+  }
+
   getItem(pos: Vec) {
     let item = this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction;
     this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction = 0;
