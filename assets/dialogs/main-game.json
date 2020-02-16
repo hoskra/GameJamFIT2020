@@ -77,7 +77,7 @@
     ],
     "bad_kids_mage": [
         {
-            "NPC": "Nepamatuju si, že bychom se na něčem domluvili, ty prachy si vezmem. A ty s tím nic neuděláš"
+            "NPC": "Nepamatuju si, že bychom se na něčem domluvili, ty prachy si vezmu. A ty s tím nic neuděláš"
         }
     ],
     "dyno" : [
@@ -120,7 +120,7 @@
             "hero": "Nepřipojím a ty bys to taky neměl dělat."
         },
         {
-            "NPC": "Víš ty co? Já ten klíč někde ztratil, nic ode mě nedostaneš?"
+            "NPC": "Víš ty co? Já ten klíč někde ztratil, nic ode mě nedostaneš!"
         }
     ]
   }
