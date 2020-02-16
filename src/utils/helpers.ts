@@ -56,7 +56,7 @@ export const getDirection = (pos1: Vec, pos2: Vec) => {
 
 export const isAlmostAtCell = (realPos: Vec, cellPos: Vec) => {
   let realCellPos = cellPos.multiply(BLOCK_SIZE);
-  return realCellPos.squareDistance(realPos) <= 5; // 5 is threshold
+  return realCellPos.squareDistance(realPos) <= 8; // 5 is threshold
 };
 
 export const alignToCell = (obj: GameObjectModel, cellPos: Vec) => {
