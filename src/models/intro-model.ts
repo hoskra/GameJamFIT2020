@@ -58,7 +58,6 @@ export default class IntroModel extends GameObjectModel {
     this.introState = IntroState.DIALOG_INTRO;
     this.introDialogManager.displayText('Hra začíná...', () => {
       this.introDialogManager.displayText('TODO tady bude nějaký krátký úvod...', () => {
-        console.log('FF');
         this.introDialogManager.displayText('A tady by mohl být nějaký další úvod', () => {
           this.introDialogManager.displayText('A tady by mohl být ještě nějaký úvod', () => {
             this.onDialogFinished(CardSceneName);
