@@ -8,26 +8,22 @@ import { ComplexDialog } from '../models/complex-dialog';
 import { Assets } from '../constants';
 import { DialogManager } from '../models/dialog-manager';
 import { CardSceneName } from './scenestates/scene-names';
+import { KeyController } from '../controllers/key-controller';
 
 class MortuaryScene extends BaseScene {
-  gameModel: GameModel;
-  gameController: GameController;
   manager: DialogManager;
+  keyController: KeyController;
 
   constructor(app: PIXI.Application, gameModel: GameModel, gameController: GameController, afterTransitionCallback: (nextScene: string) => void) {
     super(app, gameModel, gameController, afterTransitionCallback);
-
-    this.gameController = new GameController();
-    this.gameModel = new GameModel();
-    this.gameModel.init(this.app, this.mapParser.loadMap(this.resources['MAP'].data), this.gameController, false);
-    this.gameController.init(this.gameModel);
-    this.manager = new DialogManager(this.gameModel, this.gameController);
+    this.keyController = new KeyController();
+    this.keyController.init();
+    this.manager = new DialogManager(app.screen.width, app.screen.height, app.stage, this.keyController);
   }
 
   init() {
     let dialogJSON = PIXI.Loader.shared.resources[Assets.MORTUARYSCENEDIALOG].data;
     let complexDialog = new ComplexDialog(dialogJSON.marnice_intro);
-    console.log(complexDialog);
 
     this.manager.displayComplexDialog(complexDialog, () => {
       this.afterTransitionCallback(CardSceneName);
@@ -35,8 +31,6 @@ class MortuaryScene extends BaseScene {
   }
 
   update(delta: number, absolute: number) {
-    this.gameModel.update(delta, absolute);
-    this.gameController.update(delta, absolute);
     this.manager.update(delta, absolute);;
   }
 }

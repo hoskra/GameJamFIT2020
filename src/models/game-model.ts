@@ -58,7 +58,7 @@ export default class GameModel {
     if(!initScene) {
       this.root.removeChild(this.hero.pixiObj);
     }
-    this.dialogManager = new DialogManager(this, this.gameController);
+    this.dialogManager = new DialogManager(this.screenWidth, this.screenHeight, this.stage, this.gameController.keyController);
 
     this.sideBarModel = new SidebarModel(this);
     this.sideBarModel.init();

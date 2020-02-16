@@ -8,21 +8,27 @@ export class ChoiceModel extends GameObjectModel {
   choiceYes: PIXI.Text;
   choiceNo: PIXI.Text;
   currentChoiceYes: boolean = true;
+  screenWidth: number;
+  screenHeight: number;
+  stage: PIXI.Container;
 
-  constructor(gameModel: GameModel) {
-    super(gameModel);
+  constructor(screenWidth: number, screenHeight: number, stage: PIXI.Container) {
+    super(null);
+    this.screenWidth = screenWidth;
+    this.screenHeight = screenHeight;
+    this.stage = stage;
   }
 
   init() {
     let texture = PIXI.Texture.from(Assets.DIALOG_HERO);
     texture = texture.clone();
     let sprite = new PIXI.NineSlicePlane(texture, 60, 60, 60, 60);
-    sprite.position.set(this.gameModel.screenWidth / 2, this.gameModel.screenHeight/2);
+    sprite.position.set(this.screenWidth / 2, this.screenHeight/2);
     sprite.pivot.y = DIALOG_SIZE * 2;
     sprite.pivot.x = 0;
-    this.gameModel.stage.addChild(sprite);
+    this.stage.addChild(sprite);
     this.pixiObj = sprite;
-    sprite.width = this.gameModel.screenWidth / 2;
+    sprite.width = this.screenWidth / 2;
     sprite.height = DIALOG_SIZE * 2;
 
     this.choiceYes = new PIXI.Text('ANO', new PIXI.TextStyle({ fontFamily: 'monospace', fontSize: 100 , align: 'left' }));

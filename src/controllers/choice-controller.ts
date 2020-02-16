@@ -1,14 +1,14 @@
 import { GameController } from './game-controller';
-import { Keys } from './key-controller';
+import { Keys, KeyController } from './key-controller';
 import { ChoiceModel } from '../models/choice-model';
 
 export class ChoiceController {
-  private gameController: GameController;
+  private keyController: KeyController;
   choiceModel: ChoiceModel;
   onChoiceFinish: (answer: boolean) => void;
 
-  constructor(gameController: GameController) {
-    this.gameController = gameController;
+  constructor(keyController: KeyController) {
+    this.keyController = keyController;
   }
 
   update(delta: number, absolute: number) {
@@ -16,13 +16,13 @@ export class ChoiceController {
       return;
     }
 
-    if(this.gameController.isKeyPressed(Keys.KEY_LEFT)) {
+    if(this.keyController.isKeyPressed(Keys.KEY_LEFT)) {
       this.choiceModel.selectChoice(true);
     }
-    if(this.gameController.isKeyPressed(Keys.KEY_RIGHT)) {
+    if(this.keyController.isKeyPressed(Keys.KEY_RIGHT)) {
       this.choiceModel.selectChoice(false);
     }
-    if(this.gameController.isKeyPressed(Keys.KEY_SPACE)) {
+    if(this.keyController.isKeyPressed(Keys.KEY_SPACE)) {
       this.choiceModel.hide();
       if(this.onChoiceFinish) {
         this.onChoiceFinish(this.choiceModel.currentChoiceYes);

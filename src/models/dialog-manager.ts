@@ -5,6 +5,7 @@ import { DialogController } from '../controllers/dialog-controller';
 import GameModel from './game-model';
 import { ChoiceModel } from './choice-model';
 import { ComplexDialog } from './complex-dialog';
+import { KeyController } from '../controllers/key-controller';
 
 
 export class DialogManager {
@@ -13,18 +14,15 @@ export class DialogManager {
   choiceModel: ChoiceModel;
   choiceController: ChoiceController;
 
-  gameModel: GameModel;
-
-  constructor(model: GameModel, gameController: GameController) {
-    this.gameModel = model;
-    this.dialogController = new DialogController(gameController.keyController);
-    this.dialogModel = new DialogModel(this.gameModel.screenWidth, this.gameModel.screenHeight, this.gameModel.stage);
+  constructor(screenWidth: number, screenHeight: number, stage: PIXI.Container, keyController: KeyController) {
+    this.dialogController = new DialogController(keyController);
+    this.dialogModel = new DialogModel(screenWidth, screenHeight, stage);
     this.dialogController.dialogModel = this.dialogModel;
     this.dialogModel.init();
     this.dialogModel.hide();
 
-    this.choiceController = new ChoiceController(gameController);
-    this.choiceModel = new ChoiceModel(this.gameModel);
+    this.choiceController = new ChoiceController(keyController);
+    this.choiceModel = new ChoiceModel(screenWidth, screenHeight, stage);
     this.choiceController.choiceModel = this.choiceModel;
     this.choiceModel.init();
     this.choiceModel.hide();
