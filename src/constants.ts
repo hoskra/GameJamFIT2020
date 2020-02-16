@@ -15,11 +15,13 @@ export enum Assets {
   TEXTURES = 'TEXTURES',
   MAP = 'MAP',
   HERO = 'HERO',
-  DIALOG = 'DIALOG',
+  DIALOG_HERO = 'DIALOG_HERO',
+  DIALOG_NPC = 'DIALOG_NPC',
   FONT = 'FONT',
   INTRO = 'INTRO',
   BEER = 'BEER',
-  DIALOG_NEXT = 'DIALOG_NEXT'
+  DIALOG_NEXT = 'DIALOG_NEXT',
+  DIALOGS = 'DIALOGS',
 }
 
 export enum Items {

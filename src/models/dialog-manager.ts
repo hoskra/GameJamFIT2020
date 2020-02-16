@@ -4,6 +4,7 @@ import { DialogModel } from './dialog-model';
 import { DialogController } from '../controllers/dialog-controller';
 import GameModel from './game-model';
 import { ChoiceModel } from './choice-model';
+import { ComplexDialog } from './complex-dialog';
 
 
 export class DialogManager {
@@ -37,8 +38,20 @@ export class DialogManager {
     return !this.choiceModel.isHidden;
   }
 
-  displayText(text: string, onComplete: () => void) {
-    this.dialogModel.showText(text);
+  displayComplexDialog(dialog: ComplexDialog, onComplete: () => void) {
+      this.displayText(dialog.getNextNPC(), () => {
+        this.displayText(dialog.getNextHero(), () => {
+          if(dialog.hasNext()) {
+            this.displayComplexDialog(dialog, onComplete);
+          } else {
+            onComplete();
+          }
+        }, false);
+      }, true);
+  }
+
+  displayText(text: string, onComplete: () => void, isNPC: boolean) {
+    this.dialogModel.showText(text, isNPC);
     this.dialogController.onDialogFinish = onComplete;
   }
 

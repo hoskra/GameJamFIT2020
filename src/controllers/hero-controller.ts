@@ -2,6 +2,9 @@ import { GameController } from './game-controller';
 import { HeroModel, HeroState } from '../models/hero-model';
 import { MapModel } from '../models/map-model';
 import { Keys } from './key-controller';
+import { Assets } from '../constants';
+import { ComplexDialog } from '../models/complex-dialog';
+import * as PIXI from 'pixi.js';
 
 export class HeroController {
   private gameController: GameController;
@@ -37,11 +40,16 @@ export class HeroController {
       }
 
       if(this.gameController.isKeyPressed(Keys.KEY_S)) {
-        this.gameController.gameModel.dialogManager.displayText('Tož to nestíháš. Mám pravdu?', () => {
+        let dialogJSON = PIXI.Loader.shared.resources[Assets.DIALOGS].data;
+        let complexDialog = new ComplexDialog(dialogJSON.dialog_example);
+        this.gameController.gameModel.dialogManager.displayComplexDialog(complexDialog, () => {
+
+        });
+     /*   this.gameController.gameModel.dialogManager.displayText('Tož to nestíháš. Mám pravdu?', () => {
           this.gameController.gameModel.dialogManager.displayChoice((yes) => {
 
           });
-        });
+        });*/
       }
       // testing purpose
       if (this.gameController.isKeyPressed(Keys.KEY_Q)) {

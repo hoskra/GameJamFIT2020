@@ -23,6 +23,10 @@ export class DialogModel extends GameObjectModel {
   screenHeight: number;
   stage: PIXI.Container;
   nextIcon: PIXI.Sprite;
+
+  textureHero: PIXI.Texture;
+  textureNPC: PIXI.Texture;
+
   constructor(screenWidth: number, screenHeight: number, stage: PIXI.Container) {
     super(null);
     this.screenWidth = screenWidth;
@@ -32,9 +36,9 @@ export class DialogModel extends GameObjectModel {
 
   init() {
     this.state = DialogState.ANIMATING;
-    let texture = PIXI.Texture.from(Assets.DIALOG);
-    texture = texture.clone();
-    let sprite = new PIXI.NineSlicePlane(texture, 60, 60, 60, 60);
+    this.textureNPC = PIXI.Texture.from(Assets.DIALOG_NPC);
+    this.textureHero = PIXI.Texture.from(Assets.DIALOG_HERO);
+    let sprite = new PIXI.NineSlicePlane(this.textureNPC, 60, 60, 60, 60);
     sprite.position.set(0, this.screenHeight);
     sprite.pivot.y = DIALOG_SIZE;
     this.stage.addChild(sprite);
@@ -45,7 +49,7 @@ export class DialogModel extends GameObjectModel {
     this.textObj = new PIXI.Text('', new PIXI.TextStyle({ fontFamily: 'monospace', fontSize: FONT_SIZE , align: 'left' }));
     this.textObj.position.set(FONT_DIALOG_OFFSET_X, FONT_DIALOG_OFFSET_Y);
 
-    texture = PIXI.Texture.from(Assets.DIALOG_NEXT);
+    let texture = PIXI.Texture.from(Assets.DIALOG_NEXT);
     this.nextIcon = new PIXI.Sprite(texture);
     this.nextIcon.position.set(sprite.width, sprite.height);
     this.nextIcon.anchor.set(2, 1.5);
@@ -56,7 +60,12 @@ export class DialogModel extends GameObjectModel {
 
   }
 
-  showText(text: string) {
+  showText(text: string, isNPC: boolean) {
+    if(isNPC) {
+      (this.pixiObj as PIXI.Sprite).texture = this.textureNPC;
+    } else {
+      (this.pixiObj as PIXI.Sprite).texture = this.textureHero;
+    }
     this.pixiObj.visible = true;
     this.state = DialogState.ANIMATING;
     this.fullText = helpers.wrapDialogText(text, FONT_SIZE, this.pixiObj.width);

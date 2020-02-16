@@ -14,7 +14,7 @@ export class ChoiceModel extends GameObjectModel {
   }
 
   init() {
-    let texture = PIXI.Texture.from(Assets.DIALOG);
+    let texture = PIXI.Texture.from(Assets.DIALOG_HERO);
     texture = texture.clone();
     let sprite = new PIXI.NineSlicePlane(texture, 60, 60, 60, 60);
     sprite.position.set(this.gameModel.screenWidth / 2, this.gameModel.screenHeight/2);
