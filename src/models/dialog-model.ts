@@ -70,7 +70,6 @@ export class DialogModel extends GameObjectModel {
     this.state = DialogState.ANIMATING;
     this.fullText = helpers.wrapDialogText(text, FONT_SIZE, this.pixiObj.width);
     this.rowsNum = this.fullText.split('\n').length;
-    console.log('rows num ' + this.rowsNum);
     this.currentRow = 0;
     this.displayedText = '';
     this.initFramedText();

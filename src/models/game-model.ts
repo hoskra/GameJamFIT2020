@@ -11,6 +11,7 @@ import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
 import ItemManager from './items/item-manager';
 import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
+import { SidebarModel } from './sidebar-model';
 
 export default class GameModel {
   gameMap: MapModel;
@@ -23,6 +24,10 @@ export default class GameModel {
   dialogManager: DialogManager;
   itemManager: ItemManager;
   glitchState: GlitchState;
+  sideBarModel: SidebarModel;
+
+  isDay: boolean = null;
+  dayTime: number = 0;
 
   items: Map<Vec, PIXI.Sprite> = new Map();
 
@@ -47,6 +52,9 @@ export default class GameModel {
     this.hero = new HeroModel(this);
     this.hero.init();
     this.dialogManager = new DialogManager(this, this.gameController);
+
+    this.sideBarModel = new SidebarModel(this);
+    this.sideBarModel.init();
   }
 
   get isPaused() {
@@ -79,9 +87,6 @@ export default class GameModel {
     texture = texture.clone();
     let sprite = new PIXI.Sprite(texture);
     let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
-    if(texturePos.y === 29) {
-      console.log(texturePos, cell.defaultTexture, TEXTURE_COLUMNS);
-    }
     sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
     this.root.addChild(sprite);
@@ -89,8 +94,20 @@ export default class GameModel {
   }
 
   update(delta: number, absolute: number) {
+
+    if(this.isDay === null) {
+      this.isDay = true;
+      this.dayTime = absolute + 60 * 1000;
+    } else {
+      if(this.dayTime <= absolute) {
+        this.dayTime = absolute + 60 * 1000;
+        this.isDay = !this.isDay;
+      }
+    }
+
     this.hero.update(delta, absolute);
     this.dialogManager.update(delta, absolute);
+    this.sideBarModel.update(delta, absolute);
   }
 
   switchGlitchFilter() {
