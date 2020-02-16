@@ -2,13 +2,13 @@
     "general": [
         {
             "NPC": "Už ti nemám co víc říct.",
-            "npc": "Tak dobrá."
+            "hero": "Tak dobrá."
         }
     ],
     "oracle": [
       {
         "NPC": "Almužničku potřebné osobě... nech si vyložit svůj život...",
-        "npc": "Zní jako zábava."
+        "hero": "Zní jako zábava."
       }
     ],
     "oracle_mag_war": [

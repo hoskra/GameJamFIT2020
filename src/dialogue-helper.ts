@@ -23,6 +23,7 @@ class DialogueHelper {
     }
     getDialogueForOracle(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES];
+        // zatim se nenastavuje
         if (gameModel.oracleSatisfied) {
             return new ComplexDialog(dialogMage.data.general);
         }
