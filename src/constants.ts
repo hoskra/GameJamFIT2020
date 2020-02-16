@@ -25,13 +25,21 @@ export enum Assets {
 }
 
 export enum Items {
-  SWORD = 80
+  BEER = 80,
+  CAN = 81,
+  COINS = 82,
+  DINO = 83,
+  EMPTY_BOX = 84,
+  FLOPPY_DISK = 85,
+  NOTE = 86,
+  PIZZA = 87,
+  WEED = 88
 }
 export const itemEnumConv = (item: number) => {
   console.log(item);
   console.log(Items[item]);
   return Items[item];
-}
+};
 
 export enum Direction {
   LEFT,

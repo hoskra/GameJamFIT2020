@@ -14,7 +14,6 @@ class SceneManager {
 
     initFirst(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
         this.state = new IntroSceneState();
-        //this.state = new FirstSceneState();
         this.state.init(app, afterTransitionCallback);
         this.state.scene.init(this.gameModel);
     }

@@ -12,20 +12,45 @@ export class MapModel {
     return this.rawMap.getCell(pos);
   }
 
+  controlMapBound(pos: Vec) {
+    if (pos.x >= 0 && pos.y >= 0 && pos.x < this.rawMap.columns && pos.y < this.rawMap.rows) {
+      return true;
+    }
+    return false;
+  }
+
   canGoLeft(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x - 1, pos.y)).isWalkable;
+    console.log(pos);
+    let cell = this.rawMap.getCell(new Vec(pos.x - 1, pos.y));
+    console.log(cell);
+    if (this.controlMapBound(new Vec(pos.x - 1, pos.y)) && cell) {
+      return cell.isWalkable;
+    }
+    return false;
   }
 
   canGoRight(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x + 1, pos.y)).isWalkable;
+    let cell = this.rawMap.getCell(new Vec(pos.x + 1, pos.y));
+    if (this.controlMapBound(new Vec(pos.x + 1, pos.y)) && cell) {
+      return cell.isWalkable;
+    }
+    return false;
   }
 
   canGoUp(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x, pos.y - 1)).isWalkable;
+    let cell = this.rawMap.getCell(new Vec(pos.x, pos.y - 1));
+    if (this.controlMapBound(new Vec(pos.x, pos.y - 1)) && cell) {
+      return cell.isWalkable;
+    }
+    return false;
   }
 
   canGoDown(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x, pos.y + 1)).isWalkable;
+    let cell = this.rawMap.getCell(new Vec(pos.x, pos.y + 1));
+    if (this.controlMapBound(new Vec(pos.x, pos.y + 1)) && cell) {
+      return cell.isWalkable;
+    }
+    return false;
   }
 
   isItemTile(pos: Vec) {
