@@ -45,10 +45,10 @@ abstract class Parser {
 
     // parse each letter of each line
     for (let word of words) {
-      if(this.parseWord(word)) {
+      if (this.parseWord(word)) {
         parsedWords++;
       } else if (word !== ' ' && word !== '') { // ignore whitespaces
-        throw new Error(`Unexpected token ${word} on line ${linenum}:${parsedWords+1}`);
+        throw new Error(`Unexpected token ${word} on line ${linenum}:${parsedWords + 1}`);
       }
     }
 
@@ -65,8 +65,8 @@ abstract class Parser {
 
   public finalize(output: RawMap) {
     // check the size
-    if((output.columns && output.columns !== this.columns)
-    || (output.rows && output.rows !== this.rows)) {
+    if ((output.columns && output.columns !== this.columns)
+      || (output.rows && output.rows !== this.rows)) {
       throw new Error(`Error while parsing paths, unexpected size of the map: expected ${this.columns}x${this.rows}, found ${output.columns}x${output.rows}`);
     }
 
@@ -75,8 +75,8 @@ abstract class Parser {
 
     // init maptiles
     let allBlocks = this.columns * this.rows;
-    for(let i =0; i< allBlocks; i++) {
-      if(!output.cells.has(i)) {
+    for (let i = 0; i < allBlocks; i++) {
+      if (!output.cells.has(i)) {
         output.cells.set(i, new RawMapTile());
         output.cells.get(i).pos = new Vec(i % this.columns, Math.floor(i / this.columns));
       }
@@ -104,16 +104,16 @@ class PathParser extends Parser {
 
     let mapBlocks = this.columns * this.rows;
 
-    for(let i =0; i < mapBlocks; i++) {
-      switch(this.tokens[i]) {
+    for (let i = 0; i < mapBlocks; i++) {
+      switch (this.tokens[i]) {
         case '00':
-            output.cells.get(i).walkableCode = 0;
-            break;
+          output.cells.get(i).walkableCode = 0;
+          break;
         case 'xx':
-            output.cells.get(i).walkableCode = 1;
-            break;
-          default:
-            throw new Error('Unknown token: ' + this.tokens[i]);
+          output.cells.get(i).walkableCode = 1;
+          break;
+        default:
+          throw new Error('Unknown token: ' + this.tokens[i]);
       }
     }
   }
@@ -137,7 +137,7 @@ class TexturesParser extends Parser {
 
     let mapBlocks = this.columns * this.rows;
 
-    for(let i =0; i < mapBlocks; i++) {
+    for (let i = 0; i < mapBlocks; i++) {
       output.cells.get(i).defaultTexture = this.tokens[i];
     }
   }
@@ -161,7 +161,7 @@ class FunctionsParser extends Parser {
 
     let mapBlocks = this.columns * this.rows;
 
-    for(let i =0; i<mapBlocks; i++) {
+    for (let i = 0; i < mapBlocks; i++) {
       output.cells.get(i).specialFunction = this.tokens[i];
     }
   }
@@ -201,11 +201,11 @@ export class MapParser {
 
       let mode = this.checkModeLabel(linetr, currentMode);
 
-      if(mode !== currentMode) {
+      if (mode !== currentMode) {
         // new label detected -> switch to appropriate parser
         currentMode = mode;
         let newParser = this.parsers[currentMode];
-        if(this.currentParser) {
+        if (this.currentParser) {
           // finalize the previous parser before we move to the next one
           this.currentParser.finalize(output);
         }
@@ -213,12 +213,12 @@ export class MapParser {
         return; // go to the next line
       }
 
-      if(mode !== ParserMode.UNDEFINED) {
+      if (mode !== ParserMode.UNDEFINED) {
         this.currentParser.parseLine(linetr, lineCounter);
       }
     });
 
-    if(!this.currentParser) {
+    if (!this.currentParser) {
       throw new Error('Error while parsing the map. No valid data found.');
     }
 
