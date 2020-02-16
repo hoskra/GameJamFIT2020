@@ -52,16 +52,28 @@ export class MapModel {
   }
 
   isItemTile(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction >= 80 && this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction < 90;
+    try {
+      return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction >= 80 && this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction < 90;
+    } catch (err) {
+      return false;
+    }
   }
 
   isTreasureTile(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction === 90;
+    try {
+      return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction === 90;
+    } catch (err) {
+      return false;
+    }
   }
 
   isNPCTile(pos: Vec) {
-    let specFunc = this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction;
-    return specFunc >= 50 && specFunc <= 80;
+    try {
+      let specFunc = this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction;
+      return specFunc >= 50 && specFunc <= 80;
+    } catch (err) {
+      return false;
+    }
   }
 
   getItem(pos: Vec) {
