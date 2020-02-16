@@ -64,6 +64,8 @@ class Game extends PIXI.Application {
     .add(Assets.MAIN_WINDOW_DIALOGUES, './assets/dialogs/main-game.json')
     .add(Assets.MAP_CARDMASTER, './assets/map_cardmaster.txt')
     .add(Assets.SELECT_TITLE, './assets/select_title.png')
+    .add(Assets.ICON_DAY, './assets/day.png')
+    .add(Assets.ICON_NIGHT, './assets/night.png')
     .load(() => this.startGame());
 
     this.ticker = this.ticker;

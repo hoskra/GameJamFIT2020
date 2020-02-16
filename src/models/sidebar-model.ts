@@ -1,11 +1,13 @@
 import { GameObjectModel } from './game-object-model';
 import GameModel from './game-model';
 import * as PIXI from 'pixi.js';
+import { Assets } from '../constants';
 
 export class SidebarModel extends GameObjectModel {
 
   valueText: PIXI.Text;
   timeout: PIXI.Text;
+  icon: PIXI.Sprite;
 
   constructor(gameModel: GameModel) {
     super(gameModel);
@@ -18,6 +20,14 @@ export class SidebarModel extends GameObjectModel {
     layout.position.set(this.gameModel.screenWidth * 0.75, 0);
     layout.drawRect(0,0, this.gameModel.screenWidth * 0.25, this.gameModel.screenHeight * 0.5);
     layout.endFill();
+
+    let texture: PIXI.Texture;
+    texture = PIXI.Texture.from(Assets.ICON_DAY);
+    this.icon = new PIXI.Sprite(texture);
+    this.icon.position.set(this.gameModel.screenWidth * 0.25 * 0.5, 80);
+    this.icon.anchor.set(0.5);
+    layout.addChild(this.icon);
+
 
     let infoText = new PIXI.Text('Mince\nMateriál\nTokeny', new PIXI.TextStyle({ fontFamily: 'monospace', fill: 0xFFFFFF, fontSize: 50 , align: 'left' }));
     infoText.position.set(20, 300);
@@ -45,8 +55,10 @@ export class SidebarModel extends GameObjectModel {
     this.valueText.text = coins + '\n' + material + '\n' + tokens;
 
     if(this.gameModel.isDay) {
+      this.icon = new PIXI.Sprite(PIXI.Texture.from(Assets.ICON_DAY));
       this.timeout.text = 'Den končí za ' + Math.floor((this.gameModel.dayTime - absolute)/1000) + 's';
     } else {
+      this.icon = new PIXI.Sprite(PIXI.Texture.from(Assets.ICON_NIGHT));
       this.timeout.text = 'Noc končí za ' + Math.floor((this.gameModel.dayTime - absolute)/1000) + 's';
     }
   }

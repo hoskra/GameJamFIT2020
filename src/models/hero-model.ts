@@ -29,7 +29,6 @@ export class HeroModel extends GameObjectModel {
 
     switch(this.gameModel.heroType) {
       case HeroType.MAGE:
-        console.log('MAGE');
         texture = PIXI.Texture.from(Assets.HERO_MAGE);
       break;
         case HeroType.ROGUE:
