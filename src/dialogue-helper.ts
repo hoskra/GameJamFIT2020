@@ -12,8 +12,6 @@ class DialogueHelper {
                 return this.getDialogueForSysAdmin(gameModel);
             case NPC_ECOLOGIST:
                 return this.getDialogueForEko(gameModel);
-            case NPC_TERREX:
-                return this.getDialogueForDyno(gameModel);
             case NPC_THIEF:
                 return this.getDialogueForBadKids(gameModel);
             case NPC_JUNKIE:
