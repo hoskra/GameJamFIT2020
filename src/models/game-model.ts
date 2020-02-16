@@ -51,7 +51,7 @@ export default class GameModel {
   dayTime: number = 0;
 
   oracleSatisfied: boolean = false;
-  homelessSatisfied: boolean = false;
+  junkieSatisfied: boolean = false;
   ekoSatisfied: boolean = false;
   sysAdminSatisfied: boolean = false;
   dynoSatisfied: boolean = false;
