@@ -16,18 +16,19 @@ import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
 import { vectorToMapCell } from '../utils/helpers';
 import DialogueHelper from '../dialogue-helper';
-import { FirstSceneName } from '../scenes/scenestates/scene-names';
+import { FirstSceneName, CastleSceneName } from '../scenes/scenestates/scene-names';
 
 export enum MapType {
   CARDMASTER,
   MAIN_MAP,
+  CASTLE,
   DREAM_MAP
 }
 
 export enum HeroType {
-  MAGE,
-  WARRIOR,
-  ROGUE
+  MAGE = 2,
+  WARRIOR = 0,
+  ROGUE = 1
 }
 export default class GameModel {
   gameMap: MapModel;
@@ -42,6 +43,7 @@ export default class GameModel {
   itemManager: ItemManager;
   glitchState: GlitchState;
   nightFilter: NightState;
+  keys: number;
   sideBarModel: SidebarModel;
   NPCManager: NPCManager;
   dialogueHelper: DialogueHelper;
@@ -77,6 +79,7 @@ export default class GameModel {
     this.stage = app.stage;
     this.root = new PIXI.Container;
     this.stage.addChild(this.root);
+    this.keys = 0;
     this.root.scale.set(SCALE_X, SCALE_Y);
 
     this.gameMap = new MapModel(rawMap);
@@ -89,7 +92,7 @@ export default class GameModel {
     }
     this.dialogManager = new DialogManager(this.screenWidth, this.screenHeight, this.stage, this.gameController.keyController);
 
-    if(mapType !== MapType.CARDMASTER) {
+    if(mapType !== MapType.CARDMASTER && mapType !== MapType.CASTLE) {
       this.sideBarModel = new SidebarModel(this);
       this.sideBarModel.init();
     }
@@ -119,6 +122,10 @@ export default class GameModel {
       npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 11, BLOCK_SIZE, BLOCK_SIZE);
     }
 
+    if(npc.type === 54) {
+      return;
+    }
+
     let text = this.dialogueHelper.getDialogueSequence(npc.type, this.gameController.gameModel);
     this.dialogManager.displayComplexDialog(text,() => {
 
@@ -143,6 +150,12 @@ export default class GameModel {
         case NPC_SYSADMIN:
           this.sysAdminSatisfied = true;
           break;
+      }
+
+      if(this.keys === 3) {
+        this.dialogManager.displayText('Tak jo, tady je ten Tvůj poklad, Tvá postava žije šťastně. Pro tebe to nekončí, můžeš prožít tento svět znovu za jinou postavu a vidět vše z jiného úhlu. Až odejdeš od počítače, budeš pokračovat za sebe ve svém životě, který ale funguje jinak. V reálném světě není magický poklad, konstantní stav blaženosti. Jsi odsouzen k nepřetřžitému opakovanému hledání štěstí a další životy nemáš. Carpe diem', () => {
+          this.afterTransitionCallback(CastleSceneName);
+        }, false);
       }
     } );
   }
@@ -175,6 +188,10 @@ export default class GameModel {
         textureColumns = 40;
         mapTexture = Assets.TEXTURES;
       break;
+      case MapType.CASTLE:
+          textureColumns = 40;
+        mapTexture = Assets.CASTLE_MAP_TEXTURE;
+        break;
       case MapType.CARDMASTER:
           textureColumns = 11;
         mapTexture = Assets.MAP_CARDMASTER_TEXTURE;

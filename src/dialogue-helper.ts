@@ -5,6 +5,7 @@ import * as PIXI from 'pixi.js';
 
 class DialogueHelper {
     getDialogueSequence(npcType: number, gameModel: GameModel) {
+        console.log('get dial seq', npcType);
         switch (npcType) {
             case NPC_CARDMASTER:
                 return this.getDialogueForOracle(gameModel);
@@ -45,12 +46,13 @@ class DialogueHelper {
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.FLOPPY_DISK) >= 5) {
+            gameModel.keys++;
             switch (gameModel.heroType) {
-                case 0:
+                case 2:
                     return new ComplexDialog(dialogMage.sys_admin_mage);
                 case 1:
                     return new ComplexDialog(dialogMage.sys_admin_rogue);
-                case 2:
+                case 0:
                     return new ComplexDialog(dialogMage.sys_admin_warrior);
             }
         }
@@ -64,11 +66,11 @@ class DialogueHelper {
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.NOTE) >= 5) {
             switch (gameModel.heroType) {
-                case 0:
+                case 2:
                     return new ComplexDialog(dialogMage.dyno_mage_rogue);
                 case 1:
                     return new ComplexDialog(dialogMage.dyno_mage_rogue);
-                case 2:
+                case 0:
                     return new ComplexDialog(dialogMage.dyno_war);
             }
         }
@@ -81,6 +83,7 @@ class DialogueHelper {
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.WEED) >= 5) {
+            gameModel.keys++;
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.weird_guy_war_mage);
@@ -99,12 +102,13 @@ class DialogueHelper {
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.COINS) >= 5) {
+            gameModel.keys++;
             switch (gameModel.heroType) {
-                case 0:
+                case 2:
                     return new ComplexDialog(dialogMage.bad_kids_mage);
                 case 1:
                     return new ComplexDialog(dialogMage.bad_kids_warrior_rogue);
-                case 2:
+                case 0:
                     return new ComplexDialog(dialogMage.bad_kids_warrior_rogue);
             }
         }
@@ -118,11 +122,11 @@ class DialogueHelper {
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.BEER) >= 5) {
             switch (gameModel.heroType) {
-                case 0:
-                    return new ComplexDialog(dialogMage.eko_mage);
-                case 1:
-                    return new ComplexDialog(dialogMage.eko_rogue_warrior);
                 case 2:
+                    return new ComplexDialog(dialogMage.eko_mage);
+                case 0:
+                    return new ComplexDialog(dialogMage.eko_rogue_warrior);
+                case 1:
                     return new ComplexDialog(dialogMage.eko_rogue_warrior);
             }
         }

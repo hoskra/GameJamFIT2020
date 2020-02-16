@@ -1,7 +1,7 @@
 import { GameObjectModel } from './game-object-model';
 import GameModel from './game-model';
 import * as PIXI from 'pixi.js';
-import { Assets } from '../constants';
+import { Assets, Items } from '../constants';
 
 export class SidebarModel extends GameObjectModel {
 
@@ -29,16 +29,16 @@ export class SidebarModel extends GameObjectModel {
     layout.addChild(this.icon);
 
 
-    let infoText = new PIXI.Text('Mince\nMateriál\nTokeny', new PIXI.TextStyle({ fontFamily: 'monospace', fill: 0xFFFFFF, fontSize: 50 , align: 'left' }));
-    infoText.position.set(20, 300);
+    let infoText = new PIXI.Text('Peníze\nDiskety\nMatroš\nKlíče', new PIXI.TextStyle({ fontFamily: 'monospace', fill: 0xFFFFFF, fontSize: 50 , align: 'left' }));
+    infoText.position.set(20, 250);
     layout.addChild(infoText);
 
-    this.valueText = new PIXI.Text('20\n60\n1/5', new PIXI.TextStyle({ fontFamily: 'monospace', fill: 0xFFFFFF, fontSize: 50 , align: 'right' }));
-    this.valueText.position.set(300, 300);
+    this.valueText = new PIXI.Text('0\n0\n0\n0/3', new PIXI.TextStyle({ fontFamily: 'monospace', fill: 0xFFFFFF, fontSize: 50 , align: 'right' }));
+    this.valueText.position.set(300, 250);
     layout.addChild(this.valueText);
 
     this.timeout = new PIXI.Text('', new PIXI.TextStyle({ fontFamily: 'monospace', fill: 0xFFFFFF, fontSize: 40 , align: 'right' }));
-    this.timeout.position.set(20, 100);
+    this.timeout.position.set(20, 130);
     layout.addChild(this.timeout);
 
     this.gameModel.stage.addChild(layout);
@@ -49,16 +49,16 @@ export class SidebarModel extends GameObjectModel {
   }
 
   update(delta: number, absolute: number) {
-    let coins = 20;
-    let material = 60;
-    let tokens = 1;
-    this.valueText.text = coins + '\n' + material + '\n' + tokens;
+    let coins = this.gameModel.itemManager.ownedItems.has(Items.COINS) ? this.gameModel.itemManager.ownedItems.get(Items.COINS) : 0;
+    let floppy = this.gameModel.itemManager.ownedItems.has(Items.FLOPPY_DISK) ? this.gameModel.itemManager.ownedItems.get(Items.FLOPPY_DISK) : 0;
+    let material = this.gameModel.itemManager.ownedItems.has(Items.WEED) ? this.gameModel.itemManager.ownedItems.get(Items.WEED) : 0;
+    this.valueText.text = coins + '\n' + floppy + '\n' +  material + '\n' + this.gameModel.keys + '/3';
 
     if(this.gameModel.isDay) {
-      this.icon = new PIXI.Sprite(PIXI.Texture.from(Assets.ICON_DAY));
+      this.icon.texture = (PIXI.Texture.from(Assets.ICON_DAY));
       this.timeout.text = 'Den končí za ' + Math.floor((this.gameModel.dayTime - absolute)/1000) + 's';
     } else {
-      this.icon = new PIXI.Sprite(PIXI.Texture.from(Assets.ICON_NIGHT));
+      this.icon.texture = (PIXI.Texture.from(Assets.ICON_NIGHT));
       this.timeout.text = 'Noc končí za ' + Math.floor((this.gameModel.dayTime - absolute)/1000) + 's';
     }
   }
