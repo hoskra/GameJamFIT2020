@@ -25,9 +25,9 @@ export enum MapType {
 }
 
 export enum HeroType {
-  MAGE,
-  WARRIOR,
-  ROGUE
+  MAGE = 2,
+  WARRIOR = 0,
+  ROGUE = 1
 }
 export default class GameModel {
   gameMap: MapModel;
@@ -42,6 +42,7 @@ export default class GameModel {
   itemManager: ItemManager;
   glitchState: GlitchState;
   nightFilter: NightState;
+  keys: number;
   sideBarModel: SidebarModel;
   NPCManager: NPCManager;
   dialogueHelper: DialogueHelper;
@@ -77,6 +78,7 @@ export default class GameModel {
     this.stage = app.stage;
     this.root = new PIXI.Container;
     this.stage.addChild(this.root);
+    this.keys = 0;
     this.root.scale.set(SCALE_X, SCALE_Y);
 
     this.gameMap = new MapModel(rawMap);
@@ -117,6 +119,10 @@ export default class GameModel {
     }
     if(pos.y === heroPos.y && pos.x === heroPos.x - 1) { // to left
       npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 11, BLOCK_SIZE, BLOCK_SIZE);
+    }
+
+    if(npc.type === 54) {
+      return;
     }
 
     let text = this.dialogueHelper.getDialogueSequence(npc.type, this.gameController.gameModel);

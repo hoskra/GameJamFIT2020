@@ -5,6 +5,7 @@ import * as PIXI from 'pixi.js';
 
 class DialogueHelper {
     getDialogueSequence(npcType: number, gameModel: GameModel) {
+        console.log('get dial seq', npcType);
         switch (npcType) {
             case NPC_CARDMASTER:
                 return this.getDialogueForOracle(gameModel);

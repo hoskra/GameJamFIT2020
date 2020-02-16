@@ -118,8 +118,8 @@ export const getItemAsset = (index: number) => {
 export const NPC_CARDMASTER = 50;
 export const NPC_THIEF= 51;
 export const NPC_SYSADMIN = 52;
-export const NPC_HOMELESS = 53;
-export const NPC_TERREX = 54;
+export const NPC_HOMELESS = 53; // gone
+export const NPC_TERREX = 54; // gone
 export const NPC_JUNKIE = 55;
 export const NPC_ECOLOGIST = 56;
 
