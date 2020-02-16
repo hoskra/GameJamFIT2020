@@ -22,13 +22,19 @@ export enum MapType {
   MAIN_MAP,
   DREAM_MAP
 }
+
+export enum HeroType {
+  MAGE,
+  WARRIOR,
+  ROGUE
+}
 export default class GameModel {
   gameMap: MapModel;
   gameController: GameController;
   stage: PIXI.Container;
   root: PIXI.Container;
   hero: HeroModel;
-  heroType: number;
+  heroType: HeroType;
   screenWidth: number;
   screenHeight: number;
   dialogManager: DialogManager;
@@ -44,6 +50,12 @@ export default class GameModel {
   isDay: boolean = null;
   dayTime: number = 0;
 
+  oracleSatisfied: boolean = false;
+  homelessSatisfied: boolean = false;
+  ekoSatisfied: boolean = false;
+  sysAdminSatisfied: boolean = false;
+  dynoSatisfied: boolean = false;
+  badKidsSatisfied: boolean = false;
 
   constructor() {
     this.glitchState = new GlitchState();
