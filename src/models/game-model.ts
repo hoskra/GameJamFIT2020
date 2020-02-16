@@ -12,6 +12,7 @@ import GlitchState from '../animators/glitch-state';
 import ItemManager from './items/item-manager';
 import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
 import { SidebarModel } from './sidebar-model';
+import NightState from '../animators/night-state';
 
 export default class GameModel {
   gameMap: MapModel;
@@ -24,6 +25,7 @@ export default class GameModel {
   dialogManager: DialogManager;
   itemManager: ItemManager;
   glitchState: GlitchState;
+  nightFilter: NightState;
   sideBarModel: SidebarModel;
 
   isDay: boolean = null;
@@ -34,6 +36,7 @@ export default class GameModel {
 
   constructor() {
     this.glitchState = new GlitchState();
+    this.nightFilter = new NightState();
     this.itemManager = new ItemManager();
   }
 
@@ -97,11 +100,17 @@ export default class GameModel {
 
     if(this.isDay === null) {
       this.isDay = true;
-      this.dayTime = absolute + 60 * 1000;
+      this.dayTime = absolute + 10 * 1000;
     } else {
       if(this.dayTime <= absolute) {
-        this.dayTime = absolute + 60 * 1000;
+        this.dayTime = absolute + 10 * 1000;
         this.isDay = !this.isDay;
+
+        if(this.isDay) {
+          this.stage.filters = this.nightFilter.disable();
+        } else {
+          this.stage.filters = this.nightFilter.enable();
+        }
       }
     }
 

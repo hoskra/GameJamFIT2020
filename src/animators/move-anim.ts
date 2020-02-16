@@ -52,7 +52,7 @@ export class MoveAnim extends BaseAnimator {
           break;
       }
 
-      if(this.textureSwitchCounter++ %4 == 0) {
+      if(this.textureSwitchCounter++ % 3 == 0) {
         this.currentFrame = (this.currentFrame + 1) % 9;
         (this.object.pixiObj as PIXI.Sprite).texture.frame = new PIXI.Rectangle(this.currentFrame * BLOCK_SIZE, textureOffset * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
       }
