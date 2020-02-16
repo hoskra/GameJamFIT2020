@@ -22,7 +22,7 @@ export class DialogModel extends GameObjectModel {
   screenWidth: number;
   screenHeight: number;
   stage: PIXI.Container;
-
+  nextIcon: PIXI.Sprite;
   constructor(screenWidth: number, screenHeight: number, stage: PIXI.Container) {
     super(null);
     this.screenWidth = screenWidth;
@@ -44,6 +44,14 @@ export class DialogModel extends GameObjectModel {
 
     this.textObj = new PIXI.Text('', new PIXI.TextStyle({ fontFamily: 'monospace', fontSize: FONT_SIZE , align: 'left' }));
     this.textObj.position.set(FONT_DIALOG_OFFSET_X, FONT_DIALOG_OFFSET_Y);
+
+    texture = PIXI.Texture.from(Assets.DIALOG_NEXT);
+    this.nextIcon = new PIXI.Sprite(texture);
+    this.nextIcon.position.set(sprite.width, sprite.height);
+    this.nextIcon.anchor.set(2, 1.5);
+    this.nextIcon.visible = false;
+    sprite.addChild(this.nextIcon);
+
     sprite.addChild(this.textObj);
 
   }
@@ -77,6 +85,8 @@ export class DialogModel extends GameObjectModel {
     return !this.pixiObj.visible;
   }
 
+  flickerCounter = 0;
+
   update(delta: number, absolute: number) {
     if(!this.isHidden && this.state === DialogState.ANIMATING) {
       this.displayedText = this.framedText.substr(0, this.displayedText.length + 1);
@@ -89,6 +99,14 @@ export class DialogModel extends GameObjectModel {
           this.state = DialogState.FINISHED;
         }
       }
+    }
+
+    if(this.state === DialogState.WAITING_FOR_INPUT || this.state == DialogState.FINISHED) {
+      if(this.flickerCounter++ % 4 === 0) {
+        this.nextIcon.visible = !this.nextIcon.visible;
+      }
+    } else {
+      this.nextIcon.visible = false;
     }
   }
 

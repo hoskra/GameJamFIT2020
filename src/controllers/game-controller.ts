@@ -11,15 +11,15 @@ export class GameController {
   private cameraController: CameraController;
   private _gameModel: GameModel;
   keyController: KeyController;
-  constructor() {
 
+  constructor() {
+    this.keyController = new KeyController();
   }
 
   init(gameModel: GameModel) {
     this._gameModel = gameModel;
     this._gameModel.gameController = this;
     this.heroController = new HeroController(this);
-    this.keyController = new KeyController();
     this.cameraController = new CameraController(this);
     this.keyController.init();
   }
