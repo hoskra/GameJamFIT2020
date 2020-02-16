@@ -3,23 +3,29 @@ import BaseScene from "../scene-base";
 import CardSceneState from "./scenes/card-scene-state";
 import GameModel from "../../models/game-model";
 import IntroSceneState from './scenes/intro-scene-state';
+import { GameController } from "../../controllers/game-controller";
+import MortuaryScene from "../mortuary-scene";
 
 class SceneManager {
     state: BaseSceneState;
     gameModel: GameModel;
+    gameController: GameController;
 
     constructor() {
         this.gameModel = new GameModel();
+        this.gameController = new GameController();
     }
 
     initFirst(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
         this.state = new IntroSceneState();
-        this.state.init(app, afterTransitionCallback);
+
+        this.state.init(app, this.gameModel, this.gameController, afterTransitionCallback);
         this.state.scene.init(this.gameModel);
     }
     nextScene(sceneName: string, app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void): BaseScene {
+        console.log(sceneName);
         this.state = this.state.transition(sceneName);
-        this.state.init(app, afterTransitionCallback);
+        this.state.init(app, this.gameModel, this.gameController, afterTransitionCallback);
         this.state.scene.init(this.gameModel);
         return this.state.scene;
     }

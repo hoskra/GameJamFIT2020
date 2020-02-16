@@ -4,7 +4,8 @@ import { IntroController } from '../controllers/intro-controller';
 import { IntroDialogManager } from './intro-dialog-manager';
 import { Assets } from '../constants';
 import { GameObjectModel } from './game-object-model';
-import { CardSceneName } from '../scenes/scenestates/scene-names';
+import { CardSceneName, MortuarySceneName } from '../scenes/scenestates/scene-names';
+import { ComplexDialog } from './complex-dialog';
 
 export enum IntroState {
   TEXT_ANIM,
@@ -60,7 +61,7 @@ export default class IntroModel extends GameObjectModel {
       this.introDialogManager.displayText('TODO tady bude nějaký krátký úvod...', () => {
         this.introDialogManager.displayText('A tady by mohl být nějaký další úvod', () => {
           this.introDialogManager.displayText('A tady by mohl být ještě nějaký úvod', () => {
-            this.onDialogFinished(CardSceneName);
+            this.onDialogFinished(MortuarySceneName);
           });
         });
       });

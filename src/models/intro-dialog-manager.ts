@@ -25,7 +25,6 @@ export class IntroDialogManager {
     return !this.dialogModel.isHidden;
   }
 
-
   displayText(text: string, onComplete: () => void) {
     this.dialogModel.showText(text, true);
     this.dialogController.onDialogFinish = onComplete;

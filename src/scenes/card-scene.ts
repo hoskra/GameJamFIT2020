@@ -3,15 +3,16 @@ import BaseScene from "./scene-base";
 import { FirstSceneName } from "./scenestates/scene-names";
 import { Assets } from '../constants';
 import { KeyController, Keys } from '../controllers/key-controller';
+import GameModel from '../models/game-model';
+import { GameController } from '../controllers/game-controller';
 
 class CardScene extends BaseScene {
-    
     private currentCardIndex = 0;
     private rectangles: PIXI.Graphics[] = [];
     private keyController: KeyController;
 
-    constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
-        super(app, afterTransitionCallback);
+    constructor(app: PIXI.Application, gameModel: GameModel, gameController: GameController, afterTransitionCallback: (nextScene: string) => void) {
+        super(app, gameModel, gameController, afterTransitionCallback);
     }
 
     init() {

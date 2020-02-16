@@ -2,13 +2,15 @@ import * as PIXI from 'pixi.js';
 import BaseScene from "./scene-base";
 import IntroModel from '../models/intro-model';
 import { IntroController } from '../controllers/intro-controller';
+import { GameController } from '../controllers/game-controller';
+import GameModel from '../models/game-model';
 
 class IntroScene extends BaseScene {
   introModel: IntroModel;
   introController: IntroController;
 
-  constructor(app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void) {
-    super(app, afterTransitionCallback);
+  constructor(app: PIXI.Application, gameModel: GameModel, gameController: GameController, afterTransitionCallback: (nextScene: string) => void) {
+    super(app, gameModel, gameController, afterTransitionCallback);
   }
 
   init() {

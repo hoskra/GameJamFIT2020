@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 import BaseScene from "./scene-base";
 import GameModel from '../models/game-model';
 
-class FirstScene extends BaseScene {
+class GravediggerScene extends BaseScene {
     public sceneObjects: PIXI.DisplayObject[];
 
     constructor(app: PIXI.Application, gameModel: GameModel, gameController: GameController, afterTransitionCallback: (nextScene: string) => void) {
@@ -21,4 +21,4 @@ class FirstScene extends BaseScene {
     }
 }
 
-export default FirstScene;
+export default GravediggerScene;

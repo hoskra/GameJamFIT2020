@@ -42,6 +42,7 @@ class Game extends PIXI.Application {
     .add(Assets.INTRO, './assets/intro.jpg')
     .add(Assets.DIALOG_NEXT, './assets/dialog_next.png')
     .add(Assets.DIALOGS, './assets/dialog_sample.json')
+    .add(Assets.MORTUARYSCENEDIALOG, './assets/dialogs/mortuary.json')
     .add(Assets.NPC_CARDMASTER, './assets/characters/kartarka.png')
     .add(Assets.NPC_ECOLOGIST, './assets/characters/ekolog.png')
     .add(Assets.NPC_JUNKIE, './assets/characters/fetak.png')

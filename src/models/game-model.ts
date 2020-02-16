@@ -41,7 +41,7 @@ export default class GameModel {
     this.NPCManager = new NPCManager(this);
   }
 
-  init(app: PIXI.Application, rawMap: RawMap, gameController: GameController) {
+  init(app: PIXI.Application, rawMap: RawMap, gameController: GameController, initScene: boolean = true) {
     this.screenWidth = app.view.width;
     this.screenHeight = app.view.height;
     this.gameController = gameController;
@@ -52,9 +52,12 @@ export default class GameModel {
 
     this.gameMap = new MapModel(rawMap);
 
-    this.initScene();
+    this.initScene(initScene);
     this.hero = new HeroModel(this);
     this.hero.init();
+    if(!initScene) {
+      this.root.removeChild(this.hero.pixiObj);
+    }
     this.dialogManager = new DialogManager(this, this.gameController);
 
     this.sideBarModel = new SidebarModel(this);
@@ -65,14 +68,14 @@ export default class GameModel {
     return this.dialogManager.isDialogRunning || this.dialogManager.isChoiceRunning;
   }
 
-  initScene() {
+  initScene(render: boolean) {
     let map = this.gameMap.rawMap;
 
-    for(let i = 0; i< map.blocks; i++) {
+    for (let i = 0; i < map.blocks; i++) {
       let pos = helpers.mapCellToVector(i, map.columns);
       let cell = map.cells.get(i);
 
-      let sprite = this.drawTile(cell, pos);
+      let sprite = this.drawTile(cell, pos, render);
 
       if (cell.specialFunction >= 50 && cell.specialFunction < 80) {
         // NPC
@@ -85,14 +88,16 @@ export default class GameModel {
     }
   }
 
-  drawTile(cell: RawMapTile, pos: Vec): PIXI.Sprite {
+  drawTile(cell: RawMapTile, pos: Vec, render: boolean): PIXI.Sprite {
     let texture = PIXI.Texture.from(Assets.TEXTURES);
     texture = texture.clone();
     let sprite = new PIXI.Sprite(texture);
     let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
     sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
-    this.root.addChild(sprite);
+    if (render) {
+      this.root.addChild(sprite);
+    }
     return sprite;
   }
 
