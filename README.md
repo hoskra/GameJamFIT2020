@@ -18,12 +18,12 @@ Poté stačí pro spuštění pokaždé už jen:
 npm start
 ```
 
-Hra bude dostupná v prohlížeči na adrese localhost:1234
+Hra bude dostupná v prohlížeči na adrese `localhost:1234`. Doporučený prohlížeč je Chrom (ve Firefoxu může text mírně překypovat přes frame).
 
 ## Použité technologie
 
-- pouze grafická knihovna PixiJS a bundlovací nástroj ParcelBundler, bez použití dalších technologií
-- architektura aplikace vzdáleně připomíná MVC, nicméně z důvodu časové tísně vzniklo cosi jako spaghetti-viewmodel s lasagne-controllerem
+- pouze grafická knihovna PixiJS a bundlovací nástroj ParcelBundler, bez použití dalších technologií či frameworků
+- architektura aplikace ze začátku vzdáleně připomínala MVC, nicméně z důvodu časové tísně vzniklo cosi jako spaghetti-viewmodel s lasagne-controllerem
 - časová náročnost: všichni zůstali vzhůru, tedy 24*5 hodin, z toho 2*5 hodin na brainstormingy
 
 ## Příběh hry
