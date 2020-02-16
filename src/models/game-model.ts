@@ -273,6 +273,6 @@ export default class GameModel {
     this.glitchActive = true;
     this.stage.filters.push(this.glitchState.switch());
     }
-    this.glitchTimeout = 10;
+    this.glitchTimeout = 0;
   }
 }
