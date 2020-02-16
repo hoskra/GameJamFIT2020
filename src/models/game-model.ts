@@ -152,7 +152,7 @@ export default class GameModel {
             this.stage.filters = this.nightFilter.enable();
           }
         }
-      }      
+      }
       this.sideBarModel.update(delta, absolute);
     }
 

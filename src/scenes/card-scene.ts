@@ -18,6 +18,13 @@ class CardScene extends BaseScene {
     init() {
         this.sceneObjects = [];
         this.rectangles = [];
+
+        let texture = PIXI.Texture.from(Assets.SELECT_TITLE);
+        let sprite = new PIXI.Sprite(texture);
+        sprite.position.set(this.app.screen.width / 2);
+        sprite.anchor.set(0.5);
+        this.app.stage.addChild(sprite);
+
         this.sceneObjects.push(this.buttonCreate(Assets.MAG, 150, this.app.view.height / 2 - 150, "left"));
         this.sceneObjects.push(this.buttonCreate(Assets.NINJA, this.app.view.width / 2 - 150, this.app.view.height / 2 - 150, "middle"));
         this.sceneObjects.push(this.buttonCreate(Assets.EGO, this.app.view.width / 2 + 300, this.app.view.height / 2 - 150, "right"));

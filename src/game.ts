@@ -60,10 +60,7 @@ class Game extends PIXI.Application {
     .add(Assets.ITEM_PIZZA, './assets/items/pizza.png')
     .add(Assets.ITEM_WEED, './assets/items/weed.png')
     .add(Assets.MAP_CARDMASTER, './assets/map_cardmaster.txt')
-
-
-
-
+    .add(Assets.SELECT_TITLE, './assets/select_title.png')
     .load(() => this.startGame());
 
     this.ticker = this.ticker;
