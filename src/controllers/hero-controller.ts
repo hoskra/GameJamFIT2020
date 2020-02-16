@@ -36,7 +36,7 @@ export class HeroController {
         this.heroModel.walkDown();
       }
       if (this.mapModel.isItemTile(this.heroModel.mapPos)) {
-        this.gameController.pickUpItem(this.heroModel.mapPos);
+        this.gameController.gameModel.itemManager.collectItem(this.heroModel.mapPos);
       }
 
       if(this.gameController.isKeyPressed(Keys.KEY_S)) {

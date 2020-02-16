@@ -1,28 +1,50 @@
-class ItemManager {
-    items: string[];
+import Vec from '../../utils/vec';
+import GameModel from '../game-model';
+import { getNPCAsset, BLOCK_SIZE, getItemAsset } from '../../constants';
+import * as helpers from '../../utils/helpers';
+import * as PIXI from 'pixi.js';
 
-    constructor() {
-        this.items = [];
-    }
-
-    hasItem(itemName: string): boolean {
-        return this.items.find(x => x === itemName) !== null;
-    }
-
-    getItem(itemName: string): string {
-        return this.items.find(element => element === itemName);
-    }
-
-    addItem(item: string) {
-        this.items.push(item);
-    }
-
-    removeItem(item: string) {
-        let index = this.items.indexOf(item);
-        if (index > -1) {
-            this.items.splice(index, 1);
-        }
-    }
+export class Item {
+  sprite: PIXI.Sprite;
+  type: number;
+  mapPos: Vec;
 }
 
-export default ItemManager;
+export class ItemManager {
+
+  gameModel: GameModel;
+  items: Map<number, Item> = new Map();
+  ownedItems: Set<number> = new Set();
+
+  constructor(gameModel: GameModel) {
+    this.gameModel = gameModel;
+  }
+
+  init() {
+  }
+
+  addItem(mapPos: Vec, type: number) {
+    let asset = getItemAsset(type);
+    let texture = PIXI.Texture.from(asset);
+    let sprite = new PIXI.Sprite(texture);
+    sprite.position.set(mapPos.x * BLOCK_SIZE, mapPos.y * BLOCK_SIZE);
+
+    this.gameModel.root.addChild(sprite);
+    let item = new Item();
+    item.sprite = sprite;
+    item.mapPos = mapPos;
+    item.type = type;
+    this.items.set(helpers.posToMapCell(mapPos.x, mapPos.y, this.gameModel.gameMap.rawMap.columns), item);
+  }
+
+  collectItem(mapPos: Vec) {
+    let cell = helpers.posToMapCell(mapPos.x, mapPos.y, this.gameModel.gameMap.rawMap.columns);
+    let item = this.items.get(cell);
+    this.ownedItems.add(item.type);
+    // delete special function
+    this.gameModel.gameMap.getTile(mapPos).specialFunction = 0;
+
+    this.gameModel.root.removeChild(item.sprite);
+    this.items.delete(cell);
+  }
+}

@@ -6,10 +6,10 @@ import Vec from '../utils/vec';
 import { RawMap, RawMapTile } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import { DialogModel } from './dialog-model';
-import { SCALE_Y, SCALE_X } from '../constants';
+import { SCALE_Y, SCALE_X, getItemAsset, Items } from '../constants';
 import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
-import ItemManager from './items/item-manager';
+import { ItemManager } from './items/item-manager';
 import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
 import { SidebarModel } from './sidebar-model';
 import NightState from '../animators/night-state';
@@ -33,13 +33,11 @@ export default class GameModel {
   isDay: boolean = null;
   dayTime: number = 0;
 
-  items: Map<Vec, PIXI.Sprite> = new Map();
-
 
   constructor() {
     this.glitchState = new GlitchState();
     this.nightFilter = new NightState();
-    this.itemManager = new ItemManager();
+    this.itemManager = new ItemManager(this);
     this.NPCManager = new NPCManager(this);
   }
 
@@ -82,7 +80,7 @@ export default class GameModel {
       }
 
       if (cell.specialFunction >= 80) {
-        this.items.set(pos, sprite);
+        this.itemManager.addItem(pos, cell.specialFunction);
       }
     }
   }
@@ -123,12 +121,5 @@ export default class GameModel {
 
   switchGlitchFilter() {
     this.stage.filters = this.glitchState.switch();
-  }
-
-  removeItem(mapPos: Vec) {
-    let key = [...this.items.keys()].filter(item => item.x === mapPos.x && item.y === mapPos.y)[0];
-    console.log(key);
-    this.root.removeChild(this.items.get(key));
-    this.items.delete(key);
   }
 }

@@ -49,6 +49,16 @@ class Game extends PIXI.Application {
     .add(Assets.NPC_TERREX, './assets/characters/terrex.png')
     .add(Assets.NPC_THIEF, './assets/characters/zlodej.png')
     .add(Assets.NPC_HOMELESS, './assets/characters/bezdomovec.png')
+    .add(Assets.ITEM_CAN, './assets/items/can.png')
+    .add(Assets.ITEM_COINS, './assets/items/coins.png')
+    .add(Assets.ITEM_BEER, './assets/items/beer.png')
+    .add(Assets.ITEM_DINO, './assets/items/dino.png')
+    .add(Assets.ITEM_EMPTY_BOX, './assets/items/empty_box.png')
+    .add(Assets.ITEM_FLOPPY_DISK, './assets/items/floppy_disk.png')
+    .add(Assets.ITEM_NOTE, './assets/items/note.png')
+    .add(Assets.ITEM_PIZZA, './assets/items/pizza.png')
+    .add(Assets.ITEM_WEED, './assets/items/weed.png')
+
 
 
     .load(() => this.startGame());

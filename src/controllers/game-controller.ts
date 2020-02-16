@@ -44,11 +44,4 @@ export class GameController {
     this.cameraController.update(delta, absolute);
     this.heroController.update(delta, absolute);
   }
-
-  pickUpItem(mapPos: Vec) {
-    let itemCode = this._gameModel.gameMap.getItem(mapPos);
-    let item = itemEnumConv(itemCode);
-    this._gameModel.itemManager.addItem(item);
-    this._gameModel.removeItem(mapPos);
-  }
 }

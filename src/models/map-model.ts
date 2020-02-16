@@ -22,7 +22,7 @@ export class MapModel {
   canGoLeft(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x - 1, pos.y));
     if (this.controlMapBound(new Vec(pos.x - 1, pos.y)) && cell) {
-      return cell.isWalkable && !this.isNPCTile(pos);
+      return cell.isWalkable && !this.isNPCTile(new Vec(pos.x - 1, pos.y));
     }
     return false;
   }
@@ -30,7 +30,7 @@ export class MapModel {
   canGoRight(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x + 1, pos.y));
     if (this.controlMapBound(new Vec(pos.x + 1, pos.y)) && cell) {
-      return cell.isWalkable && !this.isNPCTile(pos);
+      return cell.isWalkable && !this.isNPCTile(new Vec(pos.x + 1, pos.y));
     }
     return false;
   }
@@ -38,7 +38,7 @@ export class MapModel {
   canGoUp(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x, pos.y - 1));
     if (this.controlMapBound(new Vec(pos.x, pos.y - 1)) && cell) {
-      return cell.isWalkable && !this.isNPCTile(pos);
+      return cell.isWalkable && !this.isNPCTile(new Vec(pos.x, pos.y - 1));
     }
     return false;
   }
@@ -46,7 +46,7 @@ export class MapModel {
   canGoDown(pos: Vec) {
     let cell = this.rawMap.getCell(new Vec(pos.x, pos.y + 1));
     if (this.controlMapBound(new Vec(pos.x, pos.y + 1)) && cell) {
-      return cell.isWalkable && !this.isNPCTile(pos);
+      return cell.isWalkable && !this.isNPCTile(new Vec(pos.x, pos.y + 1));
     }
     return false;
   }

@@ -28,7 +28,16 @@ export enum Assets {
   NPC_HOMELESS = 'NPC_HOMELESS',
   NPC_TERREX = 'NPC_TERREX',
   NPC_JUNKIE = 'NPC_JUNKIE',
-  NPC_ECOLOGIST = 'NPC_ECOLOGIST'
+  NPC_ECOLOGIST = 'NPC_ECOLOGIST',
+  ITEM_BEER = 'ITEM_BEER',
+  ITEM_CAN = 'ITEM_CAN',
+  ITEM_COINS = 'ITEM_COINS',
+  ITEM_DINO = 'ITEM_DINO',
+  ITEM_EMPTY_BOX = 'ITEM_EMPTY_BOX',
+  ITEM_FLOPPY_DISK = 'ITEM_FLOPPY_DISK',
+  ITEM_NOTE = 'ITEM_NOTE',
+  ITEM_PIZZA = 'ITEM_PIZZA',
+  ITEM_WEED = 'ITEM_WEED'
 }
 
 export enum Items {
@@ -42,6 +51,40 @@ export enum Items {
   PIZZA = 87,
   WEED = 88
 }
+
+export const getItemAsset = (index: number) => {
+  switch(index) {
+    case Items.BEER:
+      return Assets.ITEM_BEER;
+      break;
+    case Items.CAN:
+      return Assets.ITEM_CAN;
+      break;
+    case Items.COINS:
+      return Assets.ITEM_COINS;
+      break;
+    case Items.DINO:
+      return Assets.ITEM_DINO;
+      break;
+    case Items.EMPTY_BOX:
+      return Assets.ITEM_EMPTY_BOX;
+      break;
+    case Items.FLOPPY_DISK:
+      return Assets.ITEM_FLOPPY_DISK;
+      break;
+    case Items.NOTE:
+      return Assets.ITEM_NOTE;
+      break;
+    case Items.PIZZA:
+        return Assets.ITEM_PIZZA;
+        break;
+    case Items.WEED:
+        return Assets.ITEM_WEED;
+        break;
+  }
+  throw new Error('Unknown NPC!');
+}
+
 
 export const NPC_CARDMASTER = 50;
 export const NPC_THIEF= 51;
