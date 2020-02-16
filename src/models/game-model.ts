@@ -50,6 +50,12 @@ export default class GameModel {
   isDay: boolean = null;
   dayTime: number = 0;
 
+  oracleSatisfied: boolean = false;
+  homelessSatisfied: boolean = false;
+  ekoSatisfied: boolean = false;
+  sysAdminSatisfied: boolean = false;
+  dynoSatisfied: boolean = false;
+  badKidsSatisfied: boolean = false;
 
   constructor() {
     this.glitchState = new GlitchState();

@@ -1,5 +1,5 @@
 import GameModel from "./models/game-model";
-import { NPC_CARDMASTER, Assets, NPC_SYSADMIN } from "./constants";
+import { NPC_CARDMASTER, Assets, NPC_SYSADMIN, NPC_ECOLOGIST, NPC_TERREX, NPC_HOMELESS, NPC_THIEF, NPC_JUNKIE } from './constants';
 import { ComplexDialog } from "./models/complex-dialog";
 import * as PIXI from 'pixi.js';
 
@@ -10,13 +10,21 @@ class DialogueHelper {
                 return this.getDialogueForOracle(gameModel);
             case NPC_SYSADMIN:
                 return this.getDialogueForSysAdmin(gameModel);
+            case NPC_ECOLOGIST:
+                return this.getDialogueForEko(gameModel);
+            case NPC_TERREX:
+                return this.getDialogueForDyno(gameModel);
+            case NPC_THIEF:
+                return this.getDialogueForBadKids(gameModel);
+            case NPC_JUNKIE:
+                return this.getDialogueForWeirdGuy(gameModel);
+
         }
     }
     getDialogueForOracle(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES];
-        console.log(dialogMage);
-        if (true)
-        {
+        //if (gameModel.oracleSatisfied)
+        if (true) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.data.oracle_mag_war);
@@ -30,8 +38,7 @@ class DialogueHelper {
     }
     getDialogueForSysAdmin(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
-        if (true)
-        {
+        if (true) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.sys_admin_mage);
@@ -42,6 +49,62 @@ class DialogueHelper {
             }
         }
         return new ComplexDialog(dialogMage.sys_admin);
+    }
+    getDialogueForDyno(gameModel: GameModel) {
+        let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (true) {
+            switch (gameModel.heroType) {
+                case 0:
+                    return new ComplexDialog(dialogMage.dyno_mage_rogue);
+                case 1:
+                    return new ComplexDialog(dialogMage.dyno_mage_rogue);
+                case 2:
+                    return new ComplexDialog(dialogMage.dyno_war);
+            }
+        }
+        return new ComplexDialog(dialogMage.dyno);
+    }
+    getDialogueForWeirdGuy(gameModel: GameModel) {
+        let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (true) {
+            switch (gameModel.heroType) {
+                case 0:
+                    return new ComplexDialog(dialogMage.weird_guy_war_mage);
+                case 1:
+                    return new ComplexDialog(dialogMage.weird_guy_rogue);
+                case 2:
+                    return new ComplexDialog(dialogMage.weird_guy_war_mage);
+            }
+        }
+        return new ComplexDialog(dialogMage.weird_guy);
+    }
+    getDialogueForBadKids(gameModel: GameModel) {
+        let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (true) {
+            switch (gameModel.heroType) {
+                case 0:
+                    return new ComplexDialog(dialogMage.bad_kids_mage);
+                case 1:
+                    return new ComplexDialog(dialogMage.bad_kids_warrior_rogue);
+                case 2:
+                    return new ComplexDialog(dialogMage.bad_kids_warrior_rogue);
+            }
+        }
+        return new ComplexDialog(dialogMage.bad_kids);
+    }
+    getDialogueForEko(gameModel: GameModel) {
+        let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (true) {
+            switch (gameModel.heroType) {
+                case 0:
+                    return new ComplexDialog(dialogMage.eko_mage);
+                case 1:
+                    return new ComplexDialog(dialogMage.eko_rogue_warrior);
+                case 2:
+                    return new ComplexDialog(dialogMage.eko_rogue_warrior);
+            }
+        }
+        return new ComplexDialog(dialogMage.eko_mage);
     }
 }
 
