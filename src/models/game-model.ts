@@ -16,7 +16,7 @@ import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
 import { vectorToMapCell } from '../utils/helpers';
 import DialogueHelper from '../dialogue-helper';
-import { FirstSceneName, CastleSceneName } from '../scenes/scenestates/scene-names';
+import { FirstSceneName, CastleSceneName, IntroSceneName } from '../scenes/scenestates/scene-names';
 
 export enum MapType {
   CARDMASTER,
@@ -152,12 +152,18 @@ export default class GameModel {
           break;
       }
 
-      if(this.keys === 3) {
-        this.dialogManager.displayText('Tak jo, tady je ten Tvůj poklad, Tvá postava žije šťastně. Pro tebe to nekončí, můžeš prožít tento svět znovu za jinou postavu a vidět vše z jiného úhlu. Až odejdeš od počítače, budeš pokračovat za sebe ve svém životě, který ale funguje jinak. V reálném světě není magický poklad, konstantní stav blaženosti. Jsi odsouzen k nepřetřžitému opakovanému hledání štěstí a další životy nemáš. Carpe diem', () => {
+      if(this.keys === 2) {
+        this.dialogManager.displayText('Výborně! Dostal ses do hradu. Můžeš si jít vyzvednout svou odměnu!', () => {
           this.afterTransitionCallback(CastleSceneName);
         }, false);
       }
     } );
+  }
+
+  initVictory() {
+    this.dialogManager.displayText('Tak jo, tady je ten Tvůj poklad, Tvá postava žije šťastně. Pro tebe to nekončí, můžeš prožít tento svět znovu za jinou postavu a vidět vše z jiného úhlu. Až odejdeš od počítače, budeš pokračovat za sebe ve svém životě, který ale funguje jinak. V reálném světě není magický poklad, konstantní stav blaženosti. Jsi odsouzen k nepřetřžitému opakovanému hledání štěstí a další životy nemáš. Carpe diem', () => {
+      this.afterTransitionCallback(IntroSceneName);
+    }, false);
   }
 
   initScene(render: boolean) {
@@ -174,7 +180,7 @@ export default class GameModel {
         this.NPCManager.addNPC(pos, cell.specialFunction);
       }
 
-      if (cell.specialFunction >= 80) {
+      if (cell.specialFunction >= 80 && cell.specialFunction < 90) {
         this.itemManager.addItem(pos, cell.specialFunction);
       }
     }

@@ -1,4 +1,4 @@
-paths:
+:paths
 xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx
 xx 00 00 00 00 00 00 00 00 xx 00 xx xx xx 00 xx xx xx xx xx
 xx 00 00 00 00 00 00 00 00 xx 00 xx xx xx 00 xx xx 00 00 xx
@@ -12,7 +12,7 @@ xx 00 xx xx xx 00 00 00 00 00 00 00 00 00 xx xx xx 00 00 xx
 xx 00 xx xx xx 00 00 00 00 00 00 00 00 00 00 00 00 00 00 xx
 xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx xx
 
-textures:
+:textures
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -26,7 +26,7 @@ textures:
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 
-special_functions:
+:special_functions
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 90 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 90 00

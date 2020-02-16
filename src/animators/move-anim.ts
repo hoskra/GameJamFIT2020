@@ -25,6 +25,7 @@ export class MoveAnim extends BaseAnimator {
   textureSwitchCounter = 0;
   currentFrame = 0;
 
+  lastDistance = 0;
   update(delta: number, absolute: number) {
     if(this.isRunning) {
       const direction = helpers.getDirection(this.sourceCell, this.targetCell);
@@ -52,12 +53,15 @@ export class MoveAnim extends BaseAnimator {
           break;
       }
 
+
+
       if(this.textureSwitchCounter++ % 3 == 0) {
         this.currentFrame = (this.currentFrame + 1) % 9;
         (this.object.pixiObj as PIXI.Sprite).texture.frame = new PIXI.Rectangle(this.currentFrame * BLOCK_SIZE, textureOffset * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
       }
 
       this.object.pixiObj.position.set(this.object.pixiObj.position.x + diffX * this.speed * delta * 0.01, this.object.pixiObj.position.y + diffY * this.speed * delta * 0.01);
+      
 
       // check alignments
       if(helpers.isAlmostAtCell(new Vec(this.object.pixiObj.position.x, this.object.pixiObj.position.y), this.targetCell)) {

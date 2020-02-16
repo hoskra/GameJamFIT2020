@@ -52,7 +52,11 @@ export class MapModel {
   }
 
   isItemTile(pos: Vec) {
-    return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction >= 80;
+    return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction >= 80 && this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction < 90;
+  }
+
+  isTreasureTile(pos: Vec) {
+    return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction === 90;
   }
 
   isNPCTile(pos: Vec) {

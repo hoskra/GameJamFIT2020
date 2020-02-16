@@ -58,6 +58,11 @@ export class HeroController {
         this.gameController.gameModel.itemManager.collectItem(this.heroModel.mapPos);
       }
 
+      if(this.mapModel.isTreasureTile(this.heroModel.mapPos)) {
+        this.gameController.gameModel.initVictory();
+        return;
+      }
+
       // still standing -> check NPC proximity
       if(this.heroModel.state === HeroState.STANDING) {
         if(this.lastNPCInterractionCell && this.lastNPCInterractionCell.equals(this.heroModel.mapPos)) {

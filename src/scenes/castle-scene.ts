@@ -12,8 +12,8 @@ export class CastleScene extends BaseScene {
     }
 
     init() {
-        this.gameModel.init(MapType.CASTLE, new Vec(2, 4), this.app, this.mapParser.loadMap(this.resources['CASTLE_MAP_TEXT'].data), this.gameController, true, this.afterTransitionCallback);
-        this.gameController.init(this.gameModel);
+      this.gameModel.init(MapType.CASTLE, new Vec(2, 4), this.app, this.mapParser.loadMap(this.resources['CASTLE_MAP_TEXT'].data), this.gameController, true, this.afterTransitionCallback);
+      this.gameController.init(this.gameModel);
     }
 
     update(delta: number, absolute: number) {

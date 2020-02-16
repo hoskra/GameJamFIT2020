@@ -45,7 +45,6 @@ class DialogueHelper {
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.FLOPPY_DISK) >= 5) {
             gameModel.itemManager.ownedItems.set(Items.FLOPPY_DISK, 0);
-            gameModel.keys++;
             switch (gameModel.heroType) {
                 case 2:
                         gameModel.keys++;
@@ -108,7 +107,6 @@ class DialogueHelper {
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (gameModel.itemManager.ownedItems.get(Items.COINS) >= 5) {
             gameModel.itemManager.ownedItems.set(Items.COINS, 0);
-            gameModel.keys++;
             switch (gameModel.heroType) {
                 case 2:
                     return new ComplexDialog(dialogMage.bad_kids_mage);
