@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import BaseScene from "./scene-base";
-import { FirstSceneName } from "./scenestates/scene-names";
+import { FirstSceneName, CardMasterSceneName } from './scenestates/scene-names';
 import { Assets } from '../constants';
 import { KeyController, Keys } from '../controllers/key-controller';
 import GameModel from '../models/game-model';
@@ -69,7 +69,7 @@ class CardScene extends BaseScene {
             this.keyController.setKeyHandled(Keys.KEY_RIGHT);
         } else if(this.keyController.isKeyPressed(Keys.KEY_SPACE)) {
             // todo distinguish the scene
-            this.afterTransitionCallback(FirstSceneName);
+            this.afterTransitionCallback(CardMasterSceneName);
         }
     }
 }

@@ -1,5 +1,5 @@
 import { GameObjectModel } from './game-object-model';
-import { BLOCK_SIZE, HERO_POS } from '../constants';
+import { BLOCK_SIZE } from '../constants';
 import GameModel from './game-model';
 import * as PIXI from 'pixi.js';
 import Vec from '../utils/vec';
@@ -30,10 +30,10 @@ export class HeroModel extends GameObjectModel {
     texture.frame = new PIXI.Rectangle(0, 11 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     let sprite = new PIXI.Sprite(texture);
     sprite.texture.frame = new PIXI.Rectangle(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-    sprite.position.set(HERO_POS.x * BLOCK_SIZE, HERO_POS.y * BLOCK_SIZE);
+    sprite.position.set(this.gameModel.heroPos.x * BLOCK_SIZE, this.gameModel.heroPos.y * BLOCK_SIZE);
     this.gameModel.root.addChild(sprite);
     this.pixiObj = sprite;
-    this.mapPos = HERO_POS.clone();
+    this.mapPos = this.gameModel.heroPos.clone();
   }
 
   destroy() {

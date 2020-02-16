@@ -1,10 +1,10 @@
 import { GameController } from './../controllers/game-controller';
 import * as PIXI from 'pixi.js';
 import BaseScene from "./scene-base";
-import GameModel, { MapType } from '../models/game-model';
+import GameModel, { MapType }  from '../models/game-model';
 import Vec from '../utils/vec';
 
-class FirstScene extends BaseScene {
+export class CardMasterScene extends BaseScene {
     public sceneObjects: PIXI.DisplayObject[];
 
     constructor(app: PIXI.Application, gameModel: GameModel, gameController: GameController, afterTransitionCallback: (nextScene: string) => void) {
@@ -12,7 +12,7 @@ class FirstScene extends BaseScene {
     }
 
     init() {
-        this.gameModel.init(MapType.MAIN_MAP, new Vec(2, 6), this.app, this.mapParser.loadMap(this.resources['MAP'].data), this.gameController);
+        this.gameModel.init(MapType.CARDMASTER, new Vec(1, 2), this.app, this.mapParser.loadMap(this.resources['MAP_CARDMASTER'].data), this.gameController);
         this.gameController.init(this.gameModel);
     }
 
@@ -22,4 +22,4 @@ class FirstScene extends BaseScene {
     }
 }
 
-export default FirstScene;
+export default CardMasterScene;

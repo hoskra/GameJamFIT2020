@@ -39,7 +39,8 @@ export enum Assets {
   ITEM_FLOPPY_DISK = 'ITEM_FLOPPY_DISK',
   ITEM_NOTE = 'ITEM_NOTE',
   ITEM_PIZZA = 'ITEM_PIZZA',
-  ITEM_WEED = 'ITEM_WEED'
+  ITEM_WEED = 'ITEM_WEED',
+  MAP_CARDMASTER = 'MAP_CARDMASTER'
 }
 
 export enum Items {
@@ -134,7 +135,6 @@ export enum Direction {
   DOWN
 }
 
-export const HERO_POS = new Vec(2, 5);
 export const BLOCK_SIZE = 64;
 export const TEXTURE_COLUMNS = 40;
 export const SCALE_X = 2;

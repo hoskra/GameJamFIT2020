@@ -59,6 +59,8 @@ class Game extends PIXI.Application {
     .add(Assets.ITEM_NOTE, './assets/items/note.png')
     .add(Assets.ITEM_PIZZA, './assets/items/pizza.png')
     .add(Assets.ITEM_WEED, './assets/items/weed.png')
+    .add(Assets.MAP_CARDMASTER, './assets/map_cardmaster.txt')
+
 
 
 

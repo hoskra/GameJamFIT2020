@@ -16,6 +16,11 @@ import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
 import { vectorToMapCell } from '../utils/helpers';
 
+export enum MapType {
+  CARDMASTER,
+  MAIN_MAP,
+  DREAM_MAP
+}
 export default class GameModel {
   gameMap: MapModel;
   gameController: GameController;
@@ -30,6 +35,8 @@ export default class GameModel {
   nightFilter: NightState;
   sideBarModel: SidebarModel;
   NPCManager: NPCManager;
+  mapType: MapType;
+  heroPos: Vec;
 
   isDay: boolean = null;
   dayTime: number = 0;
@@ -42,7 +49,9 @@ export default class GameModel {
     this.NPCManager = new NPCManager(this);
   }
 
-  init(app: PIXI.Application, rawMap: RawMap, gameController: GameController, initScene: boolean = true) {
+  init(mapType: MapType, heroPos: Vec, app: PIXI.Application, rawMap: RawMap, gameController: GameController, initScene: boolean = true) {
+    this.mapType = mapType;
+    this.heroPos = heroPos;
     this.screenWidth = app.view.width;
     this.screenHeight = app.view.height;
     this.gameController = gameController;
@@ -61,8 +70,10 @@ export default class GameModel {
     }
     this.dialogManager = new DialogManager(this.screenWidth, this.screenHeight, this.stage, this.gameController.keyController);
 
-    this.sideBarModel = new SidebarModel(this);
-    this.sideBarModel.init();
+    if(mapType !== MapType.CARDMASTER) {
+      this.sideBarModel = new SidebarModel(this);
+      this.sideBarModel.init();
+    }
   }
 
   get isPaused() {
@@ -126,25 +137,28 @@ export default class GameModel {
 
   update(delta: number, absolute: number) {
 
-    if(this.isDay === null) {
-      this.isDay = true;
-      this.dayTime = absolute + 10 * 1000;
-    } else {
-      if(this.dayTime <= absolute) {
+    if(this.mapType !== MapType.CARDMASTER) {
+      if(this.isDay === null) {
+        this.isDay = true;
         this.dayTime = absolute + 10 * 1000;
-        this.isDay = !this.isDay;
-
-        if(this.isDay) {
-          this.stage.filters = this.nightFilter.disable();
-        } else {
-          this.stage.filters = this.nightFilter.enable();
+      } else {
+        if(this.dayTime <= absolute) {
+          this.dayTime = absolute + 10 * 1000;
+          this.isDay = !this.isDay;
+  
+          if(this.isDay) {
+            this.stage.filters = this.nightFilter.disable();
+          } else {
+            this.stage.filters = this.nightFilter.enable();
+          }
         }
-      }
+      }      
+      this.sideBarModel.update(delta, absolute);
     }
 
     this.hero.update(delta, absolute);
     this.dialogManager.update(delta, absolute);
-    this.sideBarModel.update(delta, absolute);
+
   }
 
   switchGlitchFilter() {

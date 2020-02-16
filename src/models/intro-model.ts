@@ -58,12 +58,8 @@ export default class IntroModel extends GameObjectModel {
     this.pixiObj.visible = false;
     this.introState = IntroState.DIALOG_INTRO;
     this.introDialogManager.displayText('Hra začíná...', () => {
-      this.introDialogManager.displayText('TODO tady bude nějaký krátký úvod...', () => {
-        this.introDialogManager.displayText('A tady by mohl být nějaký další úvod', () => {
-          this.introDialogManager.displayText('A tady by mohl být ještě nějaký úvod', () => {
+      this.introDialogManager.displayText('Používej šipky a mezerník, jo?', () => {
             this.onDialogFinished(MortuarySceneName);
-          });
-        });
       });
     });
   }
