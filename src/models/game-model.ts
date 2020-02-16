@@ -6,7 +6,7 @@ import Vec from '../utils/vec';
 import { RawMap, RawMapTile } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import { DialogModel } from './dialog-model';
-import { SCALE_Y, SCALE_X, getItemAsset, Items, getNPCAsset } from '../constants';
+import { SCALE_Y, SCALE_X, getItemAsset, Items, getNPCAsset, NPC_CARDMASTER, NPC_ECOLOGIST, NPC_HOMELESS, NPC_THIEF, NPC_TERREX, NPC_JUNKIE, NPC_SYSADMIN } from '../constants';
 import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
 import { ItemManager } from './items/item-manager';
@@ -16,6 +16,7 @@ import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
 import { vectorToMapCell } from '../utils/helpers';
 import DialogueHelper from '../dialogue-helper';
+import { FirstSceneName } from '../scenes/scenestates/scene-names';
 
 export enum MapType {
   CARDMASTER,
@@ -56,6 +57,7 @@ export default class GameModel {
   sysAdminSatisfied: boolean = false;
   dynoSatisfied: boolean = false;
   badKidsSatisfied: boolean = false;
+  afterTransitionCallback: (nextScene: string) => void;
 
   constructor() {
     this.glitchState = new GlitchState();
@@ -65,7 +67,8 @@ export default class GameModel {
     this.dialogueHelper = new DialogueHelper();
   }
 
-  init(mapType: MapType, heroPos: Vec, app: PIXI.Application, rawMap: RawMap, gameController: GameController, initScene: boolean = true) {
+  init(mapType: MapType, heroPos: Vec, app: PIXI.Application, rawMap: RawMap, gameController: GameController, initScene: boolean = true, afterTransitionCallback: (nextScene: string) => void) {
+    this.afterTransitionCallback = afterTransitionCallback;
     this.mapType = mapType;
     this.heroPos = heroPos;
     this.screenWidth = app.view.width;
@@ -115,6 +118,28 @@ export default class GameModel {
     let text = this.dialogueHelper.getDialogueSequence(npc.type, this.gameController.gameModel);
     this.dialogManager.displayComplexDialog(text,() => {
 
+      switch(npc.type) {
+        case NPC_CARDMASTER:
+          this.oracleSatisfied = true;
+          this.afterTransitionCallback(FirstSceneName);
+          break;
+        case NPC_HOMELESS:
+          break;
+        case NPC_THIEF:
+            this.badKidsSatisfied = true;
+          break;
+        case NPC_TERREX:
+          break;
+        case NPC_JUNKIE:
+            this.junkieSatisfied = true;
+        break;
+        case NPC_ECOLOGIST:
+          this.ekoSatisfied = true;
+          break;
+        case NPC_SYSADMIN:
+          this.sysAdminSatisfied = true;
+          break;
+      }
     } );
   }
 
@@ -173,7 +198,7 @@ export default class GameModel {
         if(this.dayTime <= absolute) {
           this.dayTime = absolute + 10 * 1000;
           this.isDay = !this.isDay;
-  
+
           if(this.isDay) {
             this.stage.filters = this.nightFilter.disable();
           } else {

@@ -12,7 +12,7 @@ class FirstScene extends BaseScene {
     }
 
     init() {
-        this.gameModel.init(MapType.MAIN_MAP, new Vec(2, 6), this.app, this.mapParser.loadMap(this.resources['MAP'].data), this.gameController);
+        this.gameModel.init(MapType.MAIN_MAP, new Vec(2, 6), this.app, this.mapParser.loadMap(this.resources['MAP'].data), this.gameController, true, this.afterTransitionCallback);
         this.gameController.init(this.gameModel);
     }
 

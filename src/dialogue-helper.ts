@@ -31,11 +31,11 @@ class DialogueHelper {
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
-                    return new ComplexDialog(dialogMage.data.oracle_mag_war);
+                    return new ComplexDialog(dialogMage.data.oracle_war);
                 case 1:
                     return new ComplexDialog(dialogMage.data.oracle_rogue);
                 case 2:
-                    return new ComplexDialog(dialogMage.data.oracle_mag_war);
+                    return new ComplexDialog(dialogMage.data.oracle_mage);
             }
         }
         return new ComplexDialog(dialogMage.data.oracle);

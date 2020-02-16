@@ -5,6 +5,7 @@ import BaseScene from "../../scene-base";
 import GameModel from '../../../models/game-model';
 import { GameController } from "../../../controllers/game-controller";
 import { CardMasterScene } from '../../card-master-scene';
+import FirstSceneState from './first-scene-state';
 
 class CardMasterSceneState extends BaseSceneState {
     init(app: PIXI.Application, gameModel: GameModel, gameController: GameController,  afterTransitionCallback: (nextScene: string) => void) : void {
@@ -12,8 +13,8 @@ class CardMasterSceneState extends BaseSceneState {
     }
     transition(sceneName: string): BaseSceneState {
         switch(sceneName) {
-            case CardMasterSceneName:
-                return new CardMasterSceneState();
+            case FirstSceneName:
+                return new FirstSceneState();
         }
     }
 }

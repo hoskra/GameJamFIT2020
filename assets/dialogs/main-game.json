@@ -11,14 +11,19 @@
         "hero": "Zní jako zábava."
       }
     ],
-    "oracle_mag_war": [
+    "oracle_war": [
         {
-          "NPC": "... chtěla za to všechny Tvé peníze, ale dala ti i první klíč ..."
+          "NPC": "... Drahý válečníku, seber tři klíče a v hradě na tebe čeká poklad ..."
         }
     ],
     "oracle_rogue": [
         {
-          "NPC": "... chtěla za to všechny Tvé peníze a za Tvoje vzepření ti nedala ani klíč ..."
+          "NPC": "... Drahý zlodějíčku, seber tři klíče a v hradě na tebe čeká poklad ..."
+        }
+      ],
+    "oracle_rmage": [
+        {
+          "NPC": "... Drahý kouzelníčku, seber tři klíče a v hradě na tebe čeká poklad ..."
         }
       ],
     "sys_admin": [

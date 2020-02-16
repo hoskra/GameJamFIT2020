@@ -14,7 +14,7 @@ export class ItemManager {
 
   gameModel: GameModel;
   items: Map<number, Item> = new Map();
-  ownedItems: Set<number> = new Set();
+  ownedItems: Map<number, number> = new Map();
 
   constructor(gameModel: GameModel) {
     this.gameModel = gameModel;
@@ -40,7 +40,8 @@ export class ItemManager {
   collectItem(mapPos: Vec) {
     let cell = helpers.posToMapCell(mapPos.x, mapPos.y, this.gameModel.gameMap.rawMap.columns);
     let item = this.items.get(cell);
-    this.ownedItems.add(item.type);
+    let alreadyOwned = this.ownedItems.has(item.type) ?  this.ownedItems.get(item.type) : 0;
+    this.ownedItems.set(item.type, alreadyOwned+1);
     // delete special function
     this.gameModel.gameMap.getTile(mapPos).specialFunction = 0;
 

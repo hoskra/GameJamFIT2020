@@ -12,7 +12,7 @@ export class CardMasterScene extends BaseScene {
     }
 
     init() {
-        this.gameModel.init(MapType.CARDMASTER, new Vec(1, 2), this.app, this.mapParser.loadMap(this.resources['MAP_CARDMASTER'].data), this.gameController);
+        this.gameModel.init(MapType.CARDMASTER, new Vec(1, 2), this.app, this.mapParser.loadMap(this.resources['MAP_CARDMASTER'].data), this.gameController, true, this.afterTransitionCallback);
         this.gameController.init(this.gameModel);
     }
 
