@@ -4,3 +4,4 @@ export const IntroSceneName = "IntroScene";
 export const MortuarySceneName = "MortuaryScene";
 export const OracleSceneName = "OracleScene";
 export const CardMasterSceneName = "CardMasterScene";
+export const CastleSceneName = "CastleScene";
