@@ -49,6 +49,6 @@ export class GameController {
     let itemCode = this._gameModel.gameMap.getItem(mapPos);
     let item = itemEnumConv(itemCode);
     this._gameModel.itemManager.addItem(item);
-    this._gameModel.removeItem(itemCode);
+    this._gameModel.removeItem(mapPos);
   }
 }

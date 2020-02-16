@@ -3,7 +3,7 @@ import { MapModel } from './map-model';
 import { HeroModel } from './hero-model';
 import * as helpers from '../utils/helpers';
 import Vec from '../utils/vec';
-import { RawMap } from '../parsers/map-parser';
+import { RawMap, RawMapTile } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import { DialogModel } from './dialog-model';
 import { SCALE_Y, SCALE_X } from '../constants';
@@ -24,7 +24,7 @@ export default class GameModel {
   itemManager: ItemManager;
   glitchState: GlitchState;
 
-  items: Map<number, PIXI.Sprite> = new Map();
+  items: Map<Vec, PIXI.Sprite> = new Map();
 
 
   constructor() {
@@ -58,38 +58,34 @@ export default class GameModel {
 
     for(let i = 0; i< map.blocks; i++) {
       let pos = helpers.mapCellToVector(i, map.columns);
-      let cell = map.cells.get(i); 
+      let cell = map.cells.get(i);
       if (cell.specialFunction >= 80)
       {
         let cellFake = cell.copy();
-        cellFake.specialFunction = 0;
         cellFake.defaultTexture = 0;
-        let texture = PIXI.Texture.from(Assets.TEXTURES);
-        texture = texture.clone();
-        let fakeSprite = new PIXI.Sprite(texture);
-        let texturePos = helpers.mapCellToVector(cellFake.defaultTexture, TEXTURE_COLUMNS);
-        if(texturePos.y === 29) {
-          console.log(texturePos, cellFake.defaultTexture, TEXTURE_COLUMNS);
-        }
-        fakeSprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-        fakeSprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
-        this.root.addChild(fakeSprite);
+        cellFake.specialFunction = 0;
+        this.drawTile(cellFake, pos);
       }
-      let texture = PIXI.Texture.from(Assets.TEXTURES);
-      texture = texture.clone();
-      let sprite = new PIXI.Sprite(texture);
-      let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
-      if(texturePos.y === 29) {
-        console.log(texturePos, cell.defaultTexture, TEXTURE_COLUMNS);
-      }
-      sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-      sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
-      this.root.addChild(sprite);
+      let sprite = this.drawTile(cell, pos);
 
       if (cell.specialFunction >= 80) {
-        this.items.set(cell.specialFunction, sprite);
+        this.items.set(pos, sprite);
       }
     }
+  }
+
+  drawTile(cell: RawMapTile, pos: Vec): PIXI.Sprite {
+    let texture = PIXI.Texture.from(Assets.TEXTURES);
+    texture = texture.clone();
+    let sprite = new PIXI.Sprite(texture);
+    let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
+    if(texturePos.y === 29) {
+      console.log(texturePos, cell.defaultTexture, TEXTURE_COLUMNS);
+    }
+    sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+    sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
+    this.root.addChild(sprite);
+    return sprite;
   }
 
   update(delta: number, absolute: number) {
@@ -101,8 +97,10 @@ export default class GameModel {
     this.stage.filters = this.glitchState.switch();
   }
 
-  removeItem(itemNumber: number) {
-    this.root.removeChild(this.items.get(itemNumber));
-    this.items.delete(itemNumber);
+  removeItem(mapPos: Vec) {
+    let key = [...this.items.keys()].filter(item => item.x === mapPos.x && item.y === mapPos.y)[0];
+    console.log(key);
+    this.root.removeChild(this.items.get(key));
+    this.items.delete(key);
   }
 }
