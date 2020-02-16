@@ -77,6 +77,7 @@ class CardScene extends BaseScene {
         } else if(this.keyController.isKeyPressed(Keys.KEY_SPACE)) {
             // todo distinguish the scene
             this.afterTransitionCallback(CardMasterSceneName);
+            this.gameModel.heroType = this.currentCardIndex;
         }
     }
 }
