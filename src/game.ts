@@ -23,7 +23,9 @@ class Game extends PIXI.Application {
     PIXI.Loader.shared.reset()    // necessary for hot reload
     .add(Assets.TEXTURES, './assets/map2.png')
     .add(Assets.MAP, './assets/maptest3.txt')
-    .add(Assets.HERO, './assets/hero/rogue.png')
+    .add(Assets.HERO_ROGUE, './assets/characters/rogue.png')
+    .add(Assets.HERO_WARRIOR, './assets/characters/warrior.png')
+    .add(Assets.HERO_MAGE, './assets/characters/mag.png')
     .add(Assets.BEER, './assets/pivo/beer.png')
     .add(Assets.EGO_MEC,'./assets/cards/ego-mec.png')
     .add(Assets.EGO_MOC,'./assets/cards/ego-moc.png')

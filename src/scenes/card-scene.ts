@@ -3,7 +3,7 @@ import BaseScene from "./scene-base";
 import { FirstSceneName, CardMasterSceneName } from './scenestates/scene-names';
 import { Assets } from '../constants';
 import { KeyController, Keys } from '../controllers/key-controller';
-import GameModel from '../models/game-model';
+import GameModel, { HeroType } from '../models/game-model';
 import { GameController } from '../controllers/game-controller';
 
 class CardScene extends BaseScene {
@@ -75,9 +75,18 @@ class CardScene extends BaseScene {
             }
             this.keyController.setKeyHandled(Keys.KEY_RIGHT);
         } else if(this.keyController.isKeyPressed(Keys.KEY_SPACE)) {
-            // todo distinguish the scene
+            switch(this.currentCardIndex) {
+                case 0:
+                    this.gameModel.heroType = HeroType.MAGE;
+                break;
+                case 1:
+                    this.gameModel.heroType = HeroType.ROGUE;
+                break;
+                case 2:
+                    this.gameModel.heroType = HeroType.WARRIOR;
+                break;
+            }             
             this.afterTransitionCallback(CardMasterSceneName);
-            this.gameModel.heroType = this.currentCardIndex;
         }
     }
 }

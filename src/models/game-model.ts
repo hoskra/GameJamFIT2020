@@ -22,13 +22,19 @@ export enum MapType {
   MAIN_MAP,
   DREAM_MAP
 }
+
+export enum HeroType {
+  MAGE,
+  WARRIOR,
+  ROGUE
+}
 export default class GameModel {
   gameMap: MapModel;
   gameController: GameController;
   stage: PIXI.Container;
   root: PIXI.Container;
   hero: HeroModel;
-  heroType: number;
+  heroType: HeroType;
   screenWidth: number;
   screenHeight: number;
   dialogManager: DialogManager;

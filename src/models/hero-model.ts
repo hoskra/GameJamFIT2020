@@ -1,6 +1,6 @@
 import { GameObjectModel } from './game-object-model';
 import { BLOCK_SIZE } from '../constants';
-import GameModel from './game-model';
+import GameModel, { HeroType } from './game-model';
 import * as PIXI from 'pixi.js';
 import Vec from '../utils/vec';
 import { MoveAnim } from '../animators/move-anim';
@@ -25,7 +25,21 @@ export class HeroModel extends GameObjectModel {
 
   init() {
     this.state = HeroState.STANDING;
-    let texture = PIXI.Texture.from(Assets.HERO);
+    let texture: PIXI.Texture;
+
+    switch(this.gameModel.heroType) {
+      case HeroType.MAGE:
+        console.log('MAGE');
+        texture = PIXI.Texture.from(Assets.HERO_MAGE);
+      break;
+        case HeroType.ROGUE:
+        texture = PIXI.Texture.from(Assets.HERO_ROGUE);
+        break;
+      case HeroType.WARRIOR:
+        texture = PIXI.Texture.from(Assets.HERO_WARRIOR);
+        break;
+    }
+
     texture = texture.clone();
     texture.frame = new PIXI.Rectangle(0, 11 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     let sprite = new PIXI.Sprite(texture);
