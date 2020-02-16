@@ -1,3 +1,4 @@
+import Vec from './utils/vec';
 export enum Assets {
   CARDS = 'CARDS',
   TEXTURES = 'TEXTURES',
@@ -24,8 +25,9 @@ export enum Direction {
   DOWN
 }
 
+export const HERO_POS = new Vec(2, 5);
 export const BLOCK_SIZE = 64;
-export const TEXTURE_COLUMNS = 16;
+export const TEXTURE_COLUMNS = 40;
 export const SCALE_X = 2;
 export const SCALE_Y = 2;
 export const DIALOG_SIZE = 150;

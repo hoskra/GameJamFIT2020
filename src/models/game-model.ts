@@ -10,11 +10,7 @@ import { SCALE_Y, SCALE_X } from '../constants';
 import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
 import ItemManager from './items/item-manager';
-import { Assets } from '../constants';
-
-export const BLOCK_SIZE = 64;
-export const TEXTURE_COLUMNS = 16;
-export const HERO_POS = new Vec(1, 5);
+import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
 
 export default class GameModel {
   gameMap: MapModel;
@@ -51,8 +47,8 @@ export default class GameModel {
     this.dialogManager = new DialogManager(this, this.gameController);
   }
 
-  get isDialogRunning() {
-    return this.dialogManager.isDialogRunning;
+  get isPaused() {
+    return this.dialogManager.isDialogRunning || this.dialogManager.isChoiceRunning;
   }
 
   initScene() {
@@ -66,6 +62,9 @@ export default class GameModel {
       texture = texture.clone();
       let sprite = new PIXI.Sprite(texture);
       let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
+      if(texturePos.y === 29) {
+        console.log(texturePos, cell.defaultTexture, TEXTURE_COLUMNS);
+      }
       sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
       sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
       this.root.addChild(sprite);

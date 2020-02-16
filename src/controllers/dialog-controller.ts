@@ -5,6 +5,7 @@ import { DialogModel, DialogState } from '../models/dialog-model';
 export class DialogController {
   private gameController: GameController;
   dialogModel: DialogModel;
+  onDialogFinish: () => void;
 
   constructor(gameController: GameController) {
     this.gameController = gameController;
@@ -20,6 +21,11 @@ export class DialogController {
     }
     if(this.dialogModel.state === DialogState.FINISHED && this.gameController.isKeyPressed(Keys.KEY_SPACE)) {
       this.dialogModel.hide();
+      if(this.onDialogFinish) {
+        this.onDialogFinish();
+        this.onDialogFinish = null;
+        this.gameController.keyController.setKeyHandled(Keys.KEY_SPACE);
+      }
     }
   }
 }

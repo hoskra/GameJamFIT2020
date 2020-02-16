@@ -1,7 +1,6 @@
 import { FONT_DIALOG_OFFSET_X } from './../constants';
 import Vec from './vec';
-import { BLOCK_SIZE } from '../models/game-model';
-import { Direction } from '../constants';
+import { Direction, BLOCK_SIZE } from '../constants';
 import { GameObjectModel } from '../models/game-object-model';
 
 export const mapCellToVector = (cell: number, columns: number) => {
@@ -57,7 +56,7 @@ export const getDirection = (pos1: Vec, pos2: Vec) => {
 
 export const isAlmostAtCell = (realPos: Vec, cellPos: Vec) => {
   let realCellPos = cellPos.multiply(BLOCK_SIZE);
-  return realCellPos.squareDistance(realPos) <= 5; // 5 is threshold
+  return realCellPos.squareDistance(realPos) <= 8; // 5 is threshold
 };
 
 export const alignToCell = (obj: GameObjectModel, cellPos: Vec) => {
@@ -73,7 +72,8 @@ export const wrapDialogText = (text: string, fontSize: number, dialogWidth: numb
 
   let words = text.split(' ');
   let currentLine = '';
-  
+  let index = 0;
+
   for(let word of words) {
     if((currentLine.length + word.length) > lettersPerRow) {
       if(output.length === 0) {
@@ -89,6 +89,13 @@ export const wrapDialogText = (text: string, fontSize: number, dialogWidth: numb
     } else {
       currentLine += ' ' + word;
     }
+  }
+
+  
+  if(output.length === 0) {
+    output += currentLine;
+  } else {
+    output += '\n'+currentLine;
   }
 
   return output;

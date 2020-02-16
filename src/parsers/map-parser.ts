@@ -136,9 +136,14 @@ class TexturesParser extends Parser {
     super.finalize(output);
 
     let mapBlocks = this.columns * this.rows;
-
+    let lastZeroCounter = 0;
     for (let i = 0; i < mapBlocks; i++) {
-      output.cells.get(i).defaultTexture = this.tokens[i];
+      if(this.tokens[i] === 0) {
+        output.cells.get(i).defaultTexture = lastZeroCounter++;
+      } else {
+        lastZeroCounter = 0;
+        output.cells.get(i).defaultTexture = this.tokens[i];
+      }
     }
   }
 }
