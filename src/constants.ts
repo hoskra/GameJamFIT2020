@@ -44,6 +44,7 @@ export enum Assets {
   ITEM_WEED = 'ITEM_WEED',
   MAIN_WINDOW_DIALOGUES = "MAIN_WINDOWS_DIALOUES",
   MAP_CARDMASTER = 'MAP_CARDMASTER',
+  MAP_CARDMASTER_TEXTURE = 'MAP_CARDMASTER_TEXTURE',
   SELECT_TITLE = "SELECT_TITLE",
   ORACLE = 'ORACLE',
   ORACLE_MAG_WAR = 'ORACLE_MAG_WAR',
@@ -161,7 +162,6 @@ export enum Direction {
 }
 
 export const BLOCK_SIZE = 64;
-export const TEXTURE_COLUMNS = 40;
 export const SCALE_X = 2;
 export const SCALE_Y = 2;
 export const DIALOG_SIZE = 150;

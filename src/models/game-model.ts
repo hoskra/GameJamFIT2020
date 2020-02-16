@@ -10,7 +10,7 @@ import { SCALE_Y, SCALE_X, getItemAsset, Items, getNPCAsset } from '../constants
 import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
 import { ItemManager } from './items/item-manager';
-import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
+import { Assets, BLOCK_SIZE } from '../constants';
 import { SidebarModel } from './sidebar-model';
 import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
@@ -139,10 +139,22 @@ export default class GameModel {
   }
 
   drawTile(cell: RawMapTile, pos: Vec, render: boolean): PIXI.Sprite {
-    let texture = PIXI.Texture.from(Assets.TEXTURES);
+    let mapTexture: string;
+    let textureColumns: number;
+    switch(this.mapType) {
+      case MapType.MAIN_MAP:
+        textureColumns = 40;
+        mapTexture = Assets.TEXTURES;
+      break;
+      case MapType.CARDMASTER:
+          textureColumns = 11;
+        mapTexture = Assets.MAP_CARDMASTER_TEXTURE;
+      break;
+    }
+    let texture = PIXI.Texture.from(mapTexture);
     texture = texture.clone();
     let sprite = new PIXI.Sprite(texture);
-    let texturePos = helpers.mapCellToVector(cell.defaultTexture, TEXTURE_COLUMNS);
+    let texturePos = helpers.mapCellToVector(cell.defaultTexture, textureColumns);
     sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
     sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
     if (render) {

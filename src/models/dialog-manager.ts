@@ -38,13 +38,22 @@ export class DialogManager {
 
   displayComplexDialog(dialog: ComplexDialog, onComplete: () => void) {
       this.displayText(dialog.getNextNPC(), () => {
-        this.displayText(dialog.getNextHero(), () => {
+        let nextHero = dialog.getNextHero();
+        if(nextHero) {
+          this.displayText(nextHero, () => {
+            if(dialog.hasNext()) {
+              this.displayComplexDialog(dialog, onComplete);
+            } else {
+              onComplete();
+            }
+          }, false);
+        } else {
           if(dialog.hasNext()) {
             this.displayComplexDialog(dialog, onComplete);
           } else {
             onComplete();
           }
-        }, false);
+        }
       }, true);
   }
 
