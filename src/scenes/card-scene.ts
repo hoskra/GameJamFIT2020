@@ -10,16 +10,16 @@ class CardScene extends BaseScene {
 
     init() {
         this.sceneObjects = [];
-        this.sceneObjects.push(this.buttonCreate(Assets.CARDS, 150, this.app.view.height / 2 - 150, "left", () => this.afterTransitionCallback(FirstSceneName)));
-        this.sceneObjects.push(this.buttonCreate(Assets.CARDS, this.app.view.width / 2 - 150, this.app.view.height / 2 - 150, "middle", () => this.afterTransitionCallback(FirstSceneName)));
-        this.sceneObjects.push(this.buttonCreate(Assets.CARDS, this.app.view.width / 2 + 300, this.app.view.height / 2 - 150, "right", () => this.afterTransitionCallback(FirstSceneName)));
+        this.sceneObjects.push(this.buttonCreate(Assets.MAG, 150, this.app.view.height / 2 - 150, "left", () => this.afterTransitionCallback(FirstSceneName)));
+        this.sceneObjects.push(this.buttonCreate(Assets.NINJA, this.app.view.width / 2 - 150, this.app.view.height / 2 - 150, "middle", () => this.afterTransitionCallback(FirstSceneName)));
+        this.sceneObjects.push(this.buttonCreate(Assets.EGO, this.app.view.width / 2 + 300, this.app.view.height / 2 - 150, "right", () => this.afterTransitionCallback(FirstSceneName)));
     }
 
     private buttonCreate(path: string, position_x: number, position_y: number, text: string, callback: () => void) {
         let buttonEndTurn = new PIXI.Container();
         let button1 = new PIXI.Sprite(PIXI.Loader.shared.resources[path].texture);
-        button1.scale.x = 0.5;
-        button1.scale.y = 0.5;
+        button1.scale.x = 1.5;
+        button1.scale.y = 1.5;
         button1.interactive = true;
         button1.on('click', callback);
         buttonEndTurn.x = position_x;

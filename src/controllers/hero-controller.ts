@@ -19,18 +19,21 @@ export class HeroController {
       return;
     }
 
-    if(this.heroModel.state === HeroState.STANDING) {
-      if(this.gameController.isKeyPressed(Keys.KEY_LEFT) && this.mapModel.canGoLeft(this.heroModel.mapPos)) {
+    if (this.heroModel.state === HeroState.STANDING) {
+      if (this.gameController.isKeyPressed(Keys.KEY_LEFT) && this.mapModel.canGoLeft(this.heroModel.mapPos)) {
         this.heroModel.walkLeft();
       }
-      if(this.gameController.isKeyPressed(Keys.KEY_RIGHT) && this.mapModel.canGoRight(this.heroModel.mapPos)) {
+      if (this.gameController.isKeyPressed(Keys.KEY_RIGHT) && this.mapModel.canGoRight(this.heroModel.mapPos)) {
         this.heroModel.walkRight();
       }
-      if(this.gameController.isKeyPressed(Keys.KEY_UP) && this.mapModel.canGoUp(this.heroModel.mapPos)) {
+      if (this.gameController.isKeyPressed(Keys.KEY_UP) && this.mapModel.canGoUp(this.heroModel.mapPos)) {
         this.heroModel.walkUp();
       }
-      if(this.gameController.isKeyPressed(Keys.KEY_DOWN) && this.mapModel.canGoDown(this.heroModel.mapPos)) {
+      if (this.gameController.isKeyPressed(Keys.KEY_DOWN) && this.mapModel.canGoDown(this.heroModel.mapPos)) {
         this.heroModel.walkDown();
+      }
+      if (this.mapModel.isItemTile(this.heroModel.mapPos)) {
+        this.gameController.pickUpItem(this.heroModel.mapPos);
       }
 
       if(this.gameController.isKeyPressed(Keys.KEY_S)) {
@@ -41,7 +44,7 @@ export class HeroController {
         });
       }
       // testing purpose
-      if(this.gameController.isKeyPressed(Keys.KEY_Q)) {
+      if (this.gameController.isKeyPressed(Keys.KEY_Q)) {
         this.gameController.gameModel.switchGlitchFilter();
       }
     }

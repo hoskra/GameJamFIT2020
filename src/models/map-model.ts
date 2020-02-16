@@ -27,4 +27,13 @@ export class MapModel {
   canGoDown(pos: Vec) {
     return this.rawMap.getCell(new Vec(pos.x, pos.y + 1)).isWalkable;
   }
+
+  isItemTile(pos: Vec) {
+    return this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction >= 80;
+  }
+  getItem(pos: Vec) {
+    let item = this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction;
+    this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction = 0;
+    return item;
+  }
 }
