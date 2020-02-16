@@ -5,7 +5,7 @@ class NightState {
     enable() {
       let colorMatrix = new PIXI.filters.ColorMatrixFilter();
       colorMatrix.greyscale(0.3, true);
-      return [colorMatrix];
+      return colorMatrix;
     }
 
     disable() {

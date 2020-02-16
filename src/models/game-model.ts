@@ -6,7 +6,7 @@ import Vec from '../utils/vec';
 import { RawMap, RawMapTile } from '../parsers/map-parser';
 import * as PIXI from 'pixi.js';
 import { DialogModel } from './dialog-model';
-import { SCALE_Y, SCALE_X, getItemAsset, Items, getNPCAsset, NPC_CARDMASTER, NPC_ECOLOGIST, NPC_HOMELESS, NPC_THIEF, NPC_TERREX, NPC_JUNKIE, NPC_SYSADMIN } from '../constants';
+import { SCALE_Y, SCALE_X, getItemAsset, Items, getNPCAsset, NPC_CARDMASTER, NPC_ECOLOGIST, NPC_HOMELESS, NPC_THIEF, NPC_TERREX, NPC_JUNKIE, NPC_SYSADMIN, itemEnumConv } from '../constants';
 import { DialogManager } from './dialog-manager';
 import GlitchState from '../animators/glitch-state';
 import { ItemManager } from './items/item-manager';
@@ -162,7 +162,7 @@ export default class GameModel {
 
   initScene(render: boolean) {
     let map = this.gameMap.rawMap;
-
+    this.stage.filters = [];
     for (let i = 0; i < map.blocks; i++) {
       let pos = helpers.mapCellToVector(i, map.columns);
       let cell = map.cells.get(i);
@@ -189,7 +189,7 @@ export default class GameModel {
         mapTexture = Assets.TEXTURES;
       break;
       case MapType.CASTLE:
-          textureColumns = 40;
+          textureColumns = 20;
         mapTexture = Assets.CASTLE_MAP_TEXTURE;
         break;
       case MapType.CARDMASTER:
@@ -211,9 +211,24 @@ export default class GameModel {
 
   update(delta: number, absolute: number) {
 
+    if(this.glitchActive) {
+      if(this.glitchTimeout == 0) {
+        this.glitchTimeout = absolute + 10000;
+      } else if(this.glitchTimeout < absolute) {
+        this.glitchTimeout = 0;
+        this.glitchActive = false;
+        if(this.isDay) {
+          this.stage.filters = [];
+        } else {
+          this.stage.filters = [this.nightFilter.enable()];
+        }
+      }
+    }
+
     if(this.mapType !== MapType.CARDMASTER) {
       if(this.isDay === null) {
         this.isDay = true;
+        this.itemManager.modifyWeed(false);
         this.dayTime = absolute + 10 * 1000;
       } else {
         if(this.dayTime <= absolute) {
@@ -221,9 +236,16 @@ export default class GameModel {
           this.isDay = !this.isDay;
 
           if(this.isDay) {
-            this.stage.filters = this.nightFilter.disable();
+            if(this.glitchActive) {
+              this.stage.filters = [this.glitchState.switch()];
+            } else {
+              this.stage.filters = this.nightFilter.disable();
+            }
+
+            this.itemManager.modifyWeed(false);
           } else {
-            this.stage.filters = this.nightFilter.enable();
+            this.stage.filters.push(this.nightFilter.enable());
+            this.itemManager.modifyWeed(true);
           }
         }
       }
@@ -235,7 +257,14 @@ export default class GameModel {
 
   }
 
+  glitchTimeout = 0;
+  glitchActive = false;
+
   switchGlitchFilter() {
-    this.stage.filters = this.glitchState.switch();
+    if(!this.glitchActive) {
+    this.glitchActive = true;
+    this.stage.filters.push(this.glitchState.switch());
+    }
+    this.glitchTimeout = 10;
   }
 }

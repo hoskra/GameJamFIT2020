@@ -74,7 +74,7 @@ export class HeroModel extends GameObjectModel {
       this.targetPos = targetPos;
       this.state = HeroState.WALKING;
 
-      this.walkingAnim = new MoveAnim(this, 20, this.mapPos, this.targetPos, () => {
+      this.walkingAnim = new MoveAnim(this, this.gameModel.isDay ? 20 : 40, this.mapPos, this.targetPos, () => {
         this.state = HeroState.STANDING;
         this.mapPos = this.targetPos.clone();
         this.walkingAnim = null;

@@ -4,12 +4,7 @@ import { GlitchFilter, GlitchOptions } from '@pixi/filter-glitch';
 class GlitchState {
     public isActive = false;
 
-    switch(): PIXI.Filter[] {
-        if (!this.isActive) {
-            this.isActive = true;
-            return [];
-        }
-        this.isActive = false;
+    switch(): PIXI.Filter {
 
         let glitchOptions = {
             slices:  3,
@@ -25,7 +20,7 @@ class GlitchState {
             sampleSize: 30
         };
         let glitch = new GlitchFilter(glitchOptions);
-        return [glitch];
+        return glitch;
     }
 }
 

@@ -13,17 +13,17 @@
     ],
     "oracle_war": [
         {
-          "NPC": "... Drahý válečníku, seber tři klíče a v hradě na tebe čeká poklad ..."
+          "NPC": "... Drahý válečníku, seber dva klíče a v hradě na tebe čeká poklad ..."
         }
     ],
     "oracle_rogue": [
         {
-          "NPC": "... Drahý zlodějíčku, seber tři klíče a v hradě na tebe čeká poklad ..."
+          "NPC": "... Drahý zlodějíčku, seber dva klíče a v hradě na tebe čeká poklad ..."
         }
       ],
     "oracle_mage": [
         {
-          "NPC": "... Drahý kouzelníčku, seber tři klíče a v hradě na tebe čeká poklad ..."
+          "NPC": "... Drahý kouzelníčku, seber dva klíče a v hradě na tebe čeká poklad ..."
         }
       ],
     "sys_admin": [

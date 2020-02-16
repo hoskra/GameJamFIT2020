@@ -1,6 +1,6 @@
 import Vec from '../../utils/vec';
 import GameModel from '../game-model';
-import { getNPCAsset, BLOCK_SIZE, getItemAsset } from '../../constants';
+import { getNPCAsset, BLOCK_SIZE, getItemAsset, Items } from '../../constants';
 import * as helpers from '../../utils/helpers';
 import * as PIXI from 'pixi.js';
 
@@ -23,6 +23,15 @@ export class ItemManager {
   init() {
   }
 
+  modifyWeed(show: boolean) {
+      for(let key of this.items.keys()) {
+          let item = this.items.get(key);
+          if(item.type === Items.WEED) {
+              item.sprite.visible = show;
+          }
+      }
+  }
+
   addItem(mapPos: Vec, type: number) {
     let asset = getItemAsset(type);
     let texture = PIXI.Texture.from(asset);
@@ -40,6 +49,13 @@ export class ItemManager {
   collectItem(mapPos: Vec) {
     let cell = helpers.posToMapCell(mapPos.x, mapPos.y, this.gameModel.gameMap.rawMap.columns);
     let item = this.items.get(cell);
+    if(item.type === Items.WEED && this.gameModel.isDay) {
+        return;
+    }
+
+    if(item.type === Items.WEED) {
+        this.gameModel.switchGlitchFilter();
+    }
     let alreadyOwned = this.ownedItems.has(item.type) ?  this.ownedItems.get(item.type) : 0;
     this.ownedItems.set(item.type, alreadyOwned+1);
     // delete special function
