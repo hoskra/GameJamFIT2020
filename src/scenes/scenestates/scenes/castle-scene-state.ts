@@ -21,4 +21,4 @@ export class CastleSceneState extends BaseSceneState {
     }
 }
 
-export default CardMasterSceneState;
+export default CastleSceneState;
