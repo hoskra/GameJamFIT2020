@@ -18,7 +18,8 @@ export enum Assets {
   DIALOG = 'DIALOG',
   FONT = 'FONT',
   INTRO = 'INTRO',
-  BEER = 'BEER'
+  BEER = 'BEER',
+  DIALOG_NEXT = 'DIALOG_NEXT'
 }
 
 export enum Items {
