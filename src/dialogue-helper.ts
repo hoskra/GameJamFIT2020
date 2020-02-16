@@ -23,7 +23,10 @@ class DialogueHelper {
     }
     getDialogueForOracle(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES];
-        //if (gameModel.oracleSatisfied)
+        if (gameModel.oracleSatisfied) {
+            return new ComplexDialog(dialogMage.data.general);
+        }
+        // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
@@ -38,6 +41,10 @@ class DialogueHelper {
     }
     getDialogueForSysAdmin(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (gameModel.sysAdminSatisfied) {
+            return new ComplexDialog(dialogMage.data.general);
+        }
+        // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
@@ -52,6 +59,10 @@ class DialogueHelper {
     }
     getDialogueForDyno(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (gameModel.dynoSatisfied) {
+            return new ComplexDialog(dialogMage.data.general);
+        }
+        // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
@@ -66,6 +77,10 @@ class DialogueHelper {
     }
     getDialogueForWeirdGuy(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (gameModel.junkieSatisfied) {
+            return new ComplexDialog(dialogMage.data.general);
+        }
+        // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
@@ -80,6 +95,10 @@ class DialogueHelper {
     }
     getDialogueForBadKids(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (gameModel.badKidsSatisfied) {
+            return new ComplexDialog(dialogMage.data.general);
+        }
+        // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
@@ -94,6 +113,10 @@ class DialogueHelper {
     }
     getDialogueForEko(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        if (gameModel.ekoSatisfied) {
+            return new ComplexDialog(dialogMage.data.general);
+        }
+        // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
         if (true) {
             switch (gameModel.heroType) {
                 case 0:
