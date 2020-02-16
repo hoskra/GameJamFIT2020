@@ -3,6 +3,7 @@ import { KeyController } from './key-controller';
 import GameModel from '../models/game-model';
 import { CameraController } from './camera-controller';
 import Vec from '../utils/vec';
+import { itemEnumConv } from '../constants';
 
 export class GameController {
 
@@ -45,6 +46,9 @@ export class GameController {
   }
 
   pickUpItem(mapPos: Vec) {
-    
+    let itemCode = this._gameModel.gameMap.getItem(mapPos);
+    let item = itemEnumConv(itemCode);
+    this._gameModel.itemManager.addItem(item);
+    this._gameModel.removeItem(itemCode);
   }
 }

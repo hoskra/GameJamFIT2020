@@ -24,6 +24,8 @@ export default class GameModel {
   itemManager: ItemManager;
   glitchState: GlitchState;
 
+  items: Map<number, PIXI.Sprite> = new Map();
+
 
   constructor() {
     this.glitchState = new GlitchState();
@@ -56,8 +58,23 @@ export default class GameModel {
 
     for(let i = 0; i< map.blocks; i++) {
       let pos = helpers.mapCellToVector(i, map.columns);
-      let cell = map.cells.get(i);
-
+      let cell = map.cells.get(i); 
+      if (cell.specialFunction >= 80)
+      {
+        let cellFake = cell.copy();
+        cellFake.specialFunction = 0;
+        cellFake.defaultTexture = 0;
+        let texture = PIXI.Texture.from(Assets.TEXTURES);
+        texture = texture.clone();
+        let fakeSprite = new PIXI.Sprite(texture);
+        let texturePos = helpers.mapCellToVector(cellFake.defaultTexture, TEXTURE_COLUMNS);
+        if(texturePos.y === 29) {
+          console.log(texturePos, cellFake.defaultTexture, TEXTURE_COLUMNS);
+        }
+        fakeSprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        fakeSprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
+        this.root.addChild(fakeSprite);
+      }
       let texture = PIXI.Texture.from(Assets.TEXTURES);
       texture = texture.clone();
       let sprite = new PIXI.Sprite(texture);
@@ -68,6 +85,10 @@ export default class GameModel {
       sprite.texture.frame = new PIXI.Rectangle(texturePos.x * BLOCK_SIZE, texturePos.y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
       sprite.position.set(pos.x * BLOCK_SIZE, pos.y * BLOCK_SIZE);
       this.root.addChild(sprite);
+
+      if (cell.specialFunction >= 80) {
+        this.items.set(cell.specialFunction, sprite);
+      }
     }
   }
 
@@ -78,5 +99,10 @@ export default class GameModel {
 
   switchGlitchFilter() {
     this.stage.filters = this.glitchState.switch();
+  }
+
+  removeItem(itemNumber: number) {
+    this.root.removeChild(this.items.get(itemNumber));
+    this.items.delete(itemNumber);
   }
 }

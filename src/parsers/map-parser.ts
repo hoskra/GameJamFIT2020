@@ -17,6 +17,15 @@ export class RawMapTile {
   get isWalkable() {
     return this.walkableCode === 0;
   }
+
+  copy(): RawMapTile {
+    let cell = new RawMapTile();
+    cell.walkableCode = this.walkableCode;
+    cell.defaultTexture = this.defaultTexture;
+    cell.specialFunction = this.specialFunction;
+    cell.pos = this.pos;
+    return cell;
+  }
 }
 
 export class RawMap {
