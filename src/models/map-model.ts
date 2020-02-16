@@ -34,7 +34,6 @@ export class MapModel {
   getItem(pos: Vec) {
     let item = this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction;
     this.rawMap.getCell(new Vec(pos.x, pos.y)).specialFunction = 0;
-    sprite.texture.frame = new PIXI.Rectangle(pos.x * 64, pos.y * 64, 64, 64);
     return item;
   }
 }

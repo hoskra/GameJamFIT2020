@@ -2,13 +2,14 @@ import { HeroController } from './hero-controller';
 import { KeyController } from './key-controller';
 import GameModel from '../models/game-model';
 import { CameraController } from './camera-controller';
+import Vec from '../utils/vec';
 
 export class GameController {
+
   private heroController: HeroController;
   private cameraController: CameraController;
   private _gameModel: GameModel;
   keyController: KeyController;
-  
   constructor() {
 
   }
@@ -41,5 +42,9 @@ export class GameController {
   update(delta: number, absolute: number) {
     this.cameraController.update(delta, absolute);
     this.heroController.update(delta, absolute);
+  }
+
+  pickUpItem(mapPos: Vec) {
+    
   }
 }
