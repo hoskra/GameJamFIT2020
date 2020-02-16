@@ -1,3 +1,4 @@
+import sound from 'pixi-sound'
 import * as PIXI from 'pixi.js';
 import SceneManager from './scenes/scenestates/scene-manager';
 import { resizeCanvas } from './utils/canvas-resizer';
@@ -70,6 +71,10 @@ class Game extends PIXI.Application {
     .add(Assets.CASTLE_MAP_TEXT, './assets/castle_paths.txt')
     .add(Assets.CASTLE_MAP_TEXTURE, './assets/castle.png')
     .load(() => this.startGame());
+
+    const music = sound.Sound.from('./assets/music.mp3');
+    music.loop = true;
+    music.play();
 
     this.ticker = this.ticker;
     // stop the shared ticket and update it manually
