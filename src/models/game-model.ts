@@ -101,10 +101,9 @@ export default class GameModel {
     }
 
     let text = this.dialogueHelper.getDialogueSequence(npc.type, this.gameController.gameModel);
-    console.log(text);
-    this.dialogManager.displayText('jsem NPC', () => {
-      console.log(getNPCAsset(npc.type));
-    }, true);
+    this.dialogManager.displayComplexDialog(text,() => {
+
+    } );
   }
 
   initScene(render: boolean) {

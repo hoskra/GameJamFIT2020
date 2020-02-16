@@ -1,7 +1,8 @@
 {
     "oracle": [
       {
-        "NPC": "Almužničku potřebné osobě... nech si vyložit svůj život..."
+        "NPC": "Almužničku potřebné osobě... nech si vyložit svůj život...",
+        "npc": "Tak dobrá."
       }
     ],
     "oracle_mag_war": [

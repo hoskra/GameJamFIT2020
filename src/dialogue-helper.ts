@@ -13,19 +13,20 @@ class DialogueHelper {
         }
     }
     getDialogueForOracle(gameModel: GameModel) {
-        let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
+        let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES];
+        console.log(dialogMage);
         if (true)
         {
             switch (gameModel.heroType) {
                 case 0:
-                    return new ComplexDialog(dialogMage.oracle_mag_war);
+                    return new ComplexDialog(dialogMage.data.oracle_mag_war);
                 case 1:
-                    return new ComplexDialog(dialogMage.oracle_rogue);
+                    return new ComplexDialog(dialogMage.data.oracle_rogue);
                 case 2:
-                    return new ComplexDialog(dialogMage.oracle_mag_war);
+                    return new ComplexDialog(dialogMage.data.oracle_mag_war);
             }
         }
-        return new ComplexDialog(dialogMage.oracle);
+        return new ComplexDialog(dialogMage.data.oracle);
     }
     getDialogueForSysAdmin(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
