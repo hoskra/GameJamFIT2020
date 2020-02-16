@@ -14,6 +14,7 @@ import { Assets, TEXTURE_COLUMNS, BLOCK_SIZE } from '../constants';
 import { SidebarModel } from './sidebar-model';
 import NightState from '../animators/night-state';
 import { NPCManager } from './npc/npc-manager';
+import { vectorToMapCell } from '../utils/helpers';
 
 export default class GameModel {
   gameMap: MapModel;
@@ -66,6 +67,28 @@ export default class GameModel {
 
   get isPaused() {
     return this.dialogManager.isDialogRunning || this.dialogManager.isChoiceRunning;
+  }
+
+  interractWithNpc(pos: Vec) {
+    let heroPos = this.hero.mapPos;
+    let npc = this.NPCManager.npcs.get(vectorToMapCell(pos, this.gameMap.rawMap.columns));
+    if(pos.x === heroPos.x && pos.y === heroPos.y - 1) { // to top
+      npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 10, BLOCK_SIZE, BLOCK_SIZE);
+    }
+    if(pos.x === heroPos.x && pos.y === heroPos.y + 1) { // to bottom
+      npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 8, BLOCK_SIZE, BLOCK_SIZE);
+    }
+    if(pos.y === heroPos.y && pos.x === heroPos.x + 1) { // to right
+      npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 9, BLOCK_SIZE, BLOCK_SIZE);
+    }
+    if(pos.y === heroPos.y && pos.x === heroPos.x - 1) { // to left
+      npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 11, BLOCK_SIZE, BLOCK_SIZE);
+    }
+
+    // todo display load complex text
+    this.dialogManager.displayText('jsem NPC', () => {
+
+    }, true);
   }
 
   initScene(render: boolean) {

@@ -5,6 +5,7 @@ import { Keys } from './key-controller';
 import { Assets, BLOCK_SIZE } from '../constants';
 import { ComplexDialog } from '../models/complex-dialog';
 import * as PIXI from 'pixi.js';
+import Vec from '../utils/vec';
 
 export class HeroController {
   private gameController: GameController;
@@ -16,6 +17,8 @@ export class HeroController {
     this.heroModel = this.gameController.gameModel.hero;
     this.mapModel = this.gameController.gameModel.gameMap;
   }
+
+  lastNPCInterractionCell: Vec = null;
 
   update(delta: number, absolute: number) {
     if(this.gameController.gameModel.isPaused) {
@@ -53,6 +56,34 @@ export class HeroController {
       }
       if (this.mapModel.isItemTile(this.heroModel.mapPos)) {
         this.gameController.gameModel.itemManager.collectItem(this.heroModel.mapPos);
+      }
+
+      // still standing -> check NPC proximity
+      if(this.heroModel.state === HeroState.STANDING) {
+        if(this.lastNPCInterractionCell && this.lastNPCInterractionCell.equals(this.heroModel.mapPos)) {
+          return;
+        }
+        let dirOffset = Math.floor((this.heroModel.pixiObj as PIXI.Sprite).texture.frame.y / BLOCK_SIZE);
+        if(dirOffset === 8 && this.mapModel.isNPCTile(new Vec(this.heroModel.mapPos.x, this.heroModel.mapPos.y - 1))) {
+          // direction up
+          this.lastNPCInterractionCell = this.heroModel.mapPos.clone();
+          this.gameController.gameModel.interractWithNpc(new Vec(this.heroModel.mapPos.x, this.heroModel.mapPos.y - 1));
+        }
+        if(dirOffset === 9 && this.mapModel.isNPCTile(new Vec(this.heroModel.mapPos.x - 1, this.heroModel.mapPos.y))) {
+          // direction left
+          this.lastNPCInterractionCell = this.heroModel.mapPos.clone();
+          this.gameController.gameModel.interractWithNpc(new Vec(this.heroModel.mapPos.x - 1, this.heroModel.mapPos.y));
+        }
+        if(dirOffset === 10 && this.mapModel.isNPCTile(new Vec(this.heroModel.mapPos.x, this.heroModel.mapPos.y + 1))) {
+          // direction down
+          this.lastNPCInterractionCell = this.heroModel.mapPos.clone();
+          this.gameController.gameModel.interractWithNpc(new Vec(this.heroModel.mapPos.x, this.heroModel.mapPos.y + 1));
+        }
+        if(dirOffset === 11 && this.mapModel.isNPCTile(new Vec(this.heroModel.mapPos.x + 1, this.heroModel.mapPos.y))) {
+          // direction right
+          this.lastNPCInterractionCell = this.heroModel.mapPos.clone();
+          this.gameController.gameModel.interractWithNpc(new Vec(this.heroModel.mapPos.x + 1, this.heroModel.mapPos.y));
+        }
       }
     }
   }
