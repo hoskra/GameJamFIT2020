@@ -102,6 +102,10 @@ export default class GameModel {
   interractWithNpc(pos: Vec) {
     let heroPos = this.hero.mapPos;
     let npc = this.NPCManager.npcs.get(vectorToMapCell(pos, this.gameMap.rawMap.columns));
+    if(!npc) {
+      return;
+    }
+
     if(pos.x === heroPos.x && pos.y === heroPos.y - 1) { // to top
       npc.sprite.texture.frame = new PIXI.Rectangle(0, BLOCK_SIZE * 10, BLOCK_SIZE, BLOCK_SIZE);
     }

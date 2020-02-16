@@ -23,7 +23,6 @@ class SceneManager {
         this.state.scene.init(this.gameModel);
     }
     nextScene(sceneName: string, app: PIXI.Application, afterTransitionCallback: (nextScene: string) => void): BaseScene {
-        console.log(sceneName);
         this.state = this.state.transition(sceneName);
         this.state.init(app, this.gameModel, this.gameController, afterTransitionCallback);
         this.state.scene.init(this.gameModel);

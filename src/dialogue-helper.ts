@@ -1,5 +1,5 @@
 import GameModel from "./models/game-model";
-import { NPC_CARDMASTER, Assets, NPC_SYSADMIN, NPC_ECOLOGIST, NPC_TERREX, NPC_HOMELESS, NPC_THIEF, NPC_JUNKIE } from './constants';
+import { NPC_CARDMASTER, Assets, NPC_SYSADMIN, NPC_ECOLOGIST, NPC_TERREX, NPC_HOMELESS, NPC_THIEF, NPC_JUNKIE, Items } from './constants';
 import { ComplexDialog } from "./models/complex-dialog";
 import * as PIXI from 'pixi.js';
 
@@ -43,10 +43,10 @@ class DialogueHelper {
     getDialogueForSysAdmin(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
         if (gameModel.sysAdminSatisfied) {
-            return new ComplexDialog(dialogMage.data.general);
+            return new ComplexDialog(dialogMage.general);
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
-        if (true) {
+        if (gameModel.itemManager.ownedItems.get(Items.FLOPPY_DISK) >= 5) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.sys_admin_mage);
@@ -61,10 +61,10 @@ class DialogueHelper {
     getDialogueForDyno(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
         if (gameModel.dynoSatisfied) {
-            return new ComplexDialog(dialogMage.data.general);
+            return new ComplexDialog(dialogMage.general);
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
-        if (true) {
+        if (gameModel.itemManager.ownedItems.get(Items.NOTE) >= 5) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.dyno_mage_rogue);
@@ -74,15 +74,15 @@ class DialogueHelper {
                     return new ComplexDialog(dialogMage.dyno_war);
             }
         }
-        return new ComplexDialog(dialogMage.dyno);
+        return new ComplexDialog(dialogMage.data.dyno);
     }
     getDialogueForWeirdGuy(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
         if (gameModel.junkieSatisfied) {
-            return new ComplexDialog(dialogMage.data.general);
+            return new ComplexDialog(dialogMage.general);
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
-        if (true) {
+        if (gameModel.itemManager.ownedItems.get(Items.WEED) >= 5) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.weird_guy_war_mage);
@@ -97,10 +97,10 @@ class DialogueHelper {
     getDialogueForBadKids(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
         if (gameModel.badKidsSatisfied) {
-            return new ComplexDialog(dialogMage.data.general);
+            return new ComplexDialog(dialogMage.general);
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
-        if (true) {
+        if (gameModel.itemManager.ownedItems.get(Items.COINS) >= 5) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.bad_kids_mage);
@@ -115,10 +115,10 @@ class DialogueHelper {
     getDialogueForEko(gameModel: GameModel) {
         let dialogMage = PIXI.Loader.shared.resources[Assets.MAIN_WINDOW_DIALOGUES].data;
         if (gameModel.ekoSatisfied) {
-            return new ComplexDialog(dialogMage.data.general);
+            return new ComplexDialog(dialogMage.general);
         }
         // kontrola jestli nemá dost předmětů u sebe, pokud jo tak true -> dialog a získat případně klíč
-        if (true) {
+        if (gameModel.itemManager.ownedItems.get(Items.BEER) >= 5) {
             switch (gameModel.heroType) {
                 case 0:
                     return new ComplexDialog(dialogMage.eko_mage);
@@ -128,7 +128,7 @@ class DialogueHelper {
                     return new ComplexDialog(dialogMage.eko_rogue_warrior);
             }
         }
-        return new ComplexDialog(dialogMage.eko_mage);
+        return new ComplexDialog(dialogMage.eko);
     }
 }
 

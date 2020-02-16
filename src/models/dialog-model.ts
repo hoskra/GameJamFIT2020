@@ -120,7 +120,6 @@ export class DialogModel extends GameObjectModel {
 
   private initFramedText() {
     let lines = this.fullText.split('\n');
-    console.log(lines.length, this.currentRow + 2);
     if(lines.length >= (this.currentRow + 2)) {
       this.framedText = lines[this.currentRow] + '\n' + lines[this.currentRow + 1];
     } else if(lines.length === (this.currentRow + 1)) {
